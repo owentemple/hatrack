@@ -35,6 +35,13 @@ router.get('/', async (req: AuthRequest, res: Response) => {
   res.json(sessions)
 })
 
+router.delete('/', async (req: AuthRequest, res: Response) => {
+  const result = await prisma.focusSession.deleteMany({
+    where: { userId: req.userId! },
+  })
+  res.json({ deleted: result.count })
+})
+
 router.get('/score', async (req: AuthRequest, res: Response) => {
   const result = await prisma.focusSession.aggregate({
     where: { userId: req.userId! },
