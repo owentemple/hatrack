@@ -1,6 +1,7 @@
 import { Router, Response } from 'express'
 import prisma from '../db'
 import { AuthRequest, authMiddleware } from '../middleware/auth'
+import { isBeeminderConfigured, sendDatapoint } from '../services/beeminder'
 
 const router = Router()
 
@@ -24,6 +25,22 @@ router.post('/', async (req: AuthRequest, res: Response) => {
     },
   })
   res.status(201).json(session)
+
+  // Fire-and-forget: send score to Beeminder if configured
+  if (score > 0) {
+    prisma.user.findUnique({
+      where: { id: req.userId! },
+      select: { beeminderUsername: true, beeminderAuthToken: true, beeminderGoalSlug: true },
+    }).then((user) => {
+      if (user && isBeeminderConfigured(user)) {
+        const minutes = Math.round(durationSeconds / 60)
+        sendDatapoint(
+          { username: user.beeminderUsername, authToken: user.beeminderAuthToken, goalSlug: user.beeminderGoalSlug },
+          { value: score, comment: `${hat!.name} ${minutes}min via HatRack`, requestid: `hatrack-session-${session.id}` },
+        ).catch((err) => console.error('Beeminder sync failed:', err.message))
+      }
+    }).catch((err) => console.error('Beeminder user lookup failed:', err.message))
+  }
 })
 
 router.get('/', async (req: AuthRequest, res: Response) => {

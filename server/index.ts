@@ -3,6 +3,7 @@ import path from 'path'
 import authRoutes from './routes/auth'
 import hatRoutes from './routes/hats'
 import sessionRoutes from './routes/sessions'
+import settingsRoutes from './routes/settings'
 
 const app = express()
 
@@ -12,6 +13,7 @@ app.use(express.json())
 app.use('/api/auth', authRoutes)
 app.use('/api/hats', hatRoutes)
 app.use('/api/sessions', sessionRoutes)
+app.use('/api/settings', settingsRoutes)
 
 // In production, serve the built client
 if (process.env.NODE_ENV === 'production') {
