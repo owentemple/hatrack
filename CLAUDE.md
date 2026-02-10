@@ -48,3 +48,10 @@ npm run dev                  # Starts Vite (5173) + Express (4000) concurrently
 - Focus session flow: random hat selection → random timer roll → countdown → points = rolled minutes on completion; 0 points if stopped early.
 - React modals replace the old `alert()`/`prompt()` interactions.
 - Daily auto-reset: GET `/api/hats` resets any hats marked done before today (UTC midnight) back to `done: false`. The `doneAt` timestamp tracks when a hat was checked off.
+
+## Deployment
+
+- **Hosting**: Railway (auto-deploys from `master` branch)
+- **Production URL**: https://hatrack-app-production.up.railway.app/
+- **Deploy process**: Push to `master` → Railway builds → runs `prisma migrate deploy` (via `start` script) → starts server
+- **Database**: Railway-hosted PostgreSQL (connection string configured in Railway environment variables)
