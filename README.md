@@ -1,25 +1,69 @@
-
 # HatRack App
-#### Wear your many hats.
 
-### Overview:
+#### Wear your many hats.
 
 A productivity app to improve focus and encourage deliberate practice.
 
-### Getting Started:
+## What It Does
 
-For most of us, our life and work requires "wearing multiple hats", that is, there are multiple roles or task categories we need to perform on a daily basis. 
+For most of us, life and work requires "wearing multiple hats" — performing multiple roles or task categories on a daily basis. HatRack helps you maintain balance across all of them.
 
-For example, some jobs require: Selling, Preparing Estimates, Providing Technical Support, and Expense Reporting. As another example, some other jobs require: Writing, Shipping, Booking, Reading.
+Add your recurring activities ("hats") to the rack, then click **Focus Session**. A hat is drawn at random, a timer from 1–25 minutes is rolled, and you focus on that activity until the timer completes. Earn 500 points per session.
 
-Think about the activities that should happen on a daily basis in your life - the "hats" you need to wear on a daily basis - to keep your life going smoothly.
+## Tech Stack
 
-These "hats" or recurring activities usually end in "-ing", as in Emailing, Designing, etc. or they are project names.
+- **Frontend**: React 19 + TypeScript, built with Vite
+- **Backend**: Express + TypeScript, run with tsx
+- **Database**: PostgreSQL via Prisma ORM
+- **Auth**: JWT + bcrypt
 
-What is the name of 1 hat that you need to wear on a regular basis in your work? Examples: Coding, Writing, Selling. Enter the name of the hat into the text input box and click "Add Hat to Rack."
+## Getting Started
 
-What is another activity you need to do on a daily basis? Enter the name of the hat into the text input box and click "Add Hat to Rack."
+### Prerequisites
 
-Add a few more "hats" and then, when you are ready to focus on working on them, click the "Focus Session" button to have one hat drawn at random, and a focus session from 1 to 25 minutes will be chosen for you.
+- Node.js 18+
+- PostgreSQL database
 
+### Setup
 
+```bash
+# Install dependencies
+npm install
+
+# Copy env file and fill in your values
+cp .env.example .env
+
+# Run database migrations
+npx prisma migrate deploy
+
+# Start development servers (Vite + Express)
+npm run dev
+```
+
+The frontend runs at `http://localhost:5173` and proxies API requests to the Express server on port 4000.
+
+### Production
+
+```bash
+npm run build   # Builds the React client + generates Prisma client
+npm start       # Runs migrations and starts the server
+```
+
+## Project Structure
+
+```
+client/
+  src/
+    components/   # React components
+    hooks/        # useAuth, useTimer
+    lib/api.ts    # Fetch wrapper for API calls
+  index.html      # Vite entry point
+  vite.config.ts
+server/
+  index.ts        # Express app
+  db.ts           # Prisma client
+  routes/         # auth, hats, sessions
+  middleware/      # JWT auth
+prisma/
+  schema.prisma   # Database schema
+```

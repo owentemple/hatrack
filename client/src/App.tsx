@@ -1,0 +1,24 @@
+import { Routes, Route } from 'react-router-dom'
+import Layout from './components/Layout'
+import HatRack from './components/HatRack'
+import AuthForm from './components/AuthForm'
+import ProtectedRoute from './components/ProtectedRoute'
+
+export default function App() {
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <HatRack />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<AuthForm mode="login" />} />
+        <Route path="/signup" element={<AuthForm mode="signup" />} />
+      </Route>
+    </Routes>
+  )
+}

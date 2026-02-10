@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int            @id @default(autoincrement())
+  email     String         @unique
+  password  String
+  name      String
+  hats      Hat[]
+  sessions  FocusSession[]
+  createdAt DateTime       @default(now())
+}
+
+model Hat {
+  id       Int            @id @default(autoincrement())
+  name     String
+  done     Boolean        @default(false)
+  user     User           @relation(fields: [userId], references: [id])
+  userId   Int
+  sessions FocusSession[]
+}
+
+model FocusSession {
+  id              Int      @id @default(autoincrement())
+  durationSeconds Int
+  score           Int
+  hat             Hat      @relation(fields: [hatId], references: [id])
+  hatId           Int
+  user            User     @relation(fields: [userId], references: [id])
+  userId          Int
+  createdAt       DateTime @default(now())
+}
