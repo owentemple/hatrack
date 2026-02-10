@@ -43,11 +43,23 @@ router.delete('/', async (req: AuthRequest, res: Response) => {
 })
 
 router.get('/score', async (req: AuthRequest, res: Response) => {
-  const result = await prisma.focusSession.aggregate({
-    where: { userId: req.userId! },
-    _sum: { score: true },
+  const now = new Date()
+  const todayUTC = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()))
+
+  const [total, today] = await Promise.all([
+    prisma.focusSession.aggregate({
+      where: { userId: req.userId! },
+      _sum: { score: true },
+    }),
+    prisma.focusSession.aggregate({
+      where: { userId: req.userId!, createdAt: { gte: todayUTC } },
+      _sum: { score: true },
+    }),
+  ])
+  res.json({
+    totalScore: total._sum.score || 0,
+    todayScore: today._sum.score || 0,
   })
-  res.json({ totalScore: result._sum.score || 0 })
 })
 
 export default router

@@ -103,5 +103,5 @@ export function createSession(durationSeconds: number, score: number, hatId: num
 }
 
 export function getScore() {
-  return request<{ totalScore: number }>('/sessions/score')
+  return request<{ totalScore: number; todayScore: number }>('/sessions/score')
 }

@@ -15,12 +15,12 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
   const [phase, setPhase] = useState<Phase>('idle')
   const [currentHat, setCurrentHat] = useState<Hat | null>(null)
   const [timerMinutes, setTimerMinutes] = useState(0)
-  const [totalScore, setTotalScore] = useState(0)
+  const [todayScore, setTodayScore] = useState(0)
   const timer = useTimer()
 
   // Load score on mount
   useEffect(() => {
-    getScore().then((d) => setTotalScore(d.totalScore)).catch(() => {})
+    getScore().then((d) => setTodayScore(d.todayScore)).catch(() => {})
   }, [])
 
   const activeHats = hats.filter((h) => !h.done)
@@ -50,9 +50,9 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
     try {
       await createSession(timer.totalSeconds, earned, currentHat.id)
       const s = await getScore()
-      setTotalScore(s.totalScore)
+      setTodayScore(s.todayScore)
     } catch {
-      setTotalScore((prev) => prev + earned)
+      setTodayScore((prev) => prev + earned)
     }
   }, [currentHat, timer.totalSeconds, timerMinutes])
 
@@ -177,7 +177,7 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
         </div>
       )}
 
-      <ScoreDisplay score={totalScore} />
+      <ScoreDisplay score={todayScore} />
     </div>
   )
 }

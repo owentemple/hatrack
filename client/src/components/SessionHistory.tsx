@@ -93,7 +93,7 @@ export default function SessionHistory() {
             </div>
             <div className="stat">
               <span className="stat-value">
-                {formatDuration(sessions.reduce((sum, s) => sum + s.durationSeconds, 0))}
+                {formatDuration(sessions.filter(s => s.score > 0).reduce((sum, s) => sum + s.durationSeconds, 0))}
               </span>
               <span className="stat-label">Total Focus</span>
             </div>
