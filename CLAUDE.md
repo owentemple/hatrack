@@ -24,8 +24,8 @@ npm run dev                  # Starts Vite (5173) + Express (4000) concurrently
 
 ### Client (`client/src/`)
 - **`main.tsx`** — Entry point. BrowserRouter + AuthProvider + App.
-- **`App.tsx`** — Routes: `/` (protected HatRack), `/login`, `/signup`.
-- **Components**: `Layout`, `HatRack`, `HatItem`, `FocusSession`, `Timer`, `ScoreDisplay`, `AuthForm`, `ProtectedRoute`.
+- **`App.tsx`** — Routes: `/` (protected HatRack), `/history` (session history), `/login`, `/signup`.
+- **Components**: `Layout`, `HatRack`, `HatItem`, `FocusSession`, `Timer`, `ScoreDisplay`, `SessionHistory`, `AuthForm`, `ProtectedRoute`.
 - **Hooks**: `useAuth` (JWT in localStorage, React context), `useTimer` (setInterval countdown).
 - **`lib/api.ts`** — Typed fetch wrapper; attaches JWT Bearer header automatically.
 
@@ -33,11 +33,11 @@ npm run dev                  # Starts Vite (5173) + Express (4000) concurrently
 - **`index.ts`** — Express app. JSON body parser, API routes, static file serving in production.
 - **`db.ts`** — Prisma client singleton.
 - **`middleware/auth.ts`** — JWT verification middleware + `signToken` helper.
-- **Routes**: `auth.ts` (signup/login), `hats.ts` (CRUD), `sessions.ts` (create + score aggregate).
+- **Routes**: `auth.ts` (signup/login), `hats.ts` (CRUD, soft delete), `sessions.ts` (create, list with hat names, score aggregate).
 
 ### Database (`prisma/schema.prisma`)
 - `User` — id, email (unique), password (bcrypt hash), name
-- `Hat` — id, name, done, userId (FK)
+- `Hat` — id, name, done, deletedAt (soft delete), userId (FK)
 - `FocusSession` — id, durationSeconds, score, hatId (FK), userId (FK)
 
 ## Key Patterns
