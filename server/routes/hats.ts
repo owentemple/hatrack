@@ -7,6 +7,19 @@ const router = Router()
 router.use(authMiddleware)
 
 router.get('/', async (req: AuthRequest, res: Response) => {
+  const today = new Date()
+  today.setUTCHours(0, 0, 0, 0)
+
+  await prisma.hat.updateMany({
+    where: {
+      userId: req.userId!,
+      deletedAt: null,
+      done: true,
+      doneAt: { lt: today },
+    },
+    data: { done: false, doneAt: null },
+  })
+
   const hats = await prisma.hat.findMany({
     where: { userId: req.userId!, deletedAt: null },
     orderBy: { id: 'asc' },
@@ -40,7 +53,7 @@ router.patch('/:id', async (req: AuthRequest, res: Response) => {
     where: { id },
     data: {
       ...(name !== undefined && { name: String(name) }),
-      ...(done !== undefined && { done: Boolean(done) }),
+      ...(done !== undefined && { done: Boolean(done), doneAt: Boolean(done) ? new Date() : null }),
     },
   })
   res.json(updated)
