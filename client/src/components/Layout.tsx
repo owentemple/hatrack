@@ -9,6 +9,8 @@ export default function Layout() {
       <nav className="nav-bar">
         {user ? (
           <>
+            <Link to="/">Hats</Link>
+            <Link to="/history">History</Link>
             <span>{user.name}</span>
             <button onClick={logout}>Log out</button>
           </>

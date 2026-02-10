@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import HatRack from './components/HatRack'
+import SessionHistory from './components/SessionHistory'
 import AuthForm from './components/AuthForm'
 import ProtectedRoute from './components/ProtectedRoute'
 
@@ -13,6 +14,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <HatRack />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <ProtectedRoute>
+              <SessionHistory />
             </ProtectedRoute>
           }
         />

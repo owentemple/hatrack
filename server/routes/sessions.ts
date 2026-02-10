@@ -26,6 +26,15 @@ router.post('/', async (req: AuthRequest, res: Response) => {
   res.status(201).json(session)
 })
 
+router.get('/', async (req: AuthRequest, res: Response) => {
+  const sessions = await prisma.focusSession.findMany({
+    where: { userId: req.userId! },
+    include: { hat: { select: { name: true } } },
+    orderBy: { createdAt: 'desc' },
+  })
+  res.json(sessions)
+})
+
 router.get('/score', async (req: AuthRequest, res: Response) => {
   const result = await prisma.focusSession.aggregate({
     where: { userId: req.userId! },
