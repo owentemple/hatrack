@@ -4,7 +4,7 @@ import { useTimer } from '../hooks/useTimer'
 import Timer from './Timer'
 import ScoreDisplay from './ScoreDisplay'
 
-type Phase = 'idle' | 'reveal-hat' | 'reveal-time' | 'running' | 'complete'
+type Phase = 'idle' | 'reveal-hat' | 'reveal-time' | 'running' | 'complete' | 'stopped-early'
 
 interface Props {
   hats: Hat[]
@@ -45,19 +45,26 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
 
   const handleTimerEnd = useCallback(async () => {
     if (!currentHat) return
+    const earned = timerMinutes
     setPhase('complete')
     try {
-      await createSession(timer.totalSeconds, 500, currentHat.id)
+      await createSession(timer.totalSeconds, earned, currentHat.id)
       const s = await getScore()
       setTotalScore(s.totalScore)
     } catch {
-      setTotalScore((prev) => prev + 500)
+      setTotalScore((prev) => prev + earned)
     }
-  }, [currentHat, timer.totalSeconds])
+  }, [currentHat, timer.totalSeconds, timerMinutes])
 
-  function handleStopEarly() {
+  async function handleStopEarly() {
     timer.stop()
-    handleTimerEnd()
+    if (!currentHat) return
+    setPhase('stopped-early')
+    try {
+      await createSession(timer.totalSeconds, 0, currentHat.id)
+    } catch {
+      // score unchanged
+    }
   }
 
   function anotherSession() {
@@ -134,10 +141,29 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
       {phase === 'complete' && currentHat && (
         <div className="modal-overlay">
           <div className="modal">
-            <h3>+500 points!</h3>
+            <h3>+{timerMinutes} point{timerMinutes !== 1 ? 's' : ''}!</h3>
             <p>
               Great work on <strong>{currentHat.name}</strong>.
               Want another session?
+            </p>
+            <div className="modal-actions">
+              <button className="btn-secondary" onClick={anotherSession}>
+                Yes
+              </button>
+              <button className="btn-danger" onClick={endSessions}>
+                No, I'm done
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {phase === 'stopped-early' && currentHat && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Session ended early</h3>
+            <p>
+              No points earned. Want to try another session?
             </p>
             <div className="modal-actions">
               <button className="btn-secondary" onClick={anotherSession}>

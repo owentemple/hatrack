@@ -2,7 +2,7 @@
 
 ## Overview
 
-HatRack is a full-stack productivity app. Users add recurring activities ("hats") to a rack, then start focus sessions — a random hat is selected, a random timer (1–25 min) rolls, and completing a session earns 500 points. Data persists across sessions via PostgreSQL.
+HatRack is a full-stack productivity app. Users add recurring activities ("hats") to a rack, then start focus sessions — a random hat is selected, a random timer (1–25 min) rolls, and completing a session earns points equal to the minutes on the timer (no points if ended early). Data persists across sessions via PostgreSQL.
 
 ## Running the App
 
@@ -45,5 +45,5 @@ npm run dev                  # Starts Vite (5173) + Express (4000) concurrently
 - Vite proxies `/api/*` to Express in dev; in production Express serves `client/dist/`.
 - All API routes under `/api/hats` and `/api/sessions` require JWT auth middleware.
 - Auth routes (`/api/auth/*`) are public.
-- Focus session flow: random hat selection → random timer roll → countdown → +500 points on completion.
+- Focus session flow: random hat selection → random timer roll → countdown → points = rolled minutes on completion; 0 points if stopped early.
 - React modals replace the old `alert()`/`prompt()` interactions.
