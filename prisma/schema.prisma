@@ -18,12 +18,13 @@ model User {
 }
 
 model Hat {
-  id       Int            @id @default(autoincrement())
-  name     String
-  done     Boolean        @default(false)
-  user     User           @relation(fields: [userId], references: [id])
-  userId   Int
-  sessions FocusSession[]
+  id        Int            @id @default(autoincrement())
+  name      String
+  done      Boolean        @default(false)
+  deletedAt DateTime?
+  user      User           @relation(fields: [userId], references: [id])
+  userId    Int
+  sessions  FocusSession[]
 }
 
 model FocusSession {

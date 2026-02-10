@@ -8,7 +8,7 @@ router.use(authMiddleware)
 
 router.get('/', async (req: AuthRequest, res: Response) => {
   const hats = await prisma.hat.findMany({
-    where: { userId: req.userId! },
+    where: { userId: req.userId!, deletedAt: null },
     orderBy: { id: 'asc' },
   })
   res.json(hats)
@@ -29,7 +29,7 @@ router.post('/', async (req: AuthRequest, res: Response) => {
 
 router.patch('/:id', async (req: AuthRequest, res: Response) => {
   const id = parseInt(req.params.id as string)
-  const hat = await prisma.hat.findFirst({ where: { id, userId: req.userId! } })
+  const hat = await prisma.hat.findFirst({ where: { id, userId: req.userId!, deletedAt: null } })
   if (!hat) {
     res.status(404).json({ error: 'Hat not found' })
     return
@@ -48,13 +48,13 @@ router.patch('/:id', async (req: AuthRequest, res: Response) => {
 
 router.delete('/:id', async (req: AuthRequest, res: Response) => {
   const id = parseInt(req.params.id as string)
-  const hat = await prisma.hat.findFirst({ where: { id, userId: req.userId! } })
+  const hat = await prisma.hat.findFirst({ where: { id, userId: req.userId!, deletedAt: null } })
   if (!hat) {
     res.status(404).json({ error: 'Hat not found' })
     return
   }
 
-  await prisma.hat.delete({ where: { id } })
+  await prisma.hat.update({ where: { id }, data: { deletedAt: new Date() } })
   res.json({ ok: true })
 })
 
