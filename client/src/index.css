@@ -395,6 +395,30 @@ hr {
   text-align: right;
 }
 
+/* How it works */
+.how-it-works-toggle {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 0.85rem;
+  margin-top: 16px;
+  padding: 0;
+}
+
+.how-it-works-toggle:hover {
+  color: #666;
+}
+
+.how-it-works {
+  text-align: left;
+  max-width: 400px;
+  margin: 12px auto 0;
+  padding-left: 20px;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
 /* Settings */
 .settings-page {
   max-width: 400px;

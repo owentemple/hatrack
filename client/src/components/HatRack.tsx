@@ -7,6 +7,7 @@ import FocusSession from './FocusSession'
 export default function HatRack() {
   const [hats, setHats] = useState<Hat[]>([])
   const [newHat, setNewHat] = useState('')
+  const [showHelp, setShowHelp] = useState(false)
 
   useEffect(() => {
     loadHats()
@@ -81,6 +82,18 @@ export default function HatRack() {
       <hr />
 
       <FocusSession hats={hats} onSessionEnd={loadHats} />
+
+      <button className="how-it-works-toggle" onClick={() => setShowHelp(!showHelp)}>
+        {showHelp ? 'Hide' : 'How it works'}
+      </button>
+      {showHelp && (
+        <ul className="how-it-works">
+          <li>Add your activities ("hats") to the rack</li>
+          <li>Start a session — a random hat and timer (1–25 min) are chosen for you</li>
+          <li>Complete the timer to earn points (1 point per minute)</li>
+          <li>Check off a hat when you're done with it for the day</li>
+        </ul>
+      )}
     </div>
   )
 }
