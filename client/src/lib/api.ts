@@ -82,6 +82,19 @@ export interface FocusSessionData {
   hatId: number
 }
 
+export interface SessionRecord {
+  id: number
+  durationSeconds: number
+  score: number
+  hatId: number
+  createdAt: string
+  hat: { name: string }
+}
+
+export function getSessions() {
+  return request<SessionRecord[]>('/sessions')
+}
+
 export function createSession(durationSeconds: number, score: number, hatId: number) {
   return request<FocusSessionData>('/sessions', {
     method: 'POST',
