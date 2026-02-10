@@ -21,6 +21,7 @@ model Hat {
   id        Int            @id @default(autoincrement())
   name      String
   done      Boolean        @default(false)
+  doneAt    DateTime?
   deletedAt DateTime?
   user      User           @relation(fields: [userId], references: [id])
   userId    Int
