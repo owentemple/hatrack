@@ -11,6 +11,7 @@ export default function Layout() {
           <>
             <Link to="/">Hats</Link>
             <Link to="/history">History</Link>
+            <Link to="/settings">Settings</Link>
             <span>{user.name}</span>
             <button onClick={logout}>Log out</button>
           </>

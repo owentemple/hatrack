@@ -3,6 +3,7 @@ import Layout from './components/Layout'
 import HatRack from './components/HatRack'
 import SessionHistory from './components/SessionHistory'
 import AuthForm from './components/AuthForm'
+import Settings from './components/Settings'
 import ProtectedRoute from './components/ProtectedRoute'
 
 export default function App() {
@@ -22,6 +23,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <SessionHistory />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
             </ProtectedRoute>
           }
         />

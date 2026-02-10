@@ -8,13 +8,16 @@ datasource db {
 }
 
 model User {
-  id        Int            @id @default(autoincrement())
-  email     String         @unique
-  password  String
-  name      String
-  hats      Hat[]
-  sessions  FocusSession[]
-  createdAt DateTime       @default(now())
+  id                 Int            @id @default(autoincrement())
+  email              String         @unique
+  password           String
+  name               String
+  beeminderUsername   String?
+  beeminderAuthToken String?
+  beeminderGoalSlug  String?
+  hats               Hat[]
+  sessions           FocusSession[]
+  createdAt          DateTime       @default(now())
 }
 
 model Hat {

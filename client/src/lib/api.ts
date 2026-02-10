@@ -105,3 +105,25 @@ export function createSession(durationSeconds: number, score: number, hatId: num
 export function getScore() {
   return request<{ totalScore: number; todayScore: number }>('/sessions/score')
 }
+
+// Beeminder settings
+export interface BeeminderSettings {
+  connected: boolean
+  username: string | null
+  goalSlug: string | null
+}
+
+export function getBeeminderSettings() {
+  return request<BeeminderSettings>('/settings/beeminder')
+}
+
+export function saveBeeminderSettings(username: string, authToken: string, goalSlug: string) {
+  return request<BeeminderSettings>('/settings/beeminder', {
+    method: 'PUT',
+    body: JSON.stringify({ username, authToken, goalSlug }),
+  })
+}
+
+export function disconnectBeeminder() {
+  return request<{ connected: false }>('/settings/beeminder', { method: 'DELETE' })
+}
