@@ -16,8 +16,8 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/login" element={<AuthForm mode="login" />} />
-        <Route path="/signup" element={<AuthForm mode="signup" />} />
+        <Route path="/login" element={<AuthForm key="login" mode="login" />} />
+        <Route path="/signup" element={<AuthForm key="signup" mode="signup" />} />
       </Route>
     </Routes>
   )
