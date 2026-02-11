@@ -61,7 +61,13 @@ router.delete('/', async (req: AuthRequest, res: Response) => {
 
 router.get('/score', async (req: AuthRequest, res: Response) => {
   const now = new Date()
-  const todayUTC = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()))
+  const tzOffset = parseInt(req.query.tz as string) || 0 // minutes from UTC (e.g. 360 for CST)
+  const offsetMs = tzOffset * 60 * 1000
+  // Find midnight in the client's local timezone, expressed as UTC
+  const localNow = new Date(now.getTime() - offsetMs)
+  const todayStart = new Date(
+    Date.UTC(localNow.getUTCFullYear(), localNow.getUTCMonth(), localNow.getUTCDate()) + offsetMs
+  )
 
   const [total, today] = await Promise.all([
     prisma.focusSession.aggregate({
@@ -69,7 +75,7 @@ router.get('/score', async (req: AuthRequest, res: Response) => {
       _sum: { score: true },
     }),
     prisma.focusSession.aggregate({
-      where: { userId: req.userId!, createdAt: { gte: todayUTC } },
+      where: { userId: req.userId!, createdAt: { gte: todayStart } },
       _sum: { score: true },
     }),
   ])
