@@ -7,15 +7,20 @@ const router = Router()
 router.use(authMiddleware)
 
 router.get('/', async (req: AuthRequest, res: Response) => {
-  const today = new Date()
-  today.setUTCHours(0, 0, 0, 0)
+  const now = new Date()
+  const tzOffset = parseInt(req.query.tz as string) || 0 // minutes from UTC
+  const offsetMs = tzOffset * 60 * 1000
+  const localNow = new Date(now.getTime() - offsetMs)
+  const todayStart = new Date(
+    Date.UTC(localNow.getUTCFullYear(), localNow.getUTCMonth(), localNow.getUTCDate()) + offsetMs
+  )
 
   await prisma.hat.updateMany({
     where: {
       userId: req.userId!,
       deletedAt: null,
       done: true,
-      doneAt: { lt: today },
+      doneAt: { lt: todayStart },
     },
     data: { done: false, doneAt: null },
   })

@@ -53,7 +53,8 @@ export interface Hat {
 }
 
 export function getHats() {
-  return request<Hat[]>('/hats')
+  const tz = new Date().getTimezoneOffset()
+  return request<Hat[]>(`/hats?tz=${tz}`)
 }
 
 export function createHat(name: string) {
@@ -103,7 +104,8 @@ export function createSession(durationSeconds: number, score: number, hatId: num
 }
 
 export function getScore() {
-  return request<{ totalScore: number; todayScore: number }>('/sessions/score')
+  const tz = new Date().getTimezoneOffset()
+  return request<{ totalScore: number; todayScore: number }>(`/sessions/score?tz=${tz}`)
 }
 
 // Beeminder settings
