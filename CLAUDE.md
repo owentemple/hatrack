@@ -26,7 +26,7 @@ npm run dev                  # Starts Vite (5173) + Express (4000) concurrently
 - **`main.tsx`** — Entry point. BrowserRouter + AuthProvider + App.
 - **`App.tsx`** — Routes: `/` (protected HatRack), `/history` (session history), `/settings` (Beeminder config), `/login`, `/signup`.
 - **Components**: `Layout`, `HatRack`, `HatItem`, `FocusSession`, `Timer`, `ScoreDisplay`, `SessionHistory`, `AuthForm`, `ProtectedRoute`, `Settings`.
-- **Hooks**: `useAuth` (JWT in localStorage, React context), `useTimer` (setInterval countdown).
+- **Hooks**: `useAuth` (JWT in localStorage + cookie fallback, React context), `useTimer` (setInterval countdown).
 - **`lib/api.ts`** — Typed fetch wrapper; attaches JWT Bearer header automatically.
 
 ### Server (`server/`)
@@ -48,7 +48,9 @@ npm run dev                  # Starts Vite (5173) + Express (4000) concurrently
 - Auth routes (`/api/auth/*`) are public.
 - Focus session flow: random hat selection → random timer roll → countdown → points = rolled minutes on completion; 0 points if stopped early.
 - React modals replace the old `alert()`/`prompt()` interactions.
-- Daily auto-reset: GET `/api/hats` resets any hats marked done before today (UTC midnight) back to `done: false`. The `doneAt` timestamp tracks when a hat was checked off.
+- Auth persistence: Token stored in both `localStorage` and a 30-day cookie. On load, tries localStorage first, falls back to cookie (resilient to mobile Safari purging localStorage on tab eviction).
+- Timezone-aware day boundaries: Endpoints that use "today" (`GET /api/hats`, `GET /api/sessions/score`) accept a `?tz=` query param (value from `getTimezoneOffset()`, minutes from UTC). Server calculates local midnight for the user instead of UTC midnight. Client sends this automatically via `api.ts`.
+- Daily auto-reset: GET `/api/hats` resets any hats marked done before today (local midnight via `?tz=`) back to `done: false`. The `doneAt` timestamp tracks when a hat was checked off.
 - Beeminder integration: On session complete with score > 0, fire-and-forget sends datapoint to Beeminder API. Auth token stored in DB but never returned to client. Uses `requestid` for idempotency. No new npm deps (native `fetch`).
 
 ## Deployment
