@@ -23,7 +23,7 @@ export default function Layout() {
         )}
       </nav>
       <img className="banner" src="/assets/logo.jpg" alt="HatRack" />
-      <p className="subtitle">Wear your many hats</p>
+      <p className="subtitle">Make a habit. Wear your many hats.</p>
       <Outlet />
     </>
   )
