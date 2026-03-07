@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Hat, createSession, getScore } from '../lib/api'
 import { useTimer } from '../hooks/useTimer'
+import { useChime } from '../hooks/useChime'
 import Timer from './Timer'
 import ScoreDisplay from './ScoreDisplay'
 
@@ -17,6 +18,7 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
   const [timerMinutes, setTimerMinutes] = useState(0)
   const [todayScore, setTodayScore] = useState(0)
   const timer = useTimer()
+  const chime = useChime()
 
   // Load score on mount
   useEffect(() => {
@@ -26,6 +28,7 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
   const activeHats = hats.filter((h) => !h.done)
 
   function startSession() {
+    chime.warmUp()
     if (activeHats.length === 0) return
     const hat = activeHats[Math.floor(Math.random() * activeHats.length)]
     setCurrentHat(hat)
@@ -45,6 +48,7 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
 
   const handleTimerEnd = useCallback(async () => {
     if (!currentHat) return
+    chime.play()
     const earned = timerMinutes
     setPhase('complete')
     try {
@@ -89,13 +93,31 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
   return (
     <div>
       {phase === 'idle' && (
-        <button
-          className="btn-primary btn-block"
-          onClick={startSession}
-          disabled={activeHats.length === 0}
-        >
-          Focus Session
-        </button>
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          <button
+            className="btn-primary btn-block"
+            onClick={startSession}
+            disabled={activeHats.length === 0}
+            style={{ flex: 1 }}
+          >
+            Focus Session
+          </button>
+          <button
+            onClick={chime.toggle}
+            title={chime.enabled ? 'Chime on' : 'Chime off'}
+            style={{
+              background: 'none',
+              border: '1px solid var(--border-color, #ccc)',
+              borderRadius: '8px',
+              padding: '0.5rem',
+              cursor: 'pointer',
+              fontSize: '1.2rem',
+              opacity: chime.enabled ? 1 : 0.4,
+            }}
+          >
+            {chime.enabled ? '\u{1F514}' : '\u{1F515}'}
+          </button>
+        </div>
       )}
 
       {phase === 'reveal-hat' && currentHat && (
