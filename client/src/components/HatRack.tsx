@@ -85,7 +85,7 @@ export default function HatRack() {
         ))}
       </ul>
 
-      <FocusSession hats={hats} onSessionEnd={loadHats} />
+      <FocusSession hats={hats} onSessionEnd={loadHats} onHatDone={(id) => handleToggle(id, true)} />
 
       <button className="how-it-works-toggle" onClick={() => setShowHelp((prev) => !(prev ?? hats.length === 0))}>
         {(showHelp ?? hats.length === 0) ? 'Hide' : 'How it works'}

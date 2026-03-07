@@ -10,9 +10,10 @@ type Phase = 'idle' | 'reveal-hat' | 'reveal-time' | 'running' | 'complete' | 's
 interface Props {
   hats: Hat[]
   onSessionEnd: () => void
+  onHatDone?: (id: number) => void
 }
 
-export default function FocusSession({ hats, onSessionEnd }: Props) {
+export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
   const [phase, setPhase] = useState<Phase>('idle')
   const [currentHat, setCurrentHat] = useState<Hat | null>(null)
   const [timerMinutes, setTimerMinutes] = useState(0)
@@ -89,7 +90,10 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
     onSessionEnd()
   }
 
-  function endSessions() {
+  function endSessions(markDone = false) {
+    if (markDone && currentHat && onHatDone) {
+      onHatDone(currentHat.id)
+    }
     setPhase('idle')
     setCurrentHat(null)
     onSessionEnd()
@@ -212,7 +216,7 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
               <button className="btn-secondary" onClick={anotherSession}>
                 Yes
               </button>
-              <button className="btn-danger" onClick={endSessions}>
+              <button className="btn-danger" onClick={() => endSessions(true)}>
                 No, I'm done
               </button>
             </div>
