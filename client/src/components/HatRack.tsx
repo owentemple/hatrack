@@ -68,6 +68,9 @@ export default function HatRack() {
 
       <hr />
 
+      {hats.length > 0 && (
+        <p style={{ color: '#999', fontSize: '0.8rem', margin: '0 0 4px' }}>Check off when done for the day — resets tomorrow</p>
+      )}
       <ul className="hat-list">
         {hats.length === 0 && (
           <li className="empty-state">
