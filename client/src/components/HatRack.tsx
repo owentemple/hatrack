@@ -57,7 +57,7 @@ export default function HatRack() {
       <form className="hat-input-row" onSubmit={handleAdd}>
         <input
           type="text"
-          placeholder="Add an activity (e.g. Writing, Meditating)..."
+          placeholder="e.g. Writing, Meditating..."
           value={newHat}
           onChange={(e) => setNewHat(e.target.value)}
         />

@@ -45,7 +45,8 @@ body {
 }
 
 .hat-input-row input {
-  width: 200px;
+  flex: 1;
+  min-width: 0;
   height: 36px;
   padding: 4px 8px;
   font-size: 1rem;
