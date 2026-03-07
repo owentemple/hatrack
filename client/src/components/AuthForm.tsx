@@ -31,9 +31,17 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
     <form className="auth-form" onSubmit={handleSubmit}>
       <h2>{mode === 'login' ? 'Log In' : 'Sign Up'}</h2>
       {mode === 'signup' && (
-        <p style={{ color: '#666', fontSize: '0.9rem', margin: '0 0 1rem' }}>
-          Build habits with random focus sessions and daily scores.
-        </p>
+        <div style={{ color: '#666', fontSize: '0.9rem', margin: '0 0 1.25rem' }}>
+          <p style={{ marginBottom: '0.75rem' }}>Build habits with random focus sessions.</p>
+          <ul style={{ textAlign: 'left', paddingLeft: '1.25rem', lineHeight: 1.8 }}>
+            <li>Add your activities — writing, meditating, exercising</li>
+            <li>Roll a random timer and focus</li>
+            <li>Earn points and track your daily score</li>
+          </ul>
+          <p style={{ marginTop: '0.75rem', fontStyle: 'italic', fontSize: '0.85rem' }}>
+            Randomness removes decision fatigue so you just start.
+          </p>
+        </div>
       )}
       {error && <p className="error-message">{error}</p>}
       {mode === 'signup' && (
