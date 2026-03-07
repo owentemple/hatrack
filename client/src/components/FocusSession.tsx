@@ -106,7 +106,7 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
     <div>
       {phase === 'idle' && (
         <>
-        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', maxWidth: '400px', margin: '0 auto' }}>
           <button
             className="btn-primary btn-block"
             onClick={startSession}
