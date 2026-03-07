@@ -69,7 +69,7 @@ export default function HatRack() {
       <hr />
 
       {hats.length > 0 && (
-        <p style={{ color: '#999', fontSize: '0.8rem', margin: '0 0 4px' }}>Check off when done for the day — resets tomorrow</p>
+        <p style={{ color: '#999', fontSize: '0.8rem', margin: '0 0 4px' }}>Check the box when done for the day — resets tomorrow. X removes a hat.</p>
       )}
       <ul className="hat-list">
         {hats.length === 0 && (
