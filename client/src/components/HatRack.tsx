@@ -67,7 +67,7 @@ export default function HatRack() {
       </form>
 
       {hats.length > 0 && hats.length <= 3 && (
-        <p style={{ color: '#999', fontSize: '0.8rem', margin: '0 0 4px' }}>Checkmarks reset daily. Tap x to remove.</p>
+        <p style={{ color: '#999', fontSize: '0.8rem', margin: '0 0 4px' }}>Done for the day? Check it off. Resets tomorrow. Tap x to remove.</p>
       )}
       <ul className="hat-list">
         {hats.length === 0 && (
