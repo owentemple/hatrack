@@ -11,8 +11,12 @@ function getInitialEnabled(): boolean {
   }
 }
 
-function playChimeSound() {
-  const ctx = new AudioContext()
+function playChime(ctx: AudioContext) {
+  // Resume in case the context was suspended (mobile Safari)
+  if (ctx.state === 'suspended') {
+    ctx.resume()
+  }
+
   const now = ctx.currentTime
 
   // Pleasant pentatonic chime: three notes in sequence
@@ -34,14 +38,11 @@ function playChimeSound() {
     osc.start(now + i * 0.15)
     osc.stop(now + i * 0.15 + 0.8)
   })
-
-  // Clean up after sounds finish
-  setTimeout(() => ctx.close(), 2000)
 }
 
 export function useChime() {
   const [enabled, setEnabled] = useState(getInitialEnabled)
-  const hasInteracted = useRef(false)
+  const ctxRef = useRef<AudioContext | null>(null)
 
   const toggle = useCallback(() => {
     setEnabled((prev) => {
@@ -52,21 +53,19 @@ export function useChime() {
   }, [])
 
   const play = useCallback(() => {
-    if (!enabled) return
+    if (!enabled || !ctxRef.current) return
     try {
-      playChimeSound()
+      playChime(ctxRef.current)
     } catch {
       // Web Audio not supported
     }
   }, [enabled])
 
-  // Warm up AudioContext on first user interaction (needed for mobile Safari)
+  // Create and retain AudioContext on first user interaction (required by mobile Safari)
   const warmUp = useCallback(() => {
-    if (hasInteracted.current) return
-    hasInteracted.current = true
+    if (ctxRef.current) return
     try {
-      const ctx = new AudioContext()
-      ctx.close()
+      ctxRef.current = new AudioContext()
     } catch {}
   }, [])
 
