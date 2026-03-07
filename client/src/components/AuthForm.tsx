@@ -28,16 +28,9 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
   }
 
   const valuePitch = (
-    <div style={{ color: '#666', fontSize: '0.9rem', margin: '0 0 1.25rem' }}>
-      <p style={{ marginBottom: '0.75rem' }}>Build habits with random focus sessions.</p>
-      <ul style={{ textAlign: 'left', paddingLeft: '1.25rem', lineHeight: 1.8 }}>
-        <li>Add your activities — writing, meditating, exercising</li>
-        <li>Roll a random timer and focus</li>
-        <li>Earn points and track your daily score</li>
-      </ul>
-      <p style={{ marginTop: '0.75rem', fontStyle: 'italic', fontSize: '0.85rem' }}>
-        Randomness removes decision fatigue so you just start.
-      </p>
+    <div style={{ color: '#666', fontSize: '0.9rem', margin: '0 0 1.25rem', lineHeight: 1.7 }}>
+      <p>Add your activities. Roll a random timer. Focus. Earn points.</p>
+      <p style={{ marginTop: '0.5rem' }}>Randomness removes decision fatigue so you just start.</p>
     </div>
   )
 
