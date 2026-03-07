@@ -1,3 +1,8 @@
 export default function ScoreDisplay({ score }: { score: number }) {
-  return <h2 className="score">Today's Score: {score} min</h2>
+  return (
+    <div style={{ textAlign: 'center', margin: '16px 0' }}>
+      <span className="score">{score}</span>
+      <p style={{ color: '#999', fontSize: '0.8rem', margin: '2px 0 0' }}>today's score</p>
+    </div>
+  )
 }

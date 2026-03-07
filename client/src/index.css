@@ -174,8 +174,8 @@ button {
 /* Score */
 .score {
   font-family: 'Scoreboard', monospace;
-  font-size: 2rem;
-  margin: 16px 0;
+  font-size: 1.4rem;
+  color: #333;
 }
 
 /* Auth form */

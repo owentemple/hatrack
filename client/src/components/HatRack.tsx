@@ -57,7 +57,7 @@ export default function HatRack() {
       <form className="hat-input-row" onSubmit={handleAdd}>
         <input
           type="text"
-          placeholder="Add a hat to the rack, e.g. Reading, Drawing"
+          placeholder="e.g. Reading, Drawing"
           value={newHat}
           onChange={(e) => setNewHat(e.target.value)}
         />
@@ -66,10 +66,8 @@ export default function HatRack() {
         </button>
       </form>
 
-      <hr />
-
-      {hats.length > 0 && (
-        <p style={{ color: '#999', fontSize: '0.8rem', margin: '0 0 4px' }}>Check the box when done for the day — resets tomorrow. X removes a hat.</p>
+      {hats.length > 0 && hats.length <= 3 && (
+        <p style={{ color: '#999', fontSize: '0.8rem', margin: '0 0 4px' }}>Checkmarks reset daily. Tap x to remove.</p>
       )}
       <ul className="hat-list">
         {hats.length === 0 && (
@@ -86,8 +84,6 @@ export default function HatRack() {
           />
         ))}
       </ul>
-
-      <hr />
 
       <FocusSession hats={hats} onSessionEnd={loadHats} />
 
