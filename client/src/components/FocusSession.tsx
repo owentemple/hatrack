@@ -17,8 +17,19 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
   const [currentHat, setCurrentHat] = useState<Hat | null>(null)
   const [timerMinutes, setTimerMinutes] = useState(0)
   const [todayScore, setTodayScore] = useState(0)
+  const [miniMode, setMiniMode] = useState(() => {
+    try { return localStorage.getItem('hatrack-mini-mode') === 'true' } catch { return false }
+  })
   const timer = useTimer()
   const chime = useChime()
+
+  function toggleMini() {
+    setMiniMode((prev) => {
+      const next = !prev
+      localStorage.setItem('hatrack-mini-mode', String(next))
+      return next
+    })
+  }
 
   // Load score on mount
   useEffect(() => {
@@ -36,7 +47,8 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
   }
 
   function rollTimer() {
-    const mins = Math.floor(Math.random() * 25) + 1
+    const maxMinutes = miniMode ? 5 : 25
+    const mins = Math.floor(Math.random() * maxMinutes) + 1
     setTimerMinutes(mins)
     setPhase('reveal-time')
   }
@@ -100,7 +112,22 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
             disabled={activeHats.length === 0}
             style={{ flex: 1 }}
           >
-            Focus Session
+            {miniMode ? 'Mini Session' : 'Focus Session'}
+          </button>
+          <button
+            onClick={toggleMini}
+            title={miniMode ? 'Mini mode (1-5 min)' : 'Normal mode (1-25 min)'}
+            style={{
+              background: 'none',
+              border: '1px solid var(--border-color, #ccc)',
+              borderRadius: '8px',
+              padding: '0.5rem',
+              cursor: 'pointer',
+              fontSize: '1.2rem',
+              opacity: miniMode ? 1 : 0.4,
+            }}
+          >
+            {'\u{23F1}\u{FE0F}'}
           </button>
           <button
             onClick={chime.toggle}
