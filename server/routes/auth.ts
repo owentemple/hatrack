@@ -24,6 +24,14 @@ router.post('/signup', async (req: Request, res: Response) => {
       data: { email, password: hash, name },
     })
 
+    // Seed sample hats so new users can start a focus session immediately
+    await prisma.hat.createMany({
+      data: [
+        { name: 'Writing', userId: user.id },
+        { name: 'Meditating', userId: user.id },
+      ],
+    })
+
     const token = signToken(user.id)
     res.status(201).json({ token, user: { id: user.id, email: user.email, name: user.name } })
   } catch (err) {
