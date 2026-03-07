@@ -30,6 +30,11 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
       <h2>{mode === 'login' ? 'Log In' : 'Sign Up'}</h2>
+      {mode === 'signup' && (
+        <p style={{ color: '#666', fontSize: '0.9rem', margin: '0 0 1rem' }}>
+          Build habits with random focus sessions and daily scores.
+        </p>
+      )}
       {error && <p className="error-message">{error}</p>}
       {mode === 'signup' && (
         <div className="form-group">

@@ -105,6 +105,7 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
   return (
     <div>
       {phase === 'idle' && (
+        <>
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
           <button
             className="btn-primary btn-block"
@@ -114,37 +115,49 @@ export default function FocusSession({ hats, onSessionEnd }: Props) {
           >
             {miniMode ? 'Mini Session' : 'Focus Session'}
           </button>
-          <button
-            onClick={toggleMini}
-            title={miniMode ? 'Mini mode (1-5 min)' : 'Normal mode (1-25 min)'}
-            style={{
-              background: 'none',
-              border: '1px solid var(--border-color, #ccc)',
-              borderRadius: '8px',
-              padding: '0.5rem',
-              cursor: 'pointer',
-              fontSize: '1.2rem',
-              opacity: miniMode ? 1 : 0.4,
-            }}
-          >
-            {'\u{23F1}\u{FE0F}'}
-          </button>
-          <button
-            onClick={chime.toggle}
-            title={chime.enabled ? 'Chime on' : 'Chime off'}
-            style={{
-              background: 'none',
-              border: '1px solid var(--border-color, #ccc)',
-              borderRadius: '8px',
-              padding: '0.5rem',
-              cursor: 'pointer',
-              fontSize: '1.2rem',
-              opacity: chime.enabled ? 1 : 0.4,
-            }}
-          >
-            {chime.enabled ? '\u{1F514}' : '\u{1F515}'}
-          </button>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <button
+              onClick={toggleMini}
+              title={miniMode ? 'Mini mode (1-5 min)' : 'Normal mode (1-25 min)'}
+              style={{
+                background: 'none',
+                border: '1px solid var(--border-color, #ccc)',
+                borderRadius: '8px',
+                padding: '0.5rem',
+                cursor: 'pointer',
+                fontSize: '1.2rem',
+                opacity: miniMode ? 1 : 0.4,
+              }}
+            >
+              {'\u{23F1}\u{FE0F}'}
+            </button>
+            <span style={{ fontSize: '0.65rem', color: '#999', marginTop: '2px' }}>Mini</span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <button
+              onClick={chime.toggle}
+              title={chime.enabled ? 'Chime on' : 'Chime off'}
+              style={{
+                background: 'none',
+                border: '1px solid var(--border-color, #ccc)',
+                borderRadius: '8px',
+                padding: '0.5rem',
+                cursor: 'pointer',
+                fontSize: '1.2rem',
+                opacity: chime.enabled ? 1 : 0.4,
+              }}
+            >
+              {chime.enabled ? '\u{1F514}' : '\u{1F515}'}
+            </button>
+            <span style={{ fontSize: '0.65rem', color: '#999', marginTop: '2px' }}>Sound</span>
+          </div>
         </div>
+        {activeHats.length === 0 && (
+          <p style={{ textAlign: 'center', color: '#999', fontSize: '0.85rem', margin: '0.5rem 0 0' }}>
+            Add a hat above to start a session.
+          </p>
+        )}
+        </>
       )}
 
       {phase === 'reveal-hat' && currentHat && (

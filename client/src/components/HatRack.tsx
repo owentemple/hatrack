@@ -7,7 +7,7 @@ import FocusSession from './FocusSession'
 export default function HatRack() {
   const [hats, setHats] = useState<Hat[]>([])
   const [newHat, setNewHat] = useState('')
-  const [showHelp, setShowHelp] = useState(false)
+  const [showHelp, setShowHelp] = useState<boolean | null>(null)
 
   useEffect(() => {
     loadHats()
@@ -57,7 +57,7 @@ export default function HatRack() {
       <form className="hat-input-row" onSubmit={handleAdd}>
         <input
           type="text"
-          placeholder="Enter a hat..."
+          placeholder="Add an activity (e.g. Writing, Meditating)..."
           value={newHat}
           onChange={(e) => setNewHat(e.target.value)}
         />
@@ -69,6 +69,11 @@ export default function HatRack() {
       <hr />
 
       <ul className="hat-list">
+        {hats.length === 0 && (
+          <li className="empty-state">
+            Add your activities above — things like "Writing," "Meditating," or "Exercising." These are your hats.
+          </li>
+        )}
         {hats.map((hat) => (
           <HatItem
             key={hat.id}
@@ -83,10 +88,10 @@ export default function HatRack() {
 
       <FocusSession hats={hats} onSessionEnd={loadHats} />
 
-      <button className="how-it-works-toggle" onClick={() => setShowHelp(!showHelp)}>
-        {showHelp ? 'Hide' : 'How it works'}
+      <button className="how-it-works-toggle" onClick={() => setShowHelp((prev) => !(prev ?? hats.length === 0))}>
+        {(showHelp ?? hats.length === 0) ? 'Hide' : 'How it works'}
       </button>
-      {showHelp && (
+      {(showHelp ?? hats.length === 0) && (
         <ul className="how-it-works">
           <li>Add your activities ("hats") to the rack</li>
           <li>Start a session — a random hat and timer (1–25 min) are chosen for you</li>
