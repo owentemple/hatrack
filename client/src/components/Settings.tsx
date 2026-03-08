@@ -132,6 +132,16 @@ export default function Settings() {
           </form>
         )}
       </div>
+
+      <div className="settings-section" style={{ marginTop: '2rem' }}>
+        <h3>Add to Home Screen</h3>
+        <p style={{ color: '#666', fontSize: '0.9rem', margin: '0.25rem 0 0' }}>
+          <strong>iPhone:</strong> In Safari, tap the Share button then "Add to Home Screen."
+        </p>
+        <p style={{ color: '#666', fontSize: '0.9rem', margin: '0.5rem 0 0' }}>
+          <strong>Android:</strong> In Chrome, tap the menu (three dots) then "Add to Home Screen."
+        </p>
+      </div>
     </div>
   )
 }
