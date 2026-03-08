@@ -3,14 +3,9 @@ import { Link } from 'react-router-dom'
 export default function LandingPage() {
   return (
     <div className="landing-page">
-      <p>
-        Most of us juggle multiple roles and projects — we "wear many hats."
-        HatRack lets you put all your hats on the rack. Start a focus session,
-        and HatRack draws a hat at random with a timer of varying length.
-        Earn points for every focused minute.
+      <p className="landing-hook">
+        Spend time on what matters — without overthinking where to start.
       </p>
-
-      <p>Randomness removes the burden of choosing. Gamification makes it fun. Nothing gets missed.</p>
 
       <Link
         to="/signup"
@@ -23,6 +18,13 @@ export default function LandingPage() {
       <p className="switch-link">
         Already have an account? <Link to="/login">Log in</Link>
       </p>
+
+      <div className="landing-how">
+        <h3>How it works</h3>
+        <p>Add your activities to the rack.</p>
+        <p>Start a session — HatRack picks one at random with a short timer.</p>
+        <p>Finish and earn points. Then go again.</p>
+      </div>
     </div>
   )
 }
