@@ -18,6 +18,7 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
   const [currentHat, setCurrentHat] = useState<Hat | null>(null)
   const [timerMinutes, setTimerMinutes] = useState(0)
   const [todayScore, setTodayScore] = useState(0)
+  const [streak, setStreak] = useState(0)
   const [miniMode, setMiniMode] = useState(() => {
     try { return localStorage.getItem('hatrack-mini-mode') === 'true' } catch { return false }
   })
@@ -34,7 +35,7 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
 
   // Load score on mount
   useEffect(() => {
-    getScore().then((d) => setTodayScore(d.todayScore)).catch(() => {})
+    getScore().then((d) => { setTodayScore(d.todayScore); setStreak(d.streak) }).catch(() => {})
   }, [])
 
   const activeHats = hats.filter((h) => !h.done)
@@ -68,6 +69,7 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
       await createSession(timer.totalSeconds, earned, currentHat.id)
       const s = await getScore()
       setTodayScore(s.todayScore)
+      setStreak(s.streak)
     } catch {
       setTodayScore((prev) => prev + earned)
     }
@@ -243,7 +245,7 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
         </div>
       )}
 
-      <ScoreDisplay score={todayScore} />
+      <ScoreDisplay score={todayScore} streak={streak} />
     </div>
   )
 }

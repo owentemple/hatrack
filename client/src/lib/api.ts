@@ -119,7 +119,7 @@ export function createSession(durationSeconds: number, score: number, hatId: num
 
 export function getScore() {
   const tz = new Date().getTimezoneOffset()
-  return request<{ totalScore: number; todayScore: number }>(`/sessions/score?tz=${tz}`)
+  return request<{ totalScore: number; todayScore: number; streak: number }>(`/sessions/score?tz=${tz}`)
 }
 
 // Beeminder settings

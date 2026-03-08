@@ -79,9 +79,44 @@ router.get('/score', async (req: AuthRequest, res: Response) => {
       _sum: { score: true },
     }),
   ])
+
+  // Calculate streak: consecutive days with score > 0, going backwards from today
+  const sessions = await prisma.focusSession.findMany({
+    where: { userId: req.userId!, score: { gt: 0 } },
+    select: { createdAt: true },
+    orderBy: { createdAt: 'desc' },
+  })
+
+  let streak = 0
+  if (sessions.length > 0) {
+    // Build set of active days in user's local timezone
+    const activeDays = new Set<string>()
+    for (const s of sessions) {
+      const localTime = new Date(s.createdAt.getTime() - offsetMs)
+      const dayKey = `${localTime.getUTCFullYear()}-${localTime.getUTCMonth()}-${localTime.getUTCDate()}`
+      activeDays.add(dayKey)
+    }
+
+    // Walk backwards from today
+    const checkDate = new Date(localNow)
+    for (let i = 0; i < 365; i++) {
+      const dayKey = `${checkDate.getUTCFullYear()}-${checkDate.getUTCMonth()}-${checkDate.getUTCDate()}`
+      if (activeDays.has(dayKey)) {
+        streak++
+      } else if (i === 0) {
+        // Today doesn't count against you — maybe they haven't started yet
+        // Just skip today and check yesterday
+      } else {
+        break
+      }
+      checkDate.setUTCDate(checkDate.getUTCDate() - 1)
+    }
+  }
+
   res.json({
     totalScore: total._sum.score || 0,
     todayScore: today._sum.score || 0,
+    streak,
   })
 })
 
