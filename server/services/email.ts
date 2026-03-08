@@ -1,6 +1,13 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+let resend: Resend | null = null
+
+function getResend() {
+  if (!resend) {
+    resend = new Resend(process.env.RESEND_API_KEY)
+  }
+  return resend
+}
 
 const FROM_EMAIL = process.env.FROM_EMAIL || 'HatRack <noreply@notify.makeahab.it>'
 const APP_URL = process.env.APP_URL || 'https://www.makeahab.it'
@@ -8,7 +15,7 @@ const APP_URL = process.env.APP_URL || 'https://www.makeahab.it'
 export async function sendPasswordResetEmail(to: string, token: string) {
   const resetUrl = `${APP_URL}/reset-password?token=${token}`
 
-  await resend.emails.send({
+  await getResend().emails.send({
     from: FROM_EMAIL,
     to,
     subject: 'Reset your HatRack password',
