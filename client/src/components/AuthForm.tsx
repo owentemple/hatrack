@@ -38,13 +38,7 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
   if (mode === 'login') {
     return (
       <div className="auth-form">
-        {valuePitch}
-        <Link to="/signup" className="btn-primary" style={{ display: 'block', textAlign: 'center', textDecoration: 'none', padding: '10px 20px' }}>
-          Get Started
-        </Link>
-        <div style={{ margin: '2rem 0 1rem', borderTop: '1px solid #eee', paddingTop: '1.5rem' }}>
-          <h2>Log In</h2>
-        </div>
+        <h2>Log In</h2>
         <form onSubmit={handleSubmit}>
           {error && <p className="error-message">{error}</p>}
           <div className="form-group">
@@ -70,6 +64,9 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
           </button>
           <p className="switch-link">
             <Link to="/forgot-password">Forgot password?</Link>
+          </p>
+          <p className="switch-link">
+            Don't have an account? <Link to="/signup">Sign up</Link>
           </p>
         </form>
       </div>
