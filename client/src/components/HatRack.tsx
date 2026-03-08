@@ -85,7 +85,12 @@ export default function HatRack() {
         ))}
       </ul>
 
-      <FocusSession hats={hats} onSessionEnd={loadHats} onHatDone={(id) => handleToggle(id, true)} />
+      <FocusSession hats={hats} onSessionEnd={loadHats} onHatDone={(id) => {
+        // Optimistically update local state so checkbox appears immediately
+        setHats((prev) => prev.map((h) => (h.id === id ? { ...h, done: true } : h)))
+        // Fire API call in background
+        api.updateHat(id, { done: true }).catch(() => loadHats())
+      }} />
 
       <button className="how-it-works-toggle" onClick={() => setShowHelp((prev) => !(prev ?? hats.length === 0))}>
         {(showHelp ?? hats.length === 0) ? 'Hide' : 'How it works'}
