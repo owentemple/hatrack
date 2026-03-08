@@ -1,14 +1,13 @@
-# HatRack App
+# HatRack
 
-#### Wear your many hats.
+#### Build a habit. Wear your many hats.
 
-A productivity app to improve focus and encourage deliberate practice.
+HatRack™ is a personal productivity app for habit formation and timed focus sessions, created by Owen Temple. Put your recurring activities — your "hats" — on the rack. Writing, Meditating, Reading, Drawing, Coding — whatever you want to make progress on. Start a focus session, and HatRack draws a hat at random with a timer of varying length. Earn points for every focused minute. Track your progress over time.
 
-## What It Does
+[![HatRack at hatrack.it](images/screenshots/hatrack-2026.png)](https://hatrack.it)
+*hatrack.it, 2026*
 
-For most of us, life and work requires "wearing multiple hats" — performing multiple roles or task categories on a daily basis. HatRack helps you maintain balance across all of them.
-
-Add your recurring activities ("hats") to the rack, then click **Focus Session**. A hat is drawn at random, a timer from 1–25 minutes is rolled, and you focus on that activity until the timer completes. Earn 500 points per session.
+HatRack was originally launched at hatrackapp.com in July 2015 (see the [legacy hatrack-app repo](https://github.com/owentemple/hatrack-app)). A phone-friendly version is also available at m.hatrackapp.com. This repo is the current version, rebuilt from the ground up and live at [hatrack.it](https://hatrack.it).
 
 ## Tech Stack
 
@@ -67,3 +66,5 @@ server/
 prisma/
   schema.prisma   # Database schema
 ```
+
+© 2015 HatRack, LLC
