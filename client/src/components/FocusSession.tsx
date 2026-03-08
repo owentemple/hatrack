@@ -101,6 +101,13 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
     onSessionEnd()
   }
 
+  // Keep AudioContext alive during timer (mobile Safari suspends after ~30s of silence)
+  useEffect(() => {
+    if (phase !== 'running') return
+    const id = setInterval(() => chime.keepAlive(), 15000)
+    return () => clearInterval(id)
+  }, [phase, chime.keepAlive])
+
   // Watch for timer completion
   useEffect(() => {
     if (timer.isComplete && phase === 'running') {

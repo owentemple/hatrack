@@ -11,10 +11,10 @@ function getInitialEnabled(): boolean {
   }
 }
 
-function playChime(ctx: AudioContext) {
-  // Resume in case the context was suspended (mobile Safari)
+async function playChime(ctx: AudioContext) {
+  // Resume in case the context was suspended (mobile Safari suspends after inactivity)
   if (ctx.state === 'suspended') {
-    ctx.resume()
+    await ctx.resume()
   }
 
   const now = ctx.currentTime
@@ -43,6 +43,8 @@ function playChime(ctx: AudioContext) {
 export function useChime() {
   const [enabled, setEnabled] = useState(getInitialEnabled)
   const ctxRef = useRef<AudioContext | null>(null)
+  const enabledRef = useRef(enabled)
+  enabledRef.current = enabled
 
   const toggle = useCallback(() => {
     setEnabled((prev) => {
@@ -53,13 +55,13 @@ export function useChime() {
   }, [])
 
   const play = useCallback(() => {
-    if (!enabled || !ctxRef.current) return
+    if (!enabledRef.current || !ctxRef.current) return
     try {
       playChime(ctxRef.current)
     } catch {
       // Web Audio not supported
     }
-  }, [enabled])
+  }, [])
 
   // Create and retain AudioContext on first user interaction (required by mobile Safari)
   const warmUp = useCallback(() => {
@@ -69,5 +71,19 @@ export function useChime() {
     } catch {}
   }, [])
 
-  return { enabled, toggle, play, warmUp }
+  // Ping AudioContext with a silent buffer to prevent mobile Safari from suspending it
+  const keepAlive = useCallback(() => {
+    const ctx = ctxRef.current
+    if (!ctx) return
+    if (ctx.state === 'suspended') {
+      ctx.resume().catch(() => {})
+    }
+    const buf = ctx.createBuffer(1, 1, ctx.sampleRate)
+    const src = ctx.createBufferSource()
+    src.buffer = buf
+    src.connect(ctx.destination)
+    src.start()
+  }, [])
+
+  return { enabled, toggle, play, warmUp, keepAlive }
 }
