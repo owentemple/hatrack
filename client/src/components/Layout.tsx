@@ -12,11 +12,13 @@ export default function Layout() {
             <Link to="/">Hats</Link>
             <Link to="/history">History</Link>
             <Link to="/settings">Settings</Link>
+            <Link to="/about">About</Link>
             <span>{user.name}</span>
             <button onClick={logout}>Log out</button>
           </>
         ) : (
           <>
+            <Link to="/about">About</Link>
             <Link to="/login">Log in</Link>
             <Link to="/signup">Sign up</Link>
           </>

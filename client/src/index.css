@@ -507,3 +507,41 @@ hr {
     width: 100%;
   }
 }
+
+/* About page */
+.about-page {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.about-page h2 {
+  text-align: center;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.about-page p {
+  margin-bottom: 14px;
+  line-height: 1.6;
+  color: #444;
+}
+
+.about-footer {
+  margin-top: 24px;
+  color: #666 !important;
+  font-size: 0.95rem;
+}
+
+.about-copyright {
+  color: #999 !important;
+  font-size: 0.85rem;
+}
+
+.about-source {
+  font-size: 0.85rem;
+}
+
+.about-source a {
+  color: #337ab7;
+}
