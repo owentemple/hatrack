@@ -54,11 +54,14 @@ export default function SessionHistory() {
   const [totalScore, setTotalScore] = useState(0)
   const [loading, setLoading] = useState(true)
 
+  const [streak, setStreak] = useState(0)
+
   useEffect(() => {
     Promise.all([getSessions(), getScore()])
       .then(([s, sc]) => {
         setSessions(s)
         setTotalScore(sc.totalScore)
+        setStreak(sc.streak)
       })
       .catch(() => {})
       .finally(() => setLoading(false))
@@ -73,7 +76,7 @@ export default function SessionHistory() {
       <div className="history-header">
         <Link to="/" className="back-link">&larr; Back to rack</Link>
         <h2>Session History</h2>
-        <h3 className="score">Total: {totalScore}</h3>
+        <h3 className="score">All-Time: {totalScore}</h3>
       </div>
 
       {sessions.length === 0 ? (
@@ -91,6 +94,12 @@ export default function SessionHistory() {
               <span className="stat-value">{days.length}</span>
               <span className="stat-label">Days Active</span>
             </div>
+            {streak >= 2 && (
+              <div className="stat">
+                <span className="stat-value">{streak}</span>
+                <span className="stat-label">Day Streak</span>
+              </div>
+            )}
             <div className="stat">
               <span className="stat-value">
                 {formatDuration(sessions.filter(s => s.score > 0).reduce((sum, s) => sum + s.durationSeconds, 0))}
@@ -107,7 +116,7 @@ export default function SessionHistory() {
               </div>
               <ul className="session-list">
                 {day.sessions.map((s) => (
-                  <li key={s.id} className="session-item">
+                  <li key={s.id} className="session-item" style={s.score === 0 ? { opacity: 0.4 } : undefined}>
                     <span className="session-hat">{s.hat.name}</span>
                     <span className="session-duration">{formatDuration(s.durationSeconds)}</span>
                     <span className="session-time">{formatTime(s.createdAt)}</span>
