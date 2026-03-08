@@ -2,7 +2,7 @@ import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-const FROM_EMAIL = process.env.FROM_EMAIL || 'HatRack <noreply@makeahab.it>'
+const FROM_EMAIL = process.env.FROM_EMAIL || 'HatRack <noreply@notify.makeahab.it>'
 const APP_URL = process.env.APP_URL || 'https://www.makeahab.it'
 
 export async function sendPasswordResetEmail(to: string, token: string) {
