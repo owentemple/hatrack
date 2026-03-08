@@ -7,6 +7,7 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
+  const [template, setTemplate] = useState('')
   const [error, setError] = useState('')
   const { setAuth } = useAuth()
   const navigate = useNavigate()
@@ -18,7 +19,7 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
     try {
       const res =
         mode === 'signup'
-          ? await api.signup(email, password, name)
+          ? await api.signup(email, password, name, template || undefined)
           : await api.login(email, password)
       setAuth(res.token, res.user)
       navigate('/')
@@ -103,6 +104,29 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+      </div>
+      <div className="form-group">
+        <label style={{ fontSize: '0.85rem', color: '#666', marginBottom: '0.5rem', display: 'block' }}>
+          Start with a template (you can always add or remove hats later)
+        </label>
+        <div className="template-picker">
+          <button
+            type="button"
+            className={`template-option${template === 'songwriter' ? ' template-option--selected' : ''}`}
+            onClick={() => setTemplate(template === 'songwriter' ? '' : 'songwriter')}
+          >
+            <strong>Songwriter</strong>
+            <span>Writing, Reading, Listening, Performing</span>
+          </button>
+          <button
+            type="button"
+            className={`template-option${template === '' ? ' template-option--selected' : ''}`}
+            onClick={() => setTemplate('')}
+          >
+            <strong>General</strong>
+            <span>Writing, Meditating</span>
+          </button>
+        </div>
       </div>
       <button type="submit" className="btn-primary">
         Sign Up

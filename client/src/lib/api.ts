@@ -30,10 +30,10 @@ export interface AuthResponse {
   user: { id: number; email: string; name: string }
 }
 
-export function signup(email: string, password: string, name: string) {
+export function signup(email: string, password: string, name: string, template?: string) {
   return request<AuthResponse>('/auth/signup', {
     method: 'POST',
-    body: JSON.stringify({ email, password, name }),
+    body: JSON.stringify({ email, password, name, template }),
   })
 }
 

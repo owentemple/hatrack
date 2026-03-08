@@ -456,6 +456,43 @@ hr {
   font-size: 0.9rem;
 }
 
+/* Template picker */
+.template-picker {
+  display: flex;
+  gap: 8px;
+}
+
+.template-option {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s;
+}
+
+.template-option:hover {
+  border-color: #999;
+}
+
+.template-option--selected {
+  border-color: #333;
+  background: #f9f9f9;
+}
+
+.template-option strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+}
+
+.template-option span {
+  font-size: 0.8rem;
+  color: #666;
+}
+
 /* Responsive */
 @media (max-width: 480px) {
   .banner {
