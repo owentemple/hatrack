@@ -17,6 +17,7 @@ model User {
   beeminderGoalSlug  String?
   hats               Hat[]
   sessions           FocusSession[]
+  passwordResets     PasswordReset[]
   createdAt          DateTime       @default(now())
 }
 
@@ -29,6 +30,16 @@ model Hat {
   user      User           @relation(fields: [userId], references: [id])
   userId    Int
   sessions  FocusSession[]
+}
+
+model PasswordReset {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
 }
 
 model FocusSession {

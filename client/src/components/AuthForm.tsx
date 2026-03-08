@@ -68,6 +68,9 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
           <button type="submit" className="btn-primary" style={{ width: '100%' }}>
             Log In
           </button>
+          <p className="switch-link">
+            <Link to="/forgot-password">Forgot password?</Link>
+          </p>
         </form>
       </div>
     )

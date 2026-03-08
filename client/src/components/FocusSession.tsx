@@ -235,7 +235,7 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
               <button className="btn-secondary" onClick={anotherSession}>
                 Yes
               </button>
-              <button className="btn-danger" onClick={endSessions}>
+              <button className="btn-danger" onClick={() => endSessions()}>
                 No, I'm done
               </button>
             </div>

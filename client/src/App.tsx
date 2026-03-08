@@ -3,6 +3,8 @@ import Layout from './components/Layout'
 import HatRack from './components/HatRack'
 import SessionHistory from './components/SessionHistory'
 import AuthForm from './components/AuthForm'
+import ForgotPassword from './components/ForgotPassword'
+import ResetPassword from './components/ResetPassword'
 import Settings from './components/Settings'
 import ProtectedRoute from './components/ProtectedRoute'
 
@@ -36,6 +38,8 @@ export default function App() {
         />
         <Route path="/login" element={<AuthForm key="login" mode="login" />} />
         <Route path="/signup" element={<AuthForm key="signup" mode="signup" />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Route>
     </Routes>
   )
