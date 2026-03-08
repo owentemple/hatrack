@@ -98,8 +98,8 @@ router.post('/forgot-password', async (req: Request, res: Response) => {
 
     try {
       await sendPasswordResetEmail(email, token)
-    } catch {
-      // Log but don't fail — user doesn't need to know about email issues
+    } catch (emailErr) {
+      console.error('Failed to send password reset email:', emailErr)
     }
 
     res.json({ ok: true })
