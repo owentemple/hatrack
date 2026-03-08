@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemapping.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.hatrack.it/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.hatrack.it/about</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hatrack.it/signup</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hatrack.it/login</loc>
+    <priority>0.5</priority>
+  </url>
+</urlset>

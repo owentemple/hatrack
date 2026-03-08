@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import HatRack from './components/HatRack'
+import LandingPage from './components/LandingPage'
 import SessionHistory from './components/SessionHistory'
 import AuthForm from './components/AuthForm'
 import ForgotPassword from './components/ForgotPassword'
@@ -8,19 +9,19 @@ import ResetPassword from './components/ResetPassword'
 import Settings from './components/Settings'
 import About from './components/About'
 import ProtectedRoute from './components/ProtectedRoute'
+import { useAuth } from './hooks/useAuth'
+
+function HomePage() {
+  const { user, loading } = useAuth()
+  if (loading) return null
+  return user ? <HatRack /> : <LandingPage />
+}
 
 export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <HatRack />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/" element={<HomePage />} />
         <Route
           path="/history"
           element={
