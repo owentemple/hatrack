@@ -7,7 +7,11 @@ import FocusSession from './FocusSession'
 export default function HatRack() {
   const [hats, setHats] = useState<Hat[]>([])
   const [newHat, setNewHat] = useState('')
-  const [showHelp, setShowHelp] = useState<boolean | null>(null)
+  const [showHelp, setShowHelp] = useState<boolean | null>(() => {
+    try {
+      return localStorage.getItem('hatrack-help-dismissed') ? null : true
+    } catch { return null }
+  })
 
   useEffect(() => {
     loadHats()
@@ -92,7 +96,11 @@ export default function HatRack() {
         api.updateHat(id, { done: true }).catch(() => loadHats())
       }} />
 
-      <button className="how-it-works-toggle" onClick={() => setShowHelp((prev) => !(prev ?? hats.length === 0))}>
+      <button className="how-it-works-toggle" onClick={() => setShowHelp((prev) => {
+        const next = !(prev ?? hats.length === 0)
+        if (!next) { try { localStorage.setItem('hatrack-help-dismissed', 'true') } catch {} }
+        return next
+      })}>
         {(showHelp ?? hats.length === 0) ? 'Hide' : 'How it works'}
       </button>
       {(showHelp ?? hats.length === 0) && (
