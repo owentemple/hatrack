@@ -124,7 +124,7 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
             onClick={() => setTemplate(template === 'starter' ? '' : 'starter')}
           >
             <strong>Starter</strong>
-            <span>Exercise, Reading, Creative Work</span>
+            <span>Reading, Writing, Meditating</span>
           </button>
           <button
             type="button"

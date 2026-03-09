@@ -200,11 +200,6 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
               <button className="btn-primary" onClick={rollTimer}>
                 Roll the dice!
               </button>
-              {activeHats.length > 1 && (
-                <button className="btn-secondary" onClick={startSession}>
-                  Different hat
-                </button>
-              )}
             </div>
             <button className="link-button" onClick={() => { setPhase('idle'); setCurrentHat(null) }}>
               Never mind

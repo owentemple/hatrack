@@ -29,7 +29,7 @@ router.post('/signup', async (req: Request, res: Response) => {
     // Seed starter hats based on chosen template
     const templateHats: Record<string, string[]> = {
       songwriter: ['Writing', 'Reading', 'Listening', 'Performing'],
-      starter: ['Exercise', 'Reading', 'Creative Work'],
+      starter: ['Reading', 'Writing', 'Meditating'],
     }
     const hatNames = templateHats[template] || []
     if (hatNames.length > 0) {
