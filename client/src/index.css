@@ -260,6 +260,20 @@ button {
   justify-content: center;
 }
 
+.link-button {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-top: 12px;
+  padding: 0;
+}
+
+.link-button:hover {
+  color: #666;
+}
+
 /* Nav */
 .nav-bar {
   display: flex;

@@ -182,7 +182,15 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
               <button className="btn-primary" onClick={rollTimer}>
                 Roll the dice!
               </button>
+              {activeHats.length > 1 && (
+                <button className="btn-secondary" onClick={startSession}>
+                  Different hat
+                </button>
+              )}
             </div>
+            <button className="link-button" onClick={() => { setPhase('idle'); setCurrentHat(null) }}>
+              Never mind
+            </button>
           </div>
         </div>
       )}
@@ -200,6 +208,9 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
                 Start timer
               </button>
             </div>
+            <button className="link-button" onClick={() => { setPhase('idle'); setCurrentHat(null) }}>
+              Never mind
+            </button>
           </div>
         </div>
       )}
@@ -236,9 +247,9 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
       {phase === 'stopped-early' && currentHat && (
         <div className="modal-overlay">
           <div className="modal">
-            <h3>Session ended early</h3>
+            <h3>Session ended</h3>
             <p>
-              No points earned. Want to try another session?
+              Want to try another session?
             </p>
             <div className="modal-actions">
               <button className="btn-secondary" onClick={anotherSession}>
