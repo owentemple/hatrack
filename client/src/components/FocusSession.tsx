@@ -108,6 +108,23 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
     return () => clearInterval(id)
   }, [phase, chime.keepAlive])
 
+  // Keep screen awake during timer (Wake Lock API)
+  useEffect(() => {
+    if (phase !== 'running') return
+    let wakeLock: WakeLockSentinel | null = null
+    async function acquire() {
+      try {
+        if ('wakeLock' in navigator) {
+          wakeLock = await navigator.wakeLock.request('screen')
+        }
+      } catch {
+        // Wake Lock not supported or failed — no-op
+      }
+    }
+    acquire()
+    return () => { wakeLock?.release() }
+  }, [phase])
+
   // Watch for timer completion
   useEffect(() => {
     if (timer.isComplete && phase === 'running') {
