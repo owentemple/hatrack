@@ -112,19 +112,27 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
         <div className="template-picker">
           <button
             type="button"
+            className={`template-option${template === '' ? ' template-option--selected' : ''}`}
+            onClick={() => setTemplate('')}
+          >
+            <strong>Start empty</strong>
+            <span>Add your own activities after signup</span>
+          </button>
+          <button
+            type="button"
+            className={`template-option${template === 'starter' ? ' template-option--selected' : ''}`}
+            onClick={() => setTemplate(template === 'starter' ? '' : 'starter')}
+          >
+            <strong>Starter</strong>
+            <span>Exercise, Reading, Creative Work</span>
+          </button>
+          <button
+            type="button"
             className={`template-option${template === 'songwriter' ? ' template-option--selected' : ''}`}
             onClick={() => setTemplate(template === 'songwriter' ? '' : 'songwriter')}
           >
             <strong>Songwriter</strong>
             <span>Writing, Reading, Listening, Performing</span>
-          </button>
-          <button
-            type="button"
-            className={`template-option${template === '' ? ' template-option--selected' : ''}`}
-            onClick={() => setTemplate('')}
-          >
-            <strong>General</strong>
-            <span>Writing, Meditating</span>
           </button>
         </div>
       </div>

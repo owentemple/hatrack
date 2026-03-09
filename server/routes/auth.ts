@@ -27,18 +27,16 @@ router.post('/signup', async (req: Request, res: Response) => {
     })
 
     // Seed starter hats based on chosen template
-    const starterHats = template === 'songwriter'
-      ? [
-          { name: 'Writing', userId: user.id },
-          { name: 'Reading', userId: user.id },
-          { name: 'Listening', userId: user.id },
-          { name: 'Performing', userId: user.id },
-        ]
-      : [
-          { name: 'Writing', userId: user.id },
-          { name: 'Meditating', userId: user.id },
-        ]
-    await prisma.hat.createMany({ data: starterHats })
+    const templateHats: Record<string, string[]> = {
+      songwriter: ['Writing', 'Reading', 'Listening', 'Performing'],
+      starter: ['Exercise', 'Reading', 'Creative Work'],
+    }
+    const hatNames = templateHats[template] || []
+    if (hatNames.length > 0) {
+      await prisma.hat.createMany({
+        data: hatNames.map((name) => ({ name, userId: user.id })),
+      })
+    }
 
     const token = signToken(user.id)
     res.status(201).json({ token, user: { id: user.id, email: user.email, name: user.name } })
