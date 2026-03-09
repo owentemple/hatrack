@@ -12,6 +12,19 @@ export default function HatRack() {
       return localStorage.getItem('hatrack-help-dismissed') ? null : true
     } catch { return null }
   })
+  const [showInstallNudge, setShowInstallNudge] = useState(false)
+
+  // Show install nudge after first session if not already in standalone mode
+  useEffect(() => {
+    try {
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+      const dismissed = localStorage.getItem('hatrack-install-dismissed')
+      const hasSession = localStorage.getItem('hatrack-has-session')
+      if (!isStandalone && !dismissed && hasSession) {
+        setShowInstallNudge(true)
+      }
+    } catch {}
+  }, [])
 
   useEffect(() => {
     loadHats()
@@ -89,7 +102,17 @@ export default function HatRack() {
         ))}
       </ul>
 
-      <FocusSession hats={hats} onSessionEnd={loadHats} onHatDone={(id) => {
+      <FocusSession hats={hats} onSessionEnd={() => {
+        loadHats()
+        // Check if we should show install nudge after session
+        try {
+          const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+          const dismissed = localStorage.getItem('hatrack-install-dismissed')
+          if (!isStandalone && !dismissed && localStorage.getItem('hatrack-has-session')) {
+            setShowInstallNudge(true)
+          }
+        } catch {}
+      }} onHatDone={(id) => {
         // Optimistically update local state so checkbox appears immediately
         setHats((prev) => prev.map((h) => (h.id === id ? { ...h, done: true } : h)))
         // Fire API call in background
@@ -110,6 +133,21 @@ export default function HatRack() {
           <li>Complete the timer to earn points (1 point per minute)</li>
           <li>Check off a hat when you're done with it for the day</li>
         </ul>
+      )}
+
+      {showInstallNudge && (
+        <div className="install-nudge">
+          <p>HatRack works best from your home screen — opens full-screen like an app.</p>
+          <p style={{ fontSize: '0.8rem', color: '#999', margin: '4px 0 0' }}>
+            Tap your browser's Share or Menu button, then "Add to Home Screen."
+          </p>
+          <button className="link-button" onClick={() => {
+            setShowInstallNudge(false)
+            try { localStorage.setItem('hatrack-install-dismissed', 'true') } catch {}
+          }}>
+            Dismiss
+          </button>
+        </div>
       )}
     </div>
   )

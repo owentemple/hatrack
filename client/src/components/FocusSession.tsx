@@ -65,6 +65,7 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
     chime.play()
     const earned = timerMinutes
     setPhase('complete')
+    try { localStorage.setItem('hatrack-has-session', 'true') } catch {}
     try {
       await createSession(timer.totalSeconds, earned, currentHat.id)
       const s = await getScore()
