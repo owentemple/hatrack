@@ -133,15 +133,52 @@ export default function Settings() {
         )}
       </div>
 
-      <div className="settings-section" style={{ marginTop: '2rem' }}>
-        <h3>Add to Home Screen</h3>
-        <p style={{ color: '#666', fontSize: '0.9rem', margin: '0.25rem 0 0' }}>
-          <strong>iPhone:</strong> In Safari, tap the Share button then "Add to Home Screen."
-        </p>
-        <p style={{ color: '#666', fontSize: '0.9rem', margin: '0.5rem 0 0' }}>
-          <strong>Android:</strong> In Chrome, tap the menu (three dots) then "Add to Home Screen."
-        </p>
+      <InstallInstructions />
+    </div>
+  )
+}
+
+function InstallInstructions() {
+  const [browser, setBrowser] = useState<'safari' | 'chrome'>(() => {
+    const ua = navigator.userAgent
+    if (/CriOS|Chrome/.test(ua) && !/Safari/.test(ua) || /Android/.test(ua)) return 'chrome'
+    return 'safari'
+  })
+
+  const steps = browser === 'safari'
+    ? [
+        <>Tap the <strong>share</strong> button</>,
+        <>Scroll down and tap <strong>"Add to Home Screen"</strong></>,
+        <>Tap <strong>"Add"</strong></>,
+      ]
+    : [
+        <>Tap the <strong>menu</strong> (three dots)</>,
+        <>Tap <strong>"Add to Home Screen"</strong> or <strong>"Install App"</strong></>,
+        <>Tap <strong>"Add"</strong></>,
+      ]
+
+  return (
+    <div className="settings-section" style={{ marginTop: '2rem' }}>
+      <h3>Add to Home Screen</h3>
+      <div className="install-tabs">
+        <button
+          className={`install-tab${browser === 'safari' ? ' install-tab--active' : ''}`}
+          onClick={() => setBrowser('safari')}
+        >
+          Safari
+        </button>
+        <button
+          className={`install-tab${browser === 'chrome' ? ' install-tab--active' : ''}`}
+          onClick={() => setBrowser('chrome')}
+        >
+          Chrome
+        </button>
       </div>
+      <ol className="install-steps">
+        {steps.map((step, i) => (
+          <li key={i}>{step}</li>
+        ))}
+      </ol>
     </div>
   )
 }

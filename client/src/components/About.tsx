@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export default function About() {
   return (
     <div className="about-page">
@@ -22,6 +24,10 @@ export default function About() {
         hatrackapp.com in July 2015. The app has been rebuilt and expanded over
         the years, but the core concept hasn't changed: pick a hat, start a
         timer, do the work.
+      </p>
+
+      <p className="about-footer">
+        <Link to="/blog">Read the blog</Link>
       </p>
 
       <p className="about-footer">
