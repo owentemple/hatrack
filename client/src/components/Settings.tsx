@@ -66,7 +66,9 @@ export default function Settings() {
       <Link to="/" className="back-link">&larr; Back to Hats</Link>
       <h2>Settings</h2>
 
-      <div className="settings-section">
+      <InstallInstructions />
+
+      <div className="settings-section" style={{ marginTop: '2rem' }}>
         <h3>Beeminder</h3>
         <p style={{ color: '#666', fontSize: '0.9rem', margin: '0.25rem 0 1rem' }}>
           <a href="https://www.beeminder.com/" target="_blank" rel="noopener noreferrer">Beeminder</a> is
@@ -132,8 +134,6 @@ export default function Settings() {
           </form>
         )}
       </div>
-
-      <InstallInstructions />
     </div>
   )
 }
@@ -170,7 +170,7 @@ function InstallInstructions() {
       ]
 
   return (
-    <div className="settings-section" style={{ marginTop: '2rem' }}>
+    <div className="settings-section">
       <h3>Add to Home Screen on Mobile Device</h3>
       <div className="install-tabs">
         <button
