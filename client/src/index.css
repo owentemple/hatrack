@@ -41,7 +41,8 @@ body {
   display: flex;
   justify-content: center;
   gap: 8px;
-  margin: 16px 0;
+  margin: 16px auto;
+  max-width: 400px;
 }
 
 .hat-input-row input {

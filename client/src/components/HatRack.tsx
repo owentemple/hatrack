@@ -89,7 +89,7 @@ export default function HatRack() {
       <form className="hat-input-row" onSubmit={handleAdd}>
         <input
           type="text"
-          placeholder="e.g. Reading, Drawing"
+          placeholder="e.g. Drawing, Stretching"
           value={newHat}
           onChange={(e) => setNewHat(e.target.value)}
         />
@@ -98,7 +98,16 @@ export default function HatRack() {
         </button>
       </form>
 
-      {hats.length > 0 && hats.length <= 3 && (
+      {hats.length > 0 && hats.length <= 3 && !isLoggedIn && !localStorage.getItem('hatrack-starter-dismissed') && (
+        <p style={{ color: '#999', fontSize: '0.8rem', margin: '0 0 4px' }}>
+          These are just starters — add your own, rename, or remove any hat.{' '}
+          <button className="link-button" style={{ fontSize: '0.8rem' }} onClick={() => {
+            localStorage.setItem('hatrack-starter-dismissed', 'true')
+            setHats([...hats]) // force re-render
+          }}>Got it</button>
+        </p>
+      )}
+      {hats.length > 0 && hats.length <= 3 && (isLoggedIn || localStorage.getItem('hatrack-starter-dismissed')) && (
         <p style={{ color: '#999', fontSize: '0.8rem', margin: '0 0 4px' }}>Done for the day? Check it off. Resets tomorrow. Tap x to remove.</p>
       )}
       <ul className="hat-list">
