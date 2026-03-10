@@ -19,7 +19,7 @@ app.use('/api/settings', settingsRoutes)
 // In production, serve the built client
 if (process.env.NODE_ENV === 'production') {
   const clientDist = path.resolve(__dirname, '../client/dist')
-  app.use(express.static(clientDist))
+  app.use(express.static(clientDist, { index: false }))
 
   // Pre-rendered HTML for public routes so crawlers see real content
   const indexHtml = fs.readFileSync(path.join(clientDist, 'index.html'), 'utf-8')
