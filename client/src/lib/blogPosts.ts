@@ -14,15 +14,15 @@ export const blogPosts: BlogPost[] = [
     date: '2026-03-08',
     body: `<p>Most of us wear a lot of hats. Parent, worker, friend, musician &mdash; we play a dozen roles before lunch. The problem isn&rsquo;t the number of hats. It&rsquo;s that the important ones, the creative ones, keep ending up at the bottom of the stack.</p>
 
-<p>A few years ago I wrote a book with Gordy Quist about songwriting habits. Chapter 3 laid out this idea that there are really only four things a songwriter needs to do: Write. Read. Listen. Perform. Not in heroic bursts. Just a little, every day. Free write 50 words. Read 2 pages of poetry. Listen to one song. Play one chord progression. Stupid small. That was the whole point.</p>
+<p>In 2015, I wrote <a href="https://songfarmer.com/book/" target="_blank" rel="noopener noreferrer">a book</a> with Gordy Quist about songwriting habits. Chapter 3 laid out this idea that there are really only four things a songwriter needs to do: Write. Read. Listen. Perform. Not in heroic bursts. Just a little, every day. Free write 50 words. Read 2 pages of poetry. Listen to one song. Play one chord progression. Stupid small. That was the whole point.</p>
 
-<p>We borrowed Stephen Guise&rsquo;s Mini-Habits idea and Jonathan Haidt&rsquo;s metaphor of the rider and the elephant. The rider is your conscious mind &mdash; the one making plans, setting goals, buying the nice notebook. The elephant is the part of you that actually does things. And the elephant doesn&rsquo;t care about your plans. The elephant cares about the path of least resistance. You have to make the right path the easy path.</p>
+<p>We borrowed <a href="https://minihabits.com/about-mini-habits/" target="_blank" rel="noopener noreferrer">Stephen Guise&rsquo;s Mini-Habits</a> idea and <a href="https://en.wikipedia.org/wiki/The_Happiness_Hypothesis" target="_blank" rel="noopener noreferrer">Jonathan Haidt&rsquo;s metaphor of the rider and the elephant</a>. The rider is your conscious mind &mdash; the one making plans, setting goals, buying the nice notebook. The elephant is the part of you that actually does things. And the elephant doesn&rsquo;t care about your plans. The elephant cares about the path of least resistance. You have to make the right path the easy path.</p>
 
 <p>The problem I kept running into wasn&rsquo;t motivation. It was the moment of choosing. I&rsquo;d sit down with time to work and think: should I write? Practice guitar? Read that book of poems I keep meaning to start? And by the time I&rsquo;d decided, half my energy had gone to the deciding. That&rsquo;s decision fatigue &mdash; the thing that makes you order the same lunch every day not because you love it but because choosing is expensive.</p>
 
-<p>So I built something.</p>
+<p>So that same year, I built something.</p>
 
-<p>It&rsquo;s called HatRack. The idea is simple: you put your activities on the rack &mdash; your many hats &mdash; and when you&rsquo;re ready to work, the app picks one for you. Randomly. Then it rolls a random timer. Maybe it&rsquo;s 3 minutes. Maybe it&rsquo;s 22. You don&rsquo;t know until it rolls. And then you just do the thing until the bell rings.</p>
+<p>I called it <a href="https://www.hatrack.it/">HatRack</a>. The idea was simple: you put your activities on the rack &mdash; your many hats &mdash; and when you&rsquo;re ready to work, the app picks one for you. Randomly. Then it rolls a random timer. Maybe it&rsquo;s 3 minutes. Maybe it&rsquo;s 22. You don&rsquo;t know until it rolls. And then you just do the thing until the bell rings.</p>
 
 <p>That&rsquo;s it. The randomness is the feature, not a bug. You don&rsquo;t decide what to work on. You don&rsquo;t decide how long. You just start. The elephant walks the path because there&rsquo;s only one path.</p>
 
@@ -32,7 +32,7 @@ export const blogPosts: BlogPost[] = [
 
 <p>There&rsquo;s a mini mode for the days when you can&rsquo;t imagine sitting with anything for 25 minutes. Mini mode rolls 1 to 5 minutes. That&rsquo;s it. Five minutes of writing. Three minutes of listening. It&rsquo;s Guise&rsquo;s &ldquo;stupid small&rdquo; idea with a random timer strapped to it. And the thing about stupid small is that it compounds. The Grand Canyon wasn&rsquo;t carved in an afternoon.</p>
 
-<p>I originally built this for myself &mdash; for cycling through those four songwriting habits without burning out on any one of them. But it turns out the hat rack holds all kinds of hats. Meditating. Exercising. Studying. Drawing. Anything where showing up daily matters more than showing up perfectly.</p>
+<p>I originally built HatRack in July 2015 at hatrackapp.com &mdash; for cycling through those four songwriting habits without burning out on any one of them. It&rsquo;s been rebuilt and expanded over the years, but the core concept hasn&rsquo;t changed: pick a hat, start a timer, do the work. And it turns out the hat rack holds all kinds of hats. Meditating. Exercising. Studying. Drawing. Anything where showing up daily matters more than showing up perfectly.</p>
 
 <p>If you&rsquo;re a songwriter, I&rsquo;d suggest starting with four hats: Writing, Reading, Listening, Performing. Those are the fundamentals. You can get more specific as you go.</p>
 
