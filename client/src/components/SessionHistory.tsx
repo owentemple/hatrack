@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { getSessions, getScore, SessionRecord } from '../lib/api'
+import { getSessions, getScore, SessionRecord } from '../lib/dataService'
 
 function formatDuration(seconds: number): string {
   const m = Math.floor(seconds / 60)

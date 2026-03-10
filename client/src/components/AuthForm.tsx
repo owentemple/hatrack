@@ -2,30 +2,94 @@ import { useState, FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import * as api from '../lib/api'
+import * as localStore from '../lib/localStore'
 
 export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
-  const [template, setTemplate] = useState('')
   const [error, setError] = useState('')
+  const [showMergePrompt, setShowMergePrompt] = useState(false)
+  const [pendingAuth, setPendingAuth] = useState<{ token: string; user: { id: number; email: string; name: string } } | null>(null)
   const { setAuth } = useAuth()
   const navigate = useNavigate()
+
+  const hasLocal = localStore.hasLocalData()
+
+  async function migrateAndFinish(res: { token: string; user: { id: number; email: string; name: string } }) {
+    // Set auth first so API calls work
+    setAuth(res.token, res.user)
+
+    const hats = localStore.getAllHatsForMigration()
+    const sessions = localStore.getAllSessionsForMigration()
+
+    if (hats.length > 0 || sessions.length > 0) {
+      try {
+        await api.migrateLocalData(hats, sessions)
+      } catch {
+        // Migration failed — data stays local, user can still use the app
+        console.error('Migration failed')
+      }
+    }
+    localStore.clear()
+    navigate('/')
+  }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setError('')
 
     try {
-      const res =
-        mode === 'signup'
-          ? await api.signup(email, password, name, template || undefined)
-          : await api.login(email, password)
-      setAuth(res.token, res.user)
-      navigate('/')
+      if (mode === 'signup') {
+        const res = await api.signup(email, password, name)
+        if (hasLocal) {
+          await migrateAndFinish(res)
+        } else {
+          setAuth(res.token, res.user)
+          navigate('/')
+        }
+      } else {
+        const res = await api.login(email, password)
+        if (hasLocal) {
+          setPendingAuth(res)
+          setShowMergePrompt(true)
+        } else {
+          setAuth(res.token, res.user)
+          navigate('/')
+        }
+      }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Something went wrong')
     }
+  }
+
+  async function handleMerge(merge: boolean) {
+    if (!pendingAuth) return
+    if (merge) {
+      await migrateAndFinish(pendingAuth)
+    } else {
+      setAuth(pendingAuth.token, pendingAuth.user)
+      localStore.clear()
+      navigate('/')
+    }
+  }
+
+  if (showMergePrompt && pendingAuth) {
+    const hatCount = localStore.getAllHatsForMigration().filter(h => !h.deletedAt).length
+    const sessionCount = localStore.getSessionCount()
+    return (
+      <div className="auth-form">
+        <h2>Welcome back</h2>
+        <p style={{ color: '#666', lineHeight: 1.7 }}>
+          You have {hatCount} hat{hatCount !== 1 ? 's' : ''} and {sessionCount} session{sessionCount !== 1 ? 's' : ''} saved on this device.
+          Add them to your account?
+        </p>
+        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
+          <button className="btn-primary" onClick={() => handleMerge(true)}>Yes, add them</button>
+          <button className="btn-secondary" onClick={() => handleMerge(false)}>No, start fresh</button>
+        </div>
+      </div>
+    )
   }
 
   const valuePitch = (
@@ -77,6 +141,11 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
     <form className="auth-form" onSubmit={handleSubmit}>
       <h2>Sign Up</h2>
       {valuePitch}
+      {hasLocal && (
+        <p style={{ color: '#4a9', fontSize: '0.85rem', margin: '0 0 1rem' }}>
+          Your hats and sessions from this device will be saved to your account.
+        </p>
+      )}
       {error && <p className="error-message">{error}</p>}
       <div className="form-group">
         <input
@@ -104,37 +173,6 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-      </div>
-      <div className="form-group">
-        <label style={{ fontSize: '0.85rem', color: '#666', marginBottom: '0.5rem', display: 'block' }}>
-          Start with a template (you can always add or remove hats later)
-        </label>
-        <div className="template-picker">
-          <button
-            type="button"
-            className={`template-option${template === '' ? ' template-option--selected' : ''}`}
-            onClick={() => setTemplate('')}
-          >
-            <strong>Start empty</strong>
-            <span>Add your own activities after signup</span>
-          </button>
-          <button
-            type="button"
-            className={`template-option${template === 'starter' ? ' template-option--selected' : ''}`}
-            onClick={() => setTemplate(template === 'starter' ? '' : 'starter')}
-          >
-            <strong>Starter</strong>
-            <span>Reading, Writing, Meditating</span>
-          </button>
-          <button
-            type="button"
-            className={`template-option${template === 'songwriter' ? ' template-option--selected' : ''}`}
-            onClick={() => setTemplate(template === 'songwriter' ? '' : 'songwriter')}
-          >
-            <strong>Songwriter</strong>
-            <span>Writing, Reading, Listening, Performing</span>
-          </button>
-        </div>
       </div>
       <button type="submit" className="btn-primary">
         Sign Up

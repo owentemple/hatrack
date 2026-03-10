@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { Hat, createSession, getScore } from '../lib/api'
+import { Hat, createSession, getScore } from '../lib/dataService'
 import { useTimer } from '../hooks/useTimer'
 import { useChime } from '../hooks/useChime'
 import Timer from './Timer'

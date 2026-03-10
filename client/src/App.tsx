@@ -12,11 +12,14 @@ import Blog from './components/Blog'
 import BlogPost from './components/BlogPost'
 import ProtectedRoute from './components/ProtectedRoute'
 import { useAuth } from './hooks/useAuth'
+import { hasLocalData } from './lib/localStore'
 
 function HomePage() {
   const { user, loading } = useAuth()
   if (loading) return null
-  return user ? <HatRack /> : <LandingPage />
+  if (user) return <HatRack />
+  if (hasLocalData()) return <HatRack />
+  return <LandingPage />
 }
 
 export default function App() {
@@ -35,7 +38,7 @@ export default function App() {
         <Route
           path="/settings"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute requireAuth>
               <Settings />
             </ProtectedRoute>
           }

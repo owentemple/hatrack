@@ -2,14 +2,14 @@ import { Router, Request, Response } from 'express'
 import crypto from 'crypto'
 import bcrypt from 'bcryptjs'
 import prisma from '../db'
-import { signToken } from '../middleware/auth'
+import { signToken, authMiddleware, AuthRequest } from '../middleware/auth'
 import { sendPasswordResetEmail } from '../services/email'
 
 const router = Router()
 
 router.post('/signup', async (req: Request, res: Response) => {
   try {
-    const { email, password, name, template } = req.body
+    const { email, password, name } = req.body
     if (!email || !password || !name) {
       res.status(400).json({ error: 'Email, password, and name are required' })
       return
@@ -25,18 +25,6 @@ router.post('/signup', async (req: Request, res: Response) => {
     const user = await prisma.user.create({
       data: { email, password: hash, name },
     })
-
-    // Seed starter hats based on chosen template
-    const templateHats: Record<string, string[]> = {
-      songwriter: ['Writing', 'Reading', 'Listening', 'Performing'],
-      starter: ['Reading', 'Writing', 'Meditating'],
-    }
-    const hatNames = templateHats[template] || []
-    if (hatNames.length > 0) {
-      await prisma.hat.createMany({
-        data: hatNames.map((name) => ({ name, userId: user.id })),
-      })
-    }
 
     const token = signToken(user.id)
     res.status(201).json({ token, user: { id: user.id, email: user.email, name: user.name } })
@@ -134,6 +122,68 @@ router.post('/reset-password', async (req: Request, res: Response) => {
     res.json({ ok: true })
   } catch (err) {
     res.status(500).json({ error: 'Server error' })
+  }
+})
+
+router.post('/migrate', authMiddleware, async (req: AuthRequest, res: Response) => {
+  try {
+    const userId = req.userId!
+    const { hats, sessions } = req.body as {
+      hats: Array<{ name: string; done: boolean; doneAt: string | null; deletedAt: string | null }>
+      sessions: Array<{ hatName: string; durationSeconds: number; score: number; createdAt: string }>
+    }
+
+    // Create hats and build name-to-id mapping
+    const hatMap = new Map<string, number>()
+
+    if (hats && hats.length > 0) {
+      for (const h of hats) {
+        const created = await prisma.hat.create({
+          data: {
+            name: h.name,
+            done: h.done,
+            doneAt: h.doneAt ? new Date(h.doneAt) : null,
+            deletedAt: h.deletedAt ? new Date(h.deletedAt) : null,
+            userId,
+          },
+        })
+        hatMap.set(h.name, created.id)
+      }
+    }
+
+    // Create sessions linked to the new hat IDs
+    if (sessions && sessions.length > 0) {
+      for (const s of sessions) {
+        let hatId = hatMap.get(s.hatName)
+        // If hat was deleted and not in migration, create a soft-deleted placeholder
+        if (!hatId) {
+          const placeholder = await prisma.hat.create({
+            data: {
+              name: s.hatName,
+              done: false,
+              deletedAt: new Date(),
+              userId,
+            },
+          })
+          hatId = placeholder.id
+          hatMap.set(s.hatName, hatId)
+        }
+        await prisma.focusSession.create({
+          data: {
+            durationSeconds: s.durationSeconds,
+            score: s.score,
+            hatId,
+            userId,
+            createdAt: new Date(s.createdAt),
+          },
+        })
+      }
+    }
+
+    res.json({ ok: true })
+  } catch (err) {
+    console.error('Migration error:', err)
+    res.status(500).json({ error: 'Migration failed' })
   }
 })
 

@@ -1,8 +1,10 @@
 import { Outlet, Link } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
+import { hasLocalData } from '../lib/localStore'
 
 export default function Layout() {
   const { user, logout } = useAuth()
+  const anonymous = !user && hasLocalData()
 
   return (
     <>
@@ -15,6 +17,14 @@ export default function Layout() {
             <Link to="/about">About</Link>
             <span>{user.name}</span>
             <button onClick={logout}>Log out</button>
+          </>
+        ) : anonymous ? (
+          <>
+            <Link to="/">Hats</Link>
+            <Link to="/history">History</Link>
+            <Link to="/about">About</Link>
+            <Link to="/signup">Sign up</Link>
+            <Link to="/login">Log in</Link>
           </>
         ) : (
           <>

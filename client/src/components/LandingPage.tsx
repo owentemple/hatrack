@@ -1,22 +1,35 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { seedStarterHats } from '../lib/localStore'
 
 export default function LandingPage() {
+  const navigate = useNavigate()
+
+  function handleGetStarted() {
+    seedStarterHats()
+    navigate('/', { replace: true })
+    // Force re-render by reloading — HomePage will now see local data
+    window.location.reload()
+  }
+
   return (
     <div className="landing-page">
       <p className="landing-hook">
         Spend time on what matters — without overthinking where to start.
       </p>
 
-      <Link
-        to="/signup"
+      <button
         className="btn-primary"
-        style={{ display: 'block', textAlign: 'center', textDecoration: 'none', padding: '10px 20px', margin: '1.5rem 0' }}
+        onClick={handleGetStarted}
+        style={{ display: 'block', width: '100%', textAlign: 'center', padding: '10px 20px', margin: '1.5rem 0' }}
       >
         Get Started
-      </Link>
+      </button>
 
       <p className="switch-link">
         Already have an account? <Link to="/login">Log in</Link>
+      </p>
+      <p className="switch-link">
+        <Link to="/signup">Create an account</Link> to save across devices
       </p>
 
       <div className="landing-how">

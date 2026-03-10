@@ -42,6 +42,7 @@ if (process.env.NODE_ENV === 'production') {
         <p class="landing-hook">Spend time on what matters — without overthinking where to start.</p>
         <a href="/signup" class="btn-primary" style="display:block;text-align:center;text-decoration:none;padding:10px 20px;margin:1.5rem 0">Get Started</a>
         <p class="switch-link">Already have an account? <a href="/login">Log in</a></p>
+        <p class="switch-link"><a href="/signup">Create an account</a> to save across devices</p>
         <div class="landing-how">
           <h3>How it works</h3>
           <p>Add your activities to the rack.</p>

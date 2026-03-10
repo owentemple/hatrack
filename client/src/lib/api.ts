@@ -122,6 +122,17 @@ export function getScore() {
   return request<{ totalScore: number; todayScore: number; streak: number }>(`/sessions/score?tz=${tz}`)
 }
 
+// Migration
+export function migrateLocalData(
+  hats: Array<{ name: string; done: boolean; doneAt: string | null; deletedAt: string | null }>,
+  sessions: Array<{ hatName: string; durationSeconds: number; score: number; createdAt: string }>
+) {
+  return request<{ ok: boolean }>('/auth/migrate', {
+    method: 'POST',
+    body: JSON.stringify({ hats, sessions }),
+  })
+}
+
 // Beeminder settings
 export interface BeeminderSettings {
   connected: boolean
