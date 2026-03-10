@@ -37,6 +37,7 @@ export default function LandingPage() {
         <p>Add your activities to the rack.</p>
         <p>Start a session — HatRack picks one at random with a short timer.</p>
         <p>Finish and earn points. Then go again.</p>
+        <p style={{ marginTop: '1rem', opacity: 0.7 }}>Works on any device. Best in your pocket.</p>
       </div>
     </div>
   )
