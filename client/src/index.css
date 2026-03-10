@@ -647,6 +647,12 @@ hr {
   line-height: 2;
 }
 
+.apple-icon {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 2px;
+}
+
 /* Blog */
 .blog-page {
   max-width: 560px;
