@@ -18,9 +18,10 @@ export default function HatRack() {
   useEffect(() => {
     try {
       const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
       const dismissed = localStorage.getItem('hatrack-install-dismissed')
       const hasSession = localStorage.getItem('hatrack-has-session')
-      if (!isStandalone && !dismissed && hasSession) {
+      if (isMobile && !isStandalone && !dismissed && hasSession) {
         setShowInstallNudge(true)
       }
     } catch {}
@@ -107,8 +108,9 @@ export default function HatRack() {
         // Check if we should show install nudge after session
         try {
           const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
           const dismissed = localStorage.getItem('hatrack-install-dismissed')
-          if (!isStandalone && !dismissed && localStorage.getItem('hatrack-has-session')) {
+          if (isMobile && !isStandalone && !dismissed && localStorage.getItem('hatrack-has-session')) {
             setShowInstallNudge(true)
           }
         } catch {}
