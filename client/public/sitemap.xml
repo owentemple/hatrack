@@ -17,6 +17,10 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.hatrack.it/blog/you-have-twenty-minutes</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.hatrack.it/blog/building-habits-for-creative-work</loc>
     <priority>0.8</priority>
   </url>

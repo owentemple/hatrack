@@ -4,4 +4,5 @@ client/dist/
 *.log
 .DS_Store
 archives/
+product/
 CLAUDE.md

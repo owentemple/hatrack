@@ -79,12 +79,52 @@ if (process.env.NODE_ENV === 'production') {
       <div class="blog-page">
         <h2>Blog</h2>
         <div class="blog-list">
+          <a href="/blog/you-have-twenty-minutes" class="blog-card">
+            <h3>You Have Twenty Minutes. What Do You Work On?</h3>
+            <p class="blog-card-subtitle">Why the hardest part of doing what matters is deciding to start</p>
+            <span class="blog-card-date">March 10, 2026</span>
+          </a>
           <a href="/blog/building-habits-for-creative-work" class="blog-card">
             <h3>Building Habits for Creative Work</h3>
             <p class="blog-card-subtitle">Stop Choosing, Start Doing</p>
             <span class="blog-card-date">March 8, 2026</span>
           </a>
         </div>
+      </div>`),
+    '/blog/you-have-twenty-minutes': shell(publicNav, `
+      <div class="blog-page">
+        <a href="/blog" class="back-link">&larr; Back to Blog</a>
+        <article class="blog-article">
+          <h2>You Have Twenty Minutes. What Do You Work On?</h2>
+          <p class="blog-subtitle">Why the hardest part of doing what matters is deciding to start</p>
+          <p class="blog-date">March 10, 2026</p>
+          <div class="blog-body">
+            <p>You finally have a free window. Twenty minutes, maybe thirty. The kids are occupied or the meeting ended early or you just woke up before your alarm.</p>
+            <p>You could meditate. You could read that book that&rsquo;s been on your nightstand for three months. You could stretch. You could write. You could practice guitar.</p>
+            <p>By the time you&rsquo;ve weighed the options, ten minutes are gone and you&rsquo;re scrolling your phone.</p>
+            <p>This happens every time. Not because you&rsquo;re lazy &mdash; because you care about too many things equally. If you only had one thing, you&rsquo;d do it. But you have five, and choosing one means not choosing four, and that tiny negotiation is enough friction to stop you cold.</p>
+            <h3>The quiet things lose</h3>
+            <p>There&rsquo;s a version of this problem that productivity people love to talk about &mdash; urgent vs. important. The idea is simple: important things rarely feel urgent, and urgent things rarely matter much. Emails feel urgent. Meditating doesn&rsquo;t. Posting on social media feels urgent. Practicing your craft doesn&rsquo;t. So the urgent stuff wins every day, and the important stuff gets pushed to &ldquo;later.&rdquo;</p>
+            <p>But here&rsquo;s what they don&rsquo;t tell you: &ldquo;later&rdquo; isn&rsquo;t a time. It&rsquo;s a lie you tell yourself so you don&rsquo;t have to feel bad right now. Meditation is not the thing you do when everything else is done. Everything else is never done. If you wait for a clear schedule to do the things that matter, you will wait forever.</p>
+            <p>The cruelest part is that the things you keep deferring aren&rsquo;t small. They&rsquo;re the things that made you who you are. You started writing songs, then got busy promoting songs, and now you don&rsquo;t write anymore. You used to read for an hour a day, then life filled in around it, and now you read the back of shampoo bottles. These activities didn&rsquo;t stop being important. They just stopped being loud.</p>
+            <h3>The real problem isn&rsquo;t discipline</h3>
+            <p>When people can&rsquo;t start, they blame themselves. Not enough discipline. Not enough focus. Not enough willpower. So they download an app, build a system, buy a planner, write out a schedule.</p>
+            <p>Now they have a new problem: maintaining the system. Updating the planner. Reorganizing the schedule when Monday&rsquo;s plan falls apart by Tuesday. The system becomes its own urgent thing, crowding out the work it was supposed to protect.</p>
+            <p>You don&rsquo;t need a better system. You need fewer decisions.</p>
+            <h3>What if you didn&rsquo;t have to choose?</h3>
+            <p>Put everything you care about on a list. Don&rsquo;t prioritize it. Don&rsquo;t rank it. Don&rsquo;t assign days or time blocks. Just list the things that matter.</p>
+            <p>Now pick one at random.</p>
+            <p>Set a timer &mdash; not for an hour, not for a Pomodoro, just for some random number of minutes. Maybe it&rsquo;s four. Maybe it&rsquo;s nineteen. You don&rsquo;t know in advance, which means you can&rsquo;t dread it or negotiate with it.</p>
+            <p>Do that thing until the timer ends. Then stop.</p>
+            <p>That&rsquo;s it. No optimizing. No guilt about what you didn&rsquo;t pick &mdash; it&rsquo;ll come up next time. The randomness means nothing gets neglected over time. The short timer means you actually start. And starting is 90% of the battle, because the person who meditates for four minutes today is infinitely closer to their goal than the person who plans to meditate for thirty minutes tomorrow.</p>
+            <h3>Why randomness works</h3>
+            <p>It sounds too simple, maybe even frivolous. Drawing from a hat? That&rsquo;s a productivity strategy?</p>
+            <p>Yes. Because the bottleneck was never the work. The work is fine once you&rsquo;re doing it. The bottleneck was the moment before the work &mdash; that gap between &ldquo;I have time&rdquo; and &ldquo;I&rsquo;m doing something,&rdquo; where every option competes and nothing wins.</p>
+            <p>Randomness skips that moment entirely. There&rsquo;s nothing to decide, nothing to justify, nothing to feel guilty about. You just start.</p>
+            <p>And something surprising happens when you do this for a while: you stop thinking of these activities as things you <em>should</em> do and start thinking of them as things you <em>did</em> do. Today you read. Yesterday you meditated. The day before, you stretched. None of them got neglected. None of them required a heroic act of will. You just showed up and let the randomness handle the rest.</p>
+            <p><a href="https://www.hatrack.it/">HatRack</a> does exactly this. Add your activities, tap a button, and start. It&rsquo;s free.</p>
+          </div>
+        </article>
       </div>`),
     '/blog/building-habits-for-creative-work': shell(publicNav, `
       <div class="blog-page">
