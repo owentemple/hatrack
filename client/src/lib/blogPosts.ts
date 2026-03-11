@@ -165,6 +165,25 @@ export const blogPosts: BlogPost[] = [
 <p>An app to help you wear many hats, make a habit, and build a dream.</p>`,
   },
   {
+    slug: 'hatrack-in-your-pocket',
+    title: 'HatRack in Your Pocket',
+    subtitle: 'Taking the hatrack mobile',
+    date: '2016-06-28',
+    body: `<p>The first version of HatRack lived at hatrackapp.com &mdash; a set of HTML pages with jQuery and draggable tokens. It worked on a laptop. On a phone, it was unusable. The tokens were too small to drag. The images didn&rsquo;t scale. The timer was a link to someone else&rsquo;s website that opened in a popup window.</p>
+
+<p>But a phone is where you actually need a focus tool. Not at your desk with three monitors &mdash; you&rsquo;re already working there. It&rsquo;s the in-between moments. Waiting for an appointment. Sitting on the couch after dinner. Ten minutes before you have to leave. That&rsquo;s when you need something to say: here, do this, for this long. Go.</p>
+
+<p>So I rebuilt HatRack from scratch as a mobile-friendly single-page app and put it at m.hatrackapp.com. Mithril.js on the frontend, Node and Express on the backend, deployed to Heroku. The whole thing fits on a phone screen.</p>
+
+<p>The core idea didn&rsquo;t change &mdash; add your hats, start a focus session, wear one hat at a time. But the experience is completely different. Tap &ldquo;Focus Session&rdquo; and the app picks a random hat from your list and rolls a random number of minutes between 1 and 25. A countdown timer starts right on the screen, big enough to see from across the room. When it hits zero, you earn points and the app asks if you want to wear the same hat again or move on.</p>
+
+<p>No more dragging tokens. No more popup windows. No more switching tabs. You tap one button and you&rsquo;re working.</p>
+
+<p>The old version tried to do too much &mdash; daily, weekly, and monthly tiers, micro goals, draggable sliders, even a physical product you could order. The mobile version does one thing: pick a hat, start a timer, do the work. Turns out that&rsquo;s the whole app. Everything else was decoration.</p>
+
+<p>Your phone is already in your pocket. Now the hatrack is too.</p>`,
+  },
+  {
     slug: 'a-farmer-of-songs',
     title: 'A Farmer of Songs',
     subtitle: 'Why writing more songs is the best way to write better ones',

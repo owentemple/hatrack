@@ -37,6 +37,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.hatrack.it/blog/hatrack-in-your-pocket</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.hatrack.it/blog/a-farmer-of-songs</loc>
     <priority>0.8</priority>
   </url>
