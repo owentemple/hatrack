@@ -100,7 +100,7 @@ export default function HatRack() {
 
       {hats.length > 0 && hats.length <= 3 && !isLoggedIn && !localStorage.getItem('hatrack-starter-dismissed') && (
         <p style={{ color: '#999', fontSize: '0.8rem', margin: '0 0 4px' }}>
-          These are just starters — add your own, rename, or remove any hat.{' '}
+          These are just starters — add your own or remove any hat.{' '}
           <button className="link-button" style={{ fontSize: '0.8rem' }} onClick={() => {
             localStorage.setItem('hatrack-starter-dismissed', 'true')
             setHats([...hats]) // force re-render
