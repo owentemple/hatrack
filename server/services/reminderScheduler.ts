@@ -3,13 +3,13 @@ import { sendSms } from './twilio'
 
 const messages = [
   (streak: number) => streak >= 2
-    ? `${streak} days in a row. Keep it going — hatrack.it`
-    : 'Your hats are waiting. Tap to start — hatrack.it',
-  () => 'Got a few minutes? Pick a hat — hatrack.it',
-  () => 'Time to wear a hat. hatrack.it',
+    ? `${streak} days in a row. Keep it going — https://hatrack.it`
+    : 'Your hats are waiting. Tap to start — https://hatrack.it',
+  () => 'Got a few minutes? Pick a hat — https://hatrack.it',
+  () => 'Time to wear a hat. https://hatrack.it',
   (streak: number) => streak >= 2
-    ? `Day ${streak}. Don't break the chain — hatrack.it`
-    : 'Small sessions add up. Start one — hatrack.it',
+    ? `Day ${streak}. Don't break the chain — https://hatrack.it`
+    : 'Small sessions add up. Start one — https://hatrack.it',
 ]
 
 function pickMessage(userId: number, streak: number): string {
@@ -110,7 +110,7 @@ async function sendDueReminders() {
       if (sent >= 100) break
 
       const message = user.smsCustomMessage
-        ? `${user.smsCustomMessage} — hatrack.it`
+        ? `${user.smsCustomMessage} — https://hatrack.it`
         : pickMessage(user.id, await getStreak(user.id, tz))
       await sendSms(user.smsPhone!, message)
 
