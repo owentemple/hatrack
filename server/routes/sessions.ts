@@ -2,6 +2,7 @@ import { Router, Response } from 'express'
 import prisma from '../db'
 import { AuthRequest, authMiddleware } from '../middleware/auth'
 import { isBeeminderConfigured, sendDatapoint } from '../services/beeminder'
+import { computePreferredHour } from './settings'
 
 const router = Router()
 
@@ -25,6 +26,24 @@ router.post('/', async (req: AuthRequest, res: Response) => {
     },
   })
   res.status(201).json(session)
+
+  // Fire-and-forget: recalculate SMS reminder hour every 10 sessions
+  if (score > 0) {
+    prisma.focusSession.count({ where: { userId: req.userId!, score: { gt: 0 } } })
+      .then(async (count) => {
+        if (count % 10 === 0) {
+          const u = await prisma.user.findUnique({
+            where: { id: req.userId! },
+            select: { smsEnabled: true, smsTimezone: true },
+          })
+          if (u?.smsEnabled && u.smsTimezone) {
+            const hour = await computePreferredHour(req.userId!, u.smsTimezone)
+            await prisma.user.update({ where: { id: req.userId! }, data: { smsReminderHour: hour } })
+          }
+        }
+      })
+      .catch(err => console.error('SMS hour recalc failed:', err.message))
+  }
 
   // Fire-and-forget: send score to Beeminder if configured
   if (score > 0) {

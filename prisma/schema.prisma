@@ -15,6 +15,12 @@ model User {
   beeminderUsername   String?
   beeminderAuthToken String?
   beeminderGoalSlug  String?
+  smsPhone           String?
+  smsEnabled         Boolean        @default(false)
+  smsOptedOutAt      DateTime?
+  smsTimezone        String?
+  smsReminderHour    Int?
+  smsLastSentAt      DateTime?
   hats               Hat[]
   sessions           FocusSession[]
   passwordResets     PasswordReset[]

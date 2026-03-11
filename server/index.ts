@@ -5,9 +5,12 @@ import authRoutes from './routes/auth'
 import hatRoutes from './routes/hats'
 import sessionRoutes from './routes/sessions'
 import settingsRoutes from './routes/settings'
+import smsWebhookRoutes from './routes/smsWebhook'
 
 const app = express()
 
+// Twilio sends form-encoded data
+app.use('/api/webhooks', express.urlencoded({ extended: false }))
 app.use(express.json())
 
 // API routes
@@ -15,6 +18,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/hats', hatRoutes)
 app.use('/api/sessions', sessionRoutes)
 app.use('/api/settings', settingsRoutes)
+app.use('/api/webhooks', smsWebhookRoutes)
 
 // In production, serve the built client
 if (process.env.NODE_ENV === 'production') {
@@ -169,6 +173,10 @@ if (process.env.NODE_ENV === 'production') {
 const port = process.env.PORT || 4000
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`)
+
+  if (process.env.SMS_REMINDERS_ENABLED === 'true') {
+    import('./services/reminderScheduler').then(m => m.startReminderScheduler())
+  }
 })
 
 export default app

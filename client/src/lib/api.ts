@@ -154,3 +154,27 @@ export function saveBeeminderSettings(username: string, authToken: string, goalS
 export function disconnectBeeminder() {
   return request<{ connected: false }>('/settings/beeminder', { method: 'DELETE' })
 }
+
+// SMS settings
+export interface SmsSettings {
+  enabled: boolean
+  phone: string | null
+  timezone: string | null
+  reminderHour: number | null
+  optedOut: boolean
+}
+
+export function getSmsSettings() {
+  return request<SmsSettings>('/settings/sms')
+}
+
+export function saveSmsSettings(phone: string, timezone: string) {
+  return request<SmsSettings>('/settings/sms', {
+    method: 'PUT',
+    body: JSON.stringify({ phone, timezone }),
+  })
+}
+
+export function disconnectSms() {
+  return request<{ enabled: false }>('/settings/sms', { method: 'DELETE' })
+}

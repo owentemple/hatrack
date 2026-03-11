@@ -14,15 +14,34 @@ export default function Settings() {
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
 
+  // SMS state
+  const [smsEnabled, setSmsEnabled] = useState(false)
+  const [smsPhone, setSmsPhone] = useState<string | null>(null)
+  const [smsTimezone, setSmsTimezone] = useState<string | null>(null)
+  const [smsReminderHour, setSmsReminderHour] = useState<number | null>(null)
+  const [smsOptedOut, setSmsOptedOut] = useState(false)
+  const [smsPhoneInput, setSmsPhoneInput] = useState('')
+  const [showSmsForm, setShowSmsForm] = useState(false)
+  const [smsError, setSmsError] = useState('')
+  const [smsSuccess, setSmsSuccess] = useState('')
+
   useEffect(() => {
-    api.getBeeminderSettings().then((settings) => {
-      setConnected(settings.connected)
-      if (settings.connected) {
-        setConnectedUsername(settings.username || '')
-        setConnectedGoalSlug(settings.goalSlug || '')
-      }
-      setLoading(false)
-    }).catch(() => setLoading(false))
+    Promise.all([
+      api.getBeeminderSettings().then((settings) => {
+        setConnected(settings.connected)
+        if (settings.connected) {
+          setConnectedUsername(settings.username || '')
+          setConnectedGoalSlug(settings.goalSlug || '')
+        }
+      }),
+      api.getSmsSettings().then((sms) => {
+        setSmsEnabled(sms.enabled)
+        setSmsPhone(sms.phone)
+        setSmsTimezone(sms.timezone)
+        setSmsReminderHour(sms.reminderHour)
+        setSmsOptedOut(sms.optedOut)
+      }),
+    ]).finally(() => setLoading(false))
   }, [])
 
   async function handleSave(e: FormEvent) {
@@ -67,6 +86,55 @@ export default function Settings() {
       <h2>Settings</h2>
 
       <InstallInstructions />
+
+      <SmsSection
+        enabled={smsEnabled}
+        phone={smsPhone}
+        timezone={smsTimezone}
+        reminderHour={smsReminderHour}
+        optedOut={smsOptedOut}
+        phoneInput={smsPhoneInput}
+        showForm={showSmsForm}
+        error={smsError}
+        success={smsSuccess}
+        onPhoneInputChange={setSmsPhoneInput}
+        onShowForm={() => setShowSmsForm(true)}
+        onSave={async (e: FormEvent) => {
+          e.preventDefault()
+          setSmsError('')
+          setSmsSuccess('')
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
+          try {
+            const result = await api.saveSmsSettings(smsPhoneInput, tz)
+            setSmsEnabled(result.enabled)
+            setSmsPhone(result.phone)
+            setSmsTimezone(result.timezone)
+            setSmsReminderHour(result.reminderHour)
+            setSmsOptedOut(result.optedOut)
+            setSmsPhoneInput('')
+            setShowSmsForm(false)
+            setSmsSuccess('SMS reminders enabled! Check your phone for a confirmation text.')
+          } catch (err: unknown) {
+            setSmsError(err instanceof Error ? err.message : 'Failed to save')
+          }
+        }}
+        onDisable={async () => {
+          setSmsError('')
+          setSmsSuccess('')
+          try {
+            await api.disconnectSms()
+            setSmsEnabled(false)
+            setSmsPhone(null)
+            setSmsTimezone(null)
+            setSmsReminderHour(null)
+            setShowSmsForm(false)
+            setSmsSuccess('SMS reminders disabled.')
+          } catch (err: unknown) {
+            setSmsError(err instanceof Error ? err.message : 'Failed to disable')
+          }
+        }}
+        onCancel={() => { setShowSmsForm(false); setSmsPhoneInput('') }}
+      />
 
       <div className="settings-section" style={{ marginTop: '2rem' }}>
         <h3>Beeminder</h3>
@@ -134,6 +202,79 @@ export default function Settings() {
           </form>
         )}
       </div>
+    </div>
+  )
+}
+
+function formatHour(hour: number): string {
+  if (hour === 0) return '12 AM'
+  if (hour === 12) return '12 PM'
+  return hour > 12 ? `${hour - 12} PM` : `${hour} AM`
+}
+
+function SmsSection({ enabled, phone, timezone, reminderHour, optedOut, phoneInput, showForm, error, success, onPhoneInputChange, onShowForm, onSave, onDisable, onCancel }: {
+  enabled: boolean
+  phone: string | null
+  timezone: string | null
+  reminderHour: number | null
+  optedOut: boolean
+  phoneInput: string
+  showForm: boolean
+  error: string
+  success: string
+  onPhoneInputChange: (v: string) => void
+  onShowForm: () => void
+  onSave: (e: FormEvent) => void
+  onDisable: () => void
+  onCancel: () => void
+}) {
+  return (
+    <div className="settings-section" style={{ marginTop: '2rem' }}>
+      <h3>SMS Reminders</h3>
+      <p style={{ color: '#666', fontSize: '0.9rem', margin: '0.25rem 0 1rem' }}>
+        Get a daily text message reminder to start a focus session, timed to when you usually use HatRack.
+      </p>
+      {error && <p className="error-message">{error}</p>}
+      {success && <p className="success-message">{success}</p>}
+
+      {optedOut ? (
+        <p style={{ color: '#999', fontSize: '0.9rem' }}>
+          You opted out via STOP. Text START to the HatRack number to re-enable.
+        </p>
+      ) : enabled ? (
+        <div className="beeminder-status">
+          <p>Sending to <strong>{phone}</strong></p>
+          {reminderHour !== null && (
+            <p className="beeminder-hint">Daily reminder around {formatHour(reminderHour)} ({timezone})</p>
+          )}
+          <button className="btn-danger" onClick={onDisable}>Disable</button>
+        </div>
+      ) : !showForm ? (
+        <button className="btn-secondary" onClick={onShowForm}>Enable SMS Reminders</button>
+      ) : (
+        <form className="auth-form" onSubmit={onSave}>
+          <div className="form-group">
+            <input
+              type="tel"
+              inputMode="tel"
+              placeholder="Phone number"
+              value={phoneInput}
+              onChange={(e) => onPhoneInputChange(e.target.value)}
+              required
+            />
+            <p style={{ fontSize: '0.75rem', color: '#999', margin: '0.25rem 0 0' }}>
+              US numbers only. Standard message rates apply.
+            </p>
+          </div>
+          <p style={{ fontSize: '0.8rem', color: '#666', margin: '0 0 0.75rem' }}>
+            Timezone: {Intl.DateTimeFormat().resolvedOptions().timeZone}
+          </p>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <button type="submit" className="btn-primary">Enable</button>
+            <button type="button" className="btn-secondary" onClick={onCancel}>Cancel</button>
+          </div>
+        </form>
+      )}
     </div>
   )
 }
