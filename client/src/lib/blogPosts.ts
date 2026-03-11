@@ -175,6 +175,8 @@ export const blogPosts: BlogPost[] = [
 
 <p>So I rebuilt HatRack from scratch as a mobile-friendly single-page app and put it at m.hatrackapp.com. Mithril.js on the frontend, Node and Express on the backend, deployed to Heroku. The whole thing fits on a phone screen.</p>
 
+<p><img src="/assets/m-hatrackapp-2016.jpg" alt="HatRack mobile app at m.hatrackapp.com, 2016" style="max-width:100%;border-radius:8px;margin:1rem 0" /></p>
+
 <p>The core idea didn&rsquo;t change &mdash; add your hats, start a focus session, wear one hat at a time. But the experience is completely different. Tap &ldquo;Focus Session&rdquo; and the app picks a random hat from your list and rolls a random number of minutes between 1 and 25. A countdown timer starts right on the screen, big enough to see from across the room. When it hits zero, you earn points and the app asks if you want to wear the same hat again or move on.</p>
 
 <p>No more dragging tokens. No more popup windows. No more switching tabs. You tap one button and you&rsquo;re working.</p>
