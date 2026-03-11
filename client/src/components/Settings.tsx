@@ -295,13 +295,22 @@ function SmsSection({ enabled, phone, timezone, reminderHour, frequency, customM
           </div>
           <div className="form-group">
             <label style={{ fontSize: '0.85rem', color: '#666', display: 'block', marginBottom: '0.25rem' }}>How often?</label>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <div style={{ display: 'flex', gap: '0', border: '1px solid #ccc', borderRadius: '6px', overflow: 'hidden' }}>
               {(['daily', 'weekly', 'monthly'] as const).map((f) => (
                 <button
                   key={f}
                   type="button"
-                  className={frequencyInput === f ? 'btn-primary' : 'btn-secondary'}
-                  style={{ flex: 1, padding: '0.4rem 0', fontSize: '0.85rem' }}
+                  style={{
+                    flex: 1,
+                    padding: '0.35rem 0',
+                    fontSize: '0.8rem',
+                    border: 'none',
+                    borderRight: f !== 'monthly' ? '1px solid #ccc' : 'none',
+                    background: frequencyInput === f ? '#337ab7' : '#fff',
+                    color: frequencyInput === f ? '#fff' : '#666',
+                    cursor: 'pointer',
+                    fontWeight: frequencyInput === f ? 600 : 400,
+                  }}
                   onClick={() => onFrequencyInputChange(f)}
                 >
                   {f.charAt(0).toUpperCase() + f.slice(1)}
