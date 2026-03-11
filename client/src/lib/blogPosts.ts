@@ -164,6 +164,39 @@ export const blogPosts: BlogPost[] = [
 
 <p>An app to help you wear many hats, make a habit, and build a dream.</p>`,
   },
+  {
+    slug: 'a-farmer-of-songs',
+    title: 'A Farmer of Songs',
+    subtitle: 'Why writing more songs is the best way to write better ones',
+    date: '2015-11-01',
+    body: `<p>Gordy Quist and I just published a book called <a href="https://www.amazon.com/Songfarmer-Writing-More-Better-Songs/dp/0990420205/" target="_blank" rel="noopener noreferrer">Songfarmer: Writing More and Better Songs</a>. It started as notes from a songwriting workshop we hosted in 2014, and it became a short book about the habits and processes that keep a songwriter moving forward.</p>
+
+<p>The core idea is this: a farmer doesn&rsquo;t walk outside one day and expect crops to burst from the ground. A farmer prepares the soil, plants seeds, tends them daily, and waits. A songwriter works the same way. You collect seeds &mdash; ideas for songs &mdash; and you improve your soil &mdash; the skills, knowledge, and memories in your brain &mdash; through daily habits. Then you grow songs from those seeds in composing sessions, watering them with a stream-of-consciousness writing mode we call FLOW, and pruning them with an evaluative mode we call EDIT.</p>
+
+<p>The important thing is to keep FLOW and EDIT separate. When you try to create and critique at the same time, the result is often &ldquo;getting stuck&rdquo; or writer&rsquo;s block. You can&rsquo;t feel free to make unexpected connections when the judging, critical side of your mind is watching with scrutiny. One of the biggest skills a songwriter can develop is a conscious separation of those two modes.</p>
+
+<p>But before you even sit down to compose, there are four habits that feed the process:</p>
+
+<p>I. Writing &mdash; noting ideas as they come, journaling, freewriting, singing voice memos</p>
+
+<p>II. Listening &mdash; paying real attention to songs, new and familiar</p>
+
+<p>III. Performing &mdash; sitting down with your instrument, learning a new chord or tuning, playing something you know</p>
+
+<p>IV. Reading &mdash; fiction, poetry, theater, spiritual texts, or just listening closely to how people talk</p>
+
+<p>Listening and reading are inputs. Writing and performing are outputs. All four enrich the soil.</p>
+
+<p>We borrowed Stephen Guise&rsquo;s &ldquo;stupid small&rdquo; idea from his book Mini Habits and set daily targets so low they&rsquo;re almost embarrassing: free write 50 words, listen to 1 song, play 1 chord on your instrument, read 2 pages of fiction or poetry. That&rsquo;s it. Every day, at varying times, before going to sleep.</p>
+
+<p>You might say that&rsquo;s not enough to make you a songwriter. Maybe. But remember that these four components happen every day, 365 days a year, and that the Grand Canyon was formed by many small drops of water over time. Some days you do far more than the minimum &mdash; you write 500 words, listen to 13 songs, play 50 chords, read 100 pages. The mini habit just gets you started. Starting is the hard part.</p>
+
+<p>There&rsquo;s a concept in the book we call the Rule of Nine, from John Vorhaus&rsquo;s <a href="https://www.amazon.com/Comic-Toolbox-Funny-Even-Youre/dp/1879505215" target="_blank" rel="noopener noreferrer">The Comic Toolbox</a>: for every ten ideas you produce, one will be very good. That means nine won&rsquo;t be. The Rule of Nine gives you permission to keep going when what you just made isn&rsquo;t amazing, because it turns out you have to make songs regularly and relentlessly to get the good stuff. One of our favorite mantras comes from University of Texas baseball coach Augie Garrido: &ldquo;Do your best, fail, and do your best again.&rdquo;</p>
+
+<p>Deciding to write songs is an act of courage. You are deciding to devote a portion of your time, attention, and problem-solving power to a recurring process of creation. You are deciding not to only consume but to produce. Your life has never been lived before. You are an original. Only you can write the songs that emerge from your hours, days, weeks, and years.</p>
+
+<p>That&rsquo;s what Songfarmer is about. And it&rsquo;s why I built <a href="https://www.hatrack.it/">HatRack</a> &mdash; to put those four habits on a rack and cycle through them daily without the friction of deciding which one to do next. The book gives you the philosophy. The hatrack gives you the push.</p>`,
+  },
 ]
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
