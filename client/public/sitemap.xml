@@ -25,6 +25,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.hatrack.it/blog/the-hats-you-wear</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hatrack.it/blog/fifty-words-one-song-one-chord-two-pages</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hatrack.it/blog/wear-many-hats-make-a-habit</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.hatrack.it/login</loc>
     <priority>0.5</priority>
   </url>

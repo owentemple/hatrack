@@ -95,6 +95,21 @@ if (process.env.NODE_ENV === 'production') {
             <p class="blog-card-subtitle">Stop Choosing, Start Doing</p>
             <span class="blog-card-date">March 8, 2026</span>
           </a>
+          <a href="/blog/the-hats-you-wear" class="blog-card">
+            <h3>The Hats You Wear</h3>
+            <p class="blog-card-subtitle">Why recurring activities need a different kind of tool</p>
+            <span class="blog-card-date">July 7, 2016</span>
+          </a>
+          <a href="/blog/fifty-words-one-song-one-chord-two-pages" class="blog-card">
+            <h3>Fifty Words, One Song, One Chord, Two Pages</h3>
+            <p class="blog-card-subtitle">The case for making your goals embarrassingly small</p>
+            <span class="blog-card-date">January 9, 2016</span>
+          </a>
+          <a href="/blog/wear-many-hats-make-a-habit" class="blog-card">
+            <h3>Wear Many Hats, Make a Habit, Build a Dream</h3>
+            <p class="blog-card-subtitle">How a songwriter&rsquo;s problem became a productivity app</p>
+            <span class="blog-card-date">September 8, 2015</span>
+          </a>
         </div>
       </div>`),
     '/blog/you-have-twenty-minutes': shell(publicNav, `
@@ -150,11 +165,71 @@ if (process.env.NODE_ENV === 'production') {
             <p>Maybe a hat is a role you step into. You put on the writing hat and you&rsquo;re a writer &mdash; not someone thinking about writing. You put on the listening hat and you&rsquo;re a listener. The app picks the hat, you wear it until the bell rings.</p>
             <p>You earn points equal to the minutes you complete &mdash; a small scoreboard that adds up through the day. It saves a history too &mdash; a record of daily victories against distraction and sloth. It scratches that same itch as a video game without requiring you to do anything other than the work you already wanted to do. The points aren&rsquo;t the point. The points are just enough to make the elephant want to walk that path again tomorrow.</p>
             <p>There&rsquo;s a mini mode for the days when you can&rsquo;t imagine sitting with anything for 25 minutes. Mini mode rolls 1 to 5 minutes. That&rsquo;s it. Five minutes of writing. Three minutes of listening. It&rsquo;s Guise&rsquo;s &ldquo;stupid small&rdquo; idea with a random timer strapped to it. And the thing about stupid small is that it compounds. The Grand Canyon wasn&rsquo;t carved in an afternoon.</p>
-            <p>I originally built HatRack in July 2015 at hatrackapp.com &mdash; for cycling through those four songwriting habits without burning out on any one of them. It&rsquo;s been rebuilt and expanded over the years, but the core concept hasn&rsquo;t changed: pick a hat, start a timer, do the work. And it turns out the hat rack holds all kinds of hats. Meditating. Exercising. Studying. Drawing. Anything where showing up daily matters more than showing up perfectly.</p>
+            <p>I originally built HatRack in July 2015 at hatrackapp.com &mdash; for cycling through those four songwriting habits without burning out on any one of them. It&rsquo;s been rebuilt and expanded over the years, but the core concept hasn&rsquo;t changed: pick a hat, start a timer, do the work. And it turns out the hatrack holds all kinds of hats. Meditating. Exercising. Studying. Drawing. Anything where showing up daily matters more than showing up perfectly.</p>
             <p>If you&rsquo;re a songwriter, I&rsquo;d suggest starting with four hats: Writing, Reading, Listening, Performing. Those are the fundamentals. You can get more specific as you go.</p>
             <p>If you&rsquo;re someone who wants to mix creative work with meditation or exercise, throw those on the rack too. The app doesn&rsquo;t care what the hats are. It just picks one and starts the clock.</p>
-            <p>You can set up your own hat rack at <a href="/signup">hatrack.it</a>. It&rsquo;s free. Sign up, add your hats, and see what happens when you stop choosing and start doing.</p>
+            <p>You can set up your own hatrack at <a href="/signup">hatrack.it</a>. It&rsquo;s free. Sign up, add your hats, and see what happens when you stop choosing and start doing.</p>
             <p>Sometimes the elephant just needs someone to point at the path.</p>
+          </div>
+        </article>
+      </div>`),
+    '/blog/the-hats-you-wear': shell(publicNav, `
+      <div class="blog-page">
+        <a href="/blog" class="back-link">&larr; Back to Blog</a>
+        <article class="blog-article">
+          <h2>The Hats You Wear</h2>
+          <p class="blog-subtitle">Why recurring activities need a different kind of tool</p>
+          <p class="blog-date">July 7, 2016</p>
+          <div class="blog-body">
+            <p>For most of us, life and work require wearing multiple hats. There are multiple roles or task categories we need to perform on a daily basis.</p>
+            <p>Some jobs require Selling, Preparing Estimates, Providing Technical Support, and Expense Reporting. Other jobs require Writing, Shipping, Booking, and Reading. Think about the activities that should happen on a daily basis in your life &mdash; the hats you need to wear &mdash; to keep your life going smoothly.</p>
+            <p>These recurring activities usually end in &ldquo;-ing.&rdquo; Emailing. Designing. Composing. Performing. Networking. They&rsquo;re not one-time tasks with a finish line. They&rsquo;re ongoing practices &mdash; things that need your attention regularly, not perfectly.</p>
+            <p>That&rsquo;s what makes them hard to manage. A task has a deadline. A hat doesn&rsquo;t. Nobody sends you a reminder that you haven&rsquo;t practiced guitar in two weeks. Nobody puts &ldquo;read for pleasure&rdquo; on your calendar. These activities fall through the cracks not because they&rsquo;re unimportant, but because they&rsquo;re never urgent.</p>
+            <p>HatRack is built for exactly this. You add your hats to the rack &mdash; whatever they are, however many you have. When you&rsquo;re ready to focus, you click one button. A random hat is selected. A random timer between 1 and 25 minutes rolls. And you work on that activity until the timer ends.</p>
+            <p>You don&rsquo;t decide what to work on. You don&rsquo;t decide how long. You just start. And when you&rsquo;re done, the hat goes back on the rack, ready for next time.</p>
+            <p>Every hat gets its turn. Nothing gets neglected. And you stop spending your limited energy on the meta-work of choosing, scheduling, and prioritizing &mdash; so you can spend it on the work itself.</p>
+          </div>
+        </article>
+      </div>`),
+    '/blog/fifty-words-one-song-one-chord-two-pages': shell(publicNav, `
+      <div class="blog-page">
+        <a href="/blog" class="back-link">&larr; Back to Blog</a>
+        <article class="blog-article">
+          <h2>Fifty Words, One Song, One Chord, Two Pages</h2>
+          <p class="blog-subtitle">The case for making your goals embarrassingly small</p>
+          <p class="blog-date">January 9, 2016</p>
+          <div class="blog-body">
+            <p>When I set up my first HatRack, I made each micro goal embarrassingly small.</p>
+            <p>Writing: 50 words. Not a polished paragraph. Not a finished verse. Just 50 words of something &mdash; freewriting, stream of consciousness, whatever comes.</p>
+            <p>Listening: 1 song. Not an album. Not a curated playlist. One song, with actual attention.</p>
+            <p>Performing: 1 chord. Not a full practice session. Not running scales for an hour. One chord progression. Play it and you&rsquo;re done.</p>
+            <p>Reading: 2 pages. Not a chapter. Two pages.</p>
+            <p>Coding: 3 lines. Three.</p>
+            <p>These aren&rsquo;t goals that inspire motivational posters. They&rsquo;re goals that actually happen. That&rsquo;s the whole point.</p>
+            <p>Stephen Guise calls this &ldquo;stupid small&rdquo; &mdash; making the target so easy that it feels ridiculous not to do it. The trick is that nobody writes exactly 50 words and stops. You write 50, and then you write 200 because you&rsquo;re already going. You read 2 pages and suddenly you&rsquo;ve read twelve. The micro goal isn&rsquo;t the ceiling. It&rsquo;s the doorway.</p>
+            <p>The original HatRack had tokens you could drag across a slider &mdash; five positions from left to right. Slot one meant you hadn&rsquo;t started. Slot five meant you&rsquo;d blown past the micro goal. You could see your progress across every hat at a glance: some tokens at the start, some in the middle, some all the way to the right.</p>
+            <p>Weekly hats worked the same way but with bigger goals: compose a draft, write a joke, review a text, work through a page of music theory. Monthly hats zoomed out further: attend a networking meetup, prepare a lesson, write a blog post for fans.</p>
+            <p>The system had three tiers &mdash; daily, weekly, and monthly &mdash; because some hats you wear every day and some you only need once a month. But they all got the same treatment: define the smallest possible step, then take it.</p>
+            <p>The micro goals have changed over the years. The principle hasn&rsquo;t. Make it small enough that you can&rsquo;t say no.</p>
+          </div>
+        </article>
+      </div>`),
+    '/blog/wear-many-hats-make-a-habit': shell(publicNav, `
+      <div class="blog-page">
+        <a href="/blog" class="back-link">&larr; Back to Blog</a>
+        <article class="blog-article">
+          <h2>Wear Many Hats, Make a Habit, Build a Dream</h2>
+          <p class="blog-subtitle">How a songwriter&rsquo;s problem became a productivity app</p>
+          <p class="blog-date">September 8, 2015</p>
+          <div class="blog-body">
+            <p>I built HatRack because I couldn&rsquo;t stop dropping hats.</p>
+            <p>I&rsquo;m a songwriter, which means I need to write, read, listen, and perform &mdash; every day, if I&rsquo;m serious about it. But every day I&rsquo;d sit down, stare at all four, and do none of them. Not because I didn&rsquo;t care. Because I cared about all of them equally, and choosing felt impossible.</p>
+            <p>So I built a hatrack. A literal one, at first &mdash; tokens you could slide along a track to mark progress. One tier for daily habits, one for weekly, one for monthly. You&rsquo;d define a micro goal for each activity: write 50 words, listen to 1 song, play 1 chord, read 2 pages. Stupid small on purpose. Then you&rsquo;d move the token when you did the thing.</p>
+            <p>The name might have also come from the idea of building an app to habit-track &mdash; but it was the image of all those hats, hanging on a rack and waiting to be worn, that stuck.</p>
+            <p>The digital version does the same thing, plus something the physical one couldn&rsquo;t: it picks a hat at random and rolls a timer for you. Click the button, and HatRack assigns you a focus session &mdash; a random activity for a random number of minutes. No choosing. No negotiating with yourself. Just start.</p>
+            <p>The idea is simple. Most of us wear many hats. We have multiple roles, multiple projects, multiple things that matter. And most productivity tools assume you have one goal. HatRack assumes you have several, and that the hardest part isn&rsquo;t the work &mdash; it&rsquo;s deciding which work to do right now.</p>
+            <p>So you don&rsquo;t decide. The hatrack decides for you. You just wear the hat.</p>
+            <p>An app to help you wear many hats, make a habit, and build a dream.</p>
           </div>
         </article>
       </div>`),
