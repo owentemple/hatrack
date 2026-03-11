@@ -286,6 +286,35 @@ button {
   color: #444;
 }
 
+/* Suggestion chips */
+.suggestion-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.suggestion-chip {
+  padding: 6px 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background: #fff;
+  font-size: 0.85rem;
+  color: #444;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.suggestion-chip:hover {
+  border-color: #999;
+}
+
+.suggestion-chip--selected {
+  background: #337ab7;
+  color: #fff;
+  border-color: #337ab7;
+}
+
 /* Nav */
 .nav-bar {
   display: flex;

@@ -6,6 +6,11 @@ import { getSessionCount } from '../lib/localStore'
 import HatItem from './HatItem'
 import FocusSession from './FocusSession'
 
+const SUGGESTED_HATS = [
+  'Exercising', 'Stretching', 'Practicing music', 'Journaling',
+  'Learning a language', 'Yoga', 'Drawing', 'Cleaning',
+]
+
 export default function HatRack() {
   const [hats, setHats] = useState<Hat[]>([])
   const [newHat, setNewHat] = useState('')
@@ -16,6 +21,8 @@ export default function HatRack() {
   })
   const [showInstallNudge, setShowInstallNudge] = useState(false)
   const [showSignupNudge, setShowSignupNudge] = useState(false)
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const [selectedSuggestions, setSelectedSuggestions] = useState<Set<string>>(new Set())
   const isLoggedIn = !!localStorage.getItem('token')
 
   // Show install nudge after first session if not already in standalone mode
@@ -52,6 +59,44 @@ export default function HatRack() {
         setShowSignupNudge(true)
       }
     } catch {}
+  }
+
+  function checkSuggestions() {
+    try {
+      const dismissed = localStorage.getItem('hatrack-suggestions-dismissed')
+      if (dismissed) return
+      // Show after first completed session, only if user still has ≤3 hats
+      const hasSession = localStorage.getItem('hatrack-has-session')
+      if (hasSession && hats.length <= 3) {
+        setShowSuggestions(true)
+      }
+    } catch {}
+  }
+
+  function toggleSuggestion(name: string) {
+    setSelectedSuggestions(prev => {
+      const next = new Set(prev)
+      if (next.has(name)) next.delete(name)
+      else next.add(name)
+      return next
+    })
+  }
+
+  async function addSelectedSuggestions() {
+    for (const name of selectedSuggestions) {
+      try {
+        const hat = await ds.createHat(name)
+        setHats(prev => [...prev, hat])
+      } catch {}
+    }
+    setShowSuggestions(false)
+    setSelectedSuggestions(new Set())
+    try { localStorage.setItem('hatrack-suggestions-dismissed', 'true') } catch {}
+  }
+
+  function dismissSuggestions() {
+    setShowSuggestions(false)
+    try { localStorage.setItem('hatrack-suggestions-dismissed', 'true') } catch {}
   }
 
   async function handleAdd(e: FormEvent) {
@@ -129,6 +174,7 @@ export default function HatRack() {
       <FocusSession hats={hats} onSessionEnd={() => {
         loadHats()
         checkSignupNudge()
+        checkSuggestions()
         // Check if we should show install nudge after session
         try {
           const isStandalone = window.matchMedia('(display-mode: standalone)').matches
@@ -159,6 +205,34 @@ export default function HatRack() {
           <li>Complete the timer to earn points (1 point per minute)</li>
           <li>Check off a hat when you're done with it for the day</li>
         </ul>
+      )}
+
+      {showSuggestions && (
+        <div className="install-nudge">
+          <p style={{ fontWeight: 600, marginBottom: '10px' }}>What do you want to do more of?</p>
+          <div className="suggestion-chips">
+            {SUGGESTED_HATS
+              .filter(name => !hats.some(h => h.name.toLowerCase() === name.toLowerCase()))
+              .map(name => (
+                <button
+                  key={name}
+                  className={'suggestion-chip' + (selectedSuggestions.has(name) ? ' suggestion-chip--selected' : '')}
+                  onClick={() => toggleSuggestion(name)}
+                >
+                  {name}
+                </button>
+              ))}
+          </div>
+          {selectedSuggestions.size > 0 && (
+            <button className="btn-primary" style={{ marginTop: '12px', fontSize: '0.85rem', padding: '6px 16px' }} onClick={addSelectedSuggestions}>
+              Add selected
+            </button>
+          )}
+          <br />
+          <button className="link-button" onClick={dismissSuggestions}>
+            Dismiss
+          </button>
+        </div>
       )}
 
       {showSignupNudge && (
