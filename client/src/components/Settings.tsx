@@ -20,7 +20,11 @@ export default function Settings() {
   const [smsTimezone, setSmsTimezone] = useState<string | null>(null)
   const [smsReminderHour, setSmsReminderHour] = useState<number | null>(null)
   const [smsOptedOut, setSmsOptedOut] = useState(false)
+  const [smsFrequency, setSmsFrequency] = useState('daily')
+  const [smsCustomMessage, setSmsCustomMessage] = useState<string | null>(null)
   const [smsPhoneInput, setSmsPhoneInput] = useState('')
+  const [smsFrequencyInput, setSmsFrequencyInput] = useState('daily')
+  const [smsMessageInput, setSmsMessageInput] = useState('')
   const [showSmsForm, setShowSmsForm] = useState(false)
   const [smsError, setSmsError] = useState('')
   const [smsSuccess, setSmsSuccess] = useState('')
@@ -39,6 +43,8 @@ export default function Settings() {
         setSmsPhone(sms.phone)
         setSmsTimezone(sms.timezone)
         setSmsReminderHour(sms.reminderHour)
+        setSmsFrequency(sms.frequency || 'daily')
+        setSmsCustomMessage(sms.customMessage)
         setSmsOptedOut(sms.optedOut)
       }),
     ]).finally(() => setLoading(false))
@@ -92,12 +98,18 @@ export default function Settings() {
         phone={smsPhone}
         timezone={smsTimezone}
         reminderHour={smsReminderHour}
+        frequency={smsFrequency}
+        customMessage={smsCustomMessage}
         optedOut={smsOptedOut}
         phoneInput={smsPhoneInput}
+        frequencyInput={smsFrequencyInput}
+        messageInput={smsMessageInput}
         showForm={showSmsForm}
         error={smsError}
         success={smsSuccess}
         onPhoneInputChange={setSmsPhoneInput}
+        onFrequencyInputChange={setSmsFrequencyInput}
+        onMessageInputChange={setSmsMessageInput}
         onShowForm={() => setShowSmsForm(true)}
         onSave={async (e: FormEvent) => {
           e.preventDefault()
@@ -105,13 +117,16 @@ export default function Settings() {
           setSmsSuccess('')
           const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
           try {
-            const result = await api.saveSmsSettings(smsPhoneInput, tz)
+            const result = await api.saveSmsSettings(smsPhoneInput, tz, smsFrequencyInput, smsMessageInput)
             setSmsEnabled(result.enabled)
             setSmsPhone(result.phone)
             setSmsTimezone(result.timezone)
             setSmsReminderHour(result.reminderHour)
+            setSmsFrequency(result.frequency || 'daily')
+            setSmsCustomMessage(result.customMessage)
             setSmsOptedOut(result.optedOut)
             setSmsPhoneInput('')
+            setSmsMessageInput('')
             setShowSmsForm(false)
             setSmsSuccess('SMS reminders enabled! Check your phone for a confirmation text.')
           } catch (err: unknown) {
@@ -127,13 +142,14 @@ export default function Settings() {
             setSmsPhone(null)
             setSmsTimezone(null)
             setSmsReminderHour(null)
+            setSmsCustomMessage(null)
             setShowSmsForm(false)
             setSmsSuccess('SMS reminders disabled.')
           } catch (err: unknown) {
             setSmsError(err instanceof Error ? err.message : 'Failed to disable')
           }
         }}
-        onCancel={() => { setShowSmsForm(false); setSmsPhoneInput('') }}
+        onCancel={() => { setShowSmsForm(false); setSmsPhoneInput(''); setSmsFrequencyInput('daily'); setSmsMessageInput('') }}
       />
 
       <div className="settings-section" style={{ marginTop: '2rem' }}>
@@ -212,27 +228,35 @@ function formatHour(hour: number): string {
   return hour > 12 ? `${hour - 12} PM` : `${hour} AM`
 }
 
-function SmsSection({ enabled, phone, timezone, reminderHour, optedOut, phoneInput, showForm, error, success, onPhoneInputChange, onShowForm, onSave, onDisable, onCancel }: {
+function SmsSection({ enabled, phone, timezone, reminderHour, frequency, customMessage, optedOut, phoneInput, frequencyInput, messageInput, showForm, error, success, onPhoneInputChange, onFrequencyInputChange, onMessageInputChange, onShowForm, onSave, onDisable, onCancel }: {
   enabled: boolean
   phone: string | null
   timezone: string | null
   reminderHour: number | null
+  frequency: string
+  customMessage: string | null
   optedOut: boolean
   phoneInput: string
+  frequencyInput: string
+  messageInput: string
   showForm: boolean
   error: string
   success: string
   onPhoneInputChange: (v: string) => void
+  onFrequencyInputChange: (v: string) => void
+  onMessageInputChange: (v: string) => void
   onShowForm: () => void
   onSave: (e: FormEvent) => void
   onDisable: () => void
   onCancel: () => void
 }) {
+  const freqLabel = frequency === 'weekly' ? 'Weekly' : frequency === 'monthly' ? 'Monthly' : 'Daily'
+
   return (
     <div className="settings-section" style={{ marginTop: '2rem' }}>
       <h3>SMS Reminders</h3>
       <p style={{ color: '#666', fontSize: '0.9rem', margin: '0.25rem 0 1rem' }}>
-        Get a daily text message reminder to start a focus session, timed to when you usually use HatRack.
+        Get a text message reminder to start a focus session, timed to when you usually use HatRack.
       </p>
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">{success}</p>}
@@ -245,7 +269,10 @@ function SmsSection({ enabled, phone, timezone, reminderHour, optedOut, phoneInp
         <div className="beeminder-status">
           <p>Sending to <strong>{phone}</strong></p>
           {reminderHour !== null && (
-            <p className="beeminder-hint">Daily reminder around {formatHour(reminderHour)} ({timezone})</p>
+            <p className="beeminder-hint">{freqLabel} reminder around {formatHour(reminderHour)} ({timezone})</p>
+          )}
+          {customMessage && (
+            <p className="beeminder-hint" style={{ fontStyle: 'italic' }}>"{customMessage}"</p>
           )}
           <button className="btn-danger" onClick={onDisable}>Disable</button>
         </div>
@@ -265,6 +292,32 @@ function SmsSection({ enabled, phone, timezone, reminderHour, optedOut, phoneInp
             <p style={{ fontSize: '0.75rem', color: '#999', margin: '0.25rem 0 0' }}>
               US numbers only. Standard message rates apply.
             </p>
+          </div>
+          <div className="form-group">
+            <label style={{ fontSize: '0.85rem', color: '#666', display: 'block', marginBottom: '0.25rem' }}>How often?</label>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              {(['daily', 'weekly', 'monthly'] as const).map((f) => (
+                <button
+                  key={f}
+                  type="button"
+                  className={frequencyInput === f ? 'btn-primary' : 'btn-secondary'}
+                  style={{ flex: 1, padding: '0.4rem 0', fontSize: '0.85rem' }}
+                  onClick={() => onFrequencyInputChange(f)}
+                >
+                  {f.charAt(0).toUpperCase() + f.slice(1)}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="form-group">
+            <label style={{ fontSize: '0.85rem', color: '#666', display: 'block', marginBottom: '0.25rem' }}>Write a message to future you (optional)</label>
+            <input
+              type="text"
+              placeholder="e.g. You always feel better after you start."
+              value={messageInput}
+              onChange={(e) => onMessageInputChange(e.target.value)}
+              maxLength={120}
+            />
           </div>
           <p style={{ fontSize: '0.8rem', color: '#666', margin: '0 0 0.75rem' }}>
             Timezone: {Intl.DateTimeFormat().resolvedOptions().timeZone}

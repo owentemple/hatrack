@@ -161,6 +161,8 @@ export interface SmsSettings {
   phone: string | null
   timezone: string | null
   reminderHour: number | null
+  frequency: string
+  customMessage: string | null
   optedOut: boolean
 }
 
@@ -168,10 +170,10 @@ export function getSmsSettings() {
   return request<SmsSettings>('/settings/sms')
 }
 
-export function saveSmsSettings(phone: string, timezone: string) {
+export function saveSmsSettings(phone: string, timezone: string, frequency: string, customMessage: string) {
   return request<SmsSettings>('/settings/sms', {
     method: 'PUT',
-    body: JSON.stringify({ phone, timezone }),
+    body: JSON.stringify({ phone, timezone, frequency, customMessage }),
   })
 }
 

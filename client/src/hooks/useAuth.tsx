@@ -72,6 +72,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   function logout() {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
+    localStorage.removeItem('hatrack-local-hats')
+    localStorage.removeItem('hatrack-local-sessions')
+    localStorage.removeItem('hatrack-local-next-id')
+    localStorage.removeItem('hatrack-started')
     deleteCookie('token')
     deleteCookie('user')
     setToken(null)

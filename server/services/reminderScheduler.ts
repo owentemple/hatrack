@@ -71,11 +71,19 @@ async function sendDueReminders() {
 
       if (localHour !== reminderHour) continue
 
-      // Check if already sent today
+      // Check frequency-based cooldown
       if (user.smsLastSentAt) {
-        const lastSentDay = new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(user.smsLastSentAt)
-        const todayDay = new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(now)
-        if (lastSentDay === todayDay) continue
+        const lastSent = user.smsLastSentAt.getTime()
+        const freq = user.smsFrequency || 'daily'
+        if (freq === 'daily') {
+          const lastSentDay = new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(user.smsLastSentAt)
+          const todayDay = new Intl.DateTimeFormat('en-CA', { timeZone: tz }).format(now)
+          if (lastSentDay === todayDay) continue
+        } else if (freq === 'weekly') {
+          if (now.getTime() - lastSent < 7 * 86400000) continue
+        } else if (freq === 'monthly') {
+          if (now.getTime() - lastSent < 30 * 86400000) continue
+        }
       }
 
       // Skip if user already has a session today
@@ -101,8 +109,9 @@ async function sendDueReminders() {
       // Safety cap
       if (sent >= 100) break
 
-      const streak = await getStreak(user.id, tz)
-      const message = pickMessage(user.id, streak)
+      const message = user.smsCustomMessage
+        ? `${user.smsCustomMessage} — hatrack.it`
+        : pickMessage(user.id, await getStreak(user.id, tz))
       await sendSms(user.smsPhone!, message)
 
       await prisma.user.update({

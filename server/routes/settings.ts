@@ -62,7 +62,7 @@ router.delete('/beeminder', async (req: AuthRequest, res: Response) => {
 router.get('/sms', async (req: AuthRequest, res: Response) => {
   const user = await prisma.user.findUnique({
     where: { id: req.userId! },
-    select: { smsPhone: true, smsEnabled: true, smsTimezone: true, smsReminderHour: true, smsOptedOutAt: true },
+    select: { smsPhone: true, smsEnabled: true, smsTimezone: true, smsReminderHour: true, smsOptedOutAt: true, smsFrequency: true, smsCustomMessage: true },
   })
 
   if (!user) {
@@ -75,17 +75,22 @@ router.get('/sms', async (req: AuthRequest, res: Response) => {
     phone: user.smsPhone ? `•••••••${user.smsPhone.slice(-4)}` : null,
     timezone: user.smsTimezone,
     reminderHour: user.smsReminderHour,
+    frequency: user.smsFrequency,
+    customMessage: user.smsCustomMessage,
     optedOut: !!user.smsOptedOutAt,
   })
 })
 
 router.put('/sms', async (req: AuthRequest, res: Response) => {
-  const { phone, timezone } = req.body
+  const { phone, timezone, frequency, customMessage } = req.body
 
   if (!phone || !timezone) {
     res.status(400).json({ error: 'phone and timezone are required' })
     return
   }
+
+  const validFrequencies = ['daily', 'weekly', 'monthly']
+  const freq = validFrequencies.includes(frequency) ? frequency : 'daily'
 
   const formatted = formatPhoneInput(phone)
   if (!formatted || !validateE164(formatted)) {
@@ -113,12 +118,15 @@ router.put('/sms', async (req: AuthRequest, res: Response) => {
       smsEnabled: true,
       smsTimezone: timezone,
       smsReminderHour: reminderHour,
+      smsFrequency: freq,
+      smsCustomMessage: customMessage?.trim()?.slice(0, 160) || null,
       smsOptedOutAt: null,
     },
   })
 
   // Send welcome SMS (fire-and-forget)
-  sendSms(formatted, 'HatRack: Reminders enabled! You\'ll get a daily nudge to start a focus session. Reply STOP to opt out.')
+  const freqLabel = freq === 'daily' ? 'daily' : freq === 'weekly' ? 'weekly' : 'monthly'
+  sendSms(formatted, `HatRack: ${freqLabel.charAt(0).toUpperCase() + freqLabel.slice(1)} reminders enabled! Reply STOP to opt out.`)
     .catch((err) => console.error('Welcome SMS failed:', err.message))
 
   res.json({
@@ -126,6 +134,8 @@ router.put('/sms', async (req: AuthRequest, res: Response) => {
     phone: `•••••••${formatted.slice(-4)}`,
     timezone,
     reminderHour,
+    frequency: freq,
+    customMessage: customMessage?.trim()?.slice(0, 160) || null,
     optedOut: false,
   })
 })

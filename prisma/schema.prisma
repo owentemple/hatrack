@@ -20,6 +20,8 @@ model User {
   smsOptedOutAt      DateTime?
   smsTimezone        String?
   smsReminderHour    Int?
+  smsFrequency       String         @default("daily")
+  smsCustomMessage   String?
   smsLastSentAt      DateTime?
   hats               Hat[]
   sessions           FocusSession[]
