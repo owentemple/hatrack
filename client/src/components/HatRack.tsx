@@ -84,15 +84,6 @@ export default function HatRack() {
     }
   }
 
-  async function handleRename(id: number, name: string) {
-    try {
-      const updated = await ds.updateHat(id, { name })
-      setHats((prev) => prev.map((h) => (h.id === id ? updated : h)))
-    } catch {
-      // handle error
-    }
-  }
-
   return (
     <div>
       <form className="hat-input-row" onSubmit={handleAdd}>
@@ -131,7 +122,6 @@ export default function HatRack() {
             hat={hat}
             onToggle={handleToggle}
             onDelete={handleDelete}
-            onRename={handleRename}
           />
         ))}
       </ul>

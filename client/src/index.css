@@ -84,20 +84,6 @@ body {
 .hat-name {
   flex: 1;
   text-align: left;
-  cursor: text;
-}
-
-.hat-name-edit {
-  flex: 1;
-  font-size: inherit;
-  font-family: inherit;
-  padding: 0;
-  border: none;
-  border-bottom: 1px solid #666;
-  background: transparent;
-  color: inherit;
-  outline: none;
-  text-align: left;
 }
 
 .hat-delete {
