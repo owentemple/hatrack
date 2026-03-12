@@ -143,18 +143,6 @@ export default function HatRack() {
         </button>
       </form>
 
-      {hats.length > 0 && hats.length <= 3 && !isLoggedIn && !localStorage.getItem('hatrack-starter-dismissed') && (
-        <p style={{ color: '#999', fontSize: '0.8rem', margin: '0 0 4px' }}>
-          These are just starters — add your own or tap x to remove any.{' '}
-          <button className="link-button" style={{ fontSize: '0.8rem' }} onClick={() => {
-            localStorage.setItem('hatrack-starter-dismissed', 'true')
-            setHats([...hats]) // force re-render
-          }}>Got it</button>
-        </p>
-      )}
-      {hats.length > 0 && hats.length <= 3 && (isLoggedIn || localStorage.getItem('hatrack-starter-dismissed')) && (
-        <p style={{ color: '#999', fontSize: '0.8rem', margin: '0 0 4px' }}>Done for the day? Check it off. Resets tomorrow. Tap x to remove.</p>
-      )}
       <ul className="hat-list">
         {hats.length === 0 && (
           <li className="empty-state">
@@ -170,6 +158,19 @@ export default function HatRack() {
           />
         ))}
       </ul>
+
+      {hats.length > 0 && hats.length <= 3 && !isLoggedIn && !localStorage.getItem('hatrack-starter-dismissed') && (
+        <p style={{ color: '#999', fontSize: '0.8rem', margin: '4px 0 4px' }}>
+          These are just starters — add your own or tap x to remove any.{' '}
+          <button className="link-button" style={{ fontSize: '0.8rem', color: '#4a90d9', textDecoration: 'underline' }} onClick={() => {
+            localStorage.setItem('hatrack-starter-dismissed', 'true')
+            setHats([...hats]) // force re-render
+          }}>Got it</button>
+        </p>
+      )}
+      {hats.length > 0 && hats.length <= 3 && (isLoggedIn || localStorage.getItem('hatrack-starter-dismissed')) && (
+        <p style={{ color: '#999', fontSize: '0.8rem', margin: '4px 0 4px' }}>Done for the day? Check it off. Resets tomorrow. Tap x to remove.</p>
+      )}
 
       <FocusSession hats={hats} onSessionEnd={() => {
         loadHats()
