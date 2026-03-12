@@ -134,18 +134,18 @@ export default function HatRack() {
       <form className="hat-input-row" onSubmit={handleAdd}>
         <input
           type="text"
-          placeholder="e.g. Drawing, Stretching"
+          placeholder="Type an activity..."
           value={newHat}
           onChange={(e) => setNewHat(e.target.value)}
         />
-        <button type="submit" className="btn-primary">
+        <button type="submit" className="btn-primary" disabled={!newHat.trim()}>
           Add Hat to Rack
         </button>
       </form>
 
       {hats.length > 0 && hats.length <= 3 && !isLoggedIn && !localStorage.getItem('hatrack-starter-dismissed') && (
         <p style={{ color: '#999', fontSize: '0.8rem', margin: '0 0 4px' }}>
-          These are just starters — add your own or remove any hat.{' '}
+          These are just starters — add your own or tap x to remove any.{' '}
           <button className="link-button" style={{ fontSize: '0.8rem' }} onClick={() => {
             localStorage.setItem('hatrack-starter-dismissed', 'true')
             setHats([...hats]) // force re-render
