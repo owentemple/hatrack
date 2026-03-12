@@ -208,6 +208,15 @@ export function hasLocalData(): boolean {
   return !!localStorage.getItem(KEYS.hats) || !!localStorage.getItem(KEYS.started)
 }
 
+export function isOnlyStarterData(): boolean {
+  const hats = readHats()
+  const sessions = readSessions()
+  if (sessions.length > 0) return false
+  const starterNames = new Set(['Reading', 'Writing', 'Meditating'])
+  const activeHats = hats.filter(h => !h.deletedAt)
+  return activeHats.length > 0 && activeHats.every(h => starterNames.has(h.name))
+}
+
 export function seedStarterHats() {
   const existing = readHats()
   if (existing.length > 0) return // Don't overwrite existing hats

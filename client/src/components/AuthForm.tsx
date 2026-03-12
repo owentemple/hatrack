@@ -50,10 +50,11 @@ export default function AuthForm({ mode }: { mode: 'login' | 'signup' }) {
         }
       } else {
         const res = await api.login(email, password)
-        if (hasLocal) {
+        if (hasLocal && !localStore.isOnlyStarterData()) {
           setPendingAuth(res)
           setShowMergePrompt(true)
         } else {
+          localStore.clear()
           setAuth(res.token, res.user)
           navigate('/')
         }

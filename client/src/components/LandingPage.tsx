@@ -25,7 +25,7 @@ export default function LandingPage() {
         Get Started
       </button>
 
-      <p className="switch-link">
+      <p className="switch-link" style={{ marginBottom: '0.75rem' }}>
         Already have an account? <Link to="/login">Log in</Link>
       </p>
       <p className="switch-link">
