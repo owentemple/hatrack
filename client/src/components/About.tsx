@@ -26,12 +26,17 @@ export default function About() {
         timer, do the work.
       </p>
 
-      <h3 style={{ marginTop: '24px', fontSize: '0.95rem' }}>Subscriptions</h3>
+      <h3 style={{ marginTop: '24px', fontSize: '0.95rem' }}>HatRack Premium</h3>
       <p style={{ fontSize: '0.85rem' }}>
-        HatRack is free to use. HatRack Premium unlocks stats, streak calendar, and insights
-        for $5/month. Cancel anytime from Settings — your premium features remain active through
-        the end of your billing period. No refunds for partial billing periods.
-        Questions? Contact <a href="mailto:info@hatrackapp.com">info@hatrackapp.com</a>.
+        HatRack is free to use — unlimited hats, sessions, and streaks. Upgrade
+        to Premium to see your focus trends by day, week, month, and year, track
+        your streak on a calendar, and discover your peak hours and most active
+        days. $5/month — <Link to="/settings">upgrade in Settings</Link>.
+      </p>
+      <p style={{ fontSize: '0.8rem', color: '#999' }}>
+        Cancel anytime from Settings. Your premium features remain active through
+        the end of your billing period. No refunds for partial periods.
+        Questions? <a href="mailto:info@hatrackapp.com">info@hatrackapp.com</a>
       </p>
 
       <p className="about-footer">
