@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { getSessions, getScore, SessionRecord } from '../lib/dataService'
+import StatsView from './StatsView'
+import StreakCalendar from './StreakCalendar'
 
 function formatDuration(seconds: number): string {
   const m = Math.floor(seconds / 60)
@@ -107,6 +109,9 @@ export default function SessionHistory() {
               <span className="stat-label">Total Focus</span>
             </div>
           </div>
+
+          <StatsView sessions={sessions} />
+          <StreakCalendar sessions={sessions} streak={streak} />
 
           {days.map((day) => (
             <div key={day.date} className="day-group">
