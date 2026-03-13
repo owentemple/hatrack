@@ -26,6 +26,14 @@ export default function About() {
         timer, do the work.
       </p>
 
+      <h3 style={{ marginTop: '24px', fontSize: '0.95rem' }}>Subscriptions</h3>
+      <p style={{ fontSize: '0.85rem' }}>
+        HatRack is free to use. HatRack Premium unlocks stats, streak calendar, and insights
+        for $5/month. Cancel anytime from Settings — your premium features remain active through
+        the end of your billing period. No refunds for partial billing periods.
+        Questions? Contact <a href="mailto:info@hatrackapp.com">info@hatrackapp.com</a>.
+      </p>
+
       <p className="about-footer">
         <Link to="/blog">Read the blog</Link>
       </p>
