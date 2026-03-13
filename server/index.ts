@@ -85,6 +85,11 @@ if (process.env.NODE_ENV === 'production') {
       <div class="blog-page">
         <h2>Blog</h2>
         <div class="blog-list">
+          <a href="/blog/use-hatrack-for-meditation" class="blog-card">
+            <h3>Use HatRack for Meditation (and Everything Else)</h3>
+            <p class="blog-card-subtitle">You already know how to meditate. You just haven&rsquo;t started.</p>
+            <span class="blog-card-date">March 13, 2026</span>
+          </a>
           <a href="/blog/you-have-twenty-minutes" class="blog-card">
             <h3>You Have Twenty Minutes. What Do You Work On?</h3>
             <p class="blog-card-subtitle">Why the hardest part of doing what matters is deciding to start</p>
@@ -121,6 +126,34 @@ if (process.env.NODE_ENV === 'production') {
             <span class="blog-card-date">November 1, 2015</span>
           </a>
         </div>
+      </div>`),
+    '/blog/use-hatrack-for-meditation': shell(publicNav, `
+      <div class="blog-page">
+        <a href="/blog" class="back-link">&larr; Back to Blog</a>
+        <article class="blog-article">
+          <h2>Use HatRack for Meditation (and Everything Else)</h2>
+          <p class="blog-subtitle">You already know how to meditate. You just haven&rsquo;t started.</p>
+          <p class="blog-date">March 13, 2026</p>
+          <div class="blog-body">
+            <p>You&rsquo;ve read about meditation. You&rsquo;ve read about the benefits of meditation. You&rsquo;ve read about the best apps for meditation, the best times to meditate, the best cushions to sit on, the best breathing techniques, the difference between mindfulness and transcendental and vipassana and loving-kindness.</p>
+            <p>You have not meditated.</p>
+            <p>This is the trap. As one meditation teacher <a href="https://satileadership.substack.com/p/be-careful-reading-about-meditation" target="_blank" rel="noopener noreferrer">put it</a>: reading about meditation is like taking a selfie at the park map and posting it. You haven&rsquo;t walked the trail. You&rsquo;ve just studied the sign. And studying the sign feels productive &mdash; it engages the thinking mind, which is exactly the mind meditation is trying to quiet.</p>
+            <p>Did you learn to ride a bike by reading about it?</p>
+            <h3>The whole instruction</h3>
+            <p>Here is a complete meditation instruction, courtesy of <a href="https://www.lionsroar.com/a-meditation-instruction-march-2012/" target="_blank" rel="noopener noreferrer">Ch&ouml;gyam Trungpa Rinpoche</a>: Sit down. Straighten your back. Rest your hands on your knees. Breathe normally. Follow the outbreath as it dissolves into space. When thoughts come, let them pass. Come back to the breath.</p>
+            <p>That&rsquo;s it. That&rsquo;s the whole thing.</p>
+            <p>Trungpa called it &ldquo;irritatingly down to earth.&rdquo; No app required. No guided voice. No ambient rainforest. Just you and your breath for a few minutes.</p>
+            <p>The problem was never not knowing how. The problem is the same one that kills every good intention: you sit down with time to spare, and you have to <em>decide</em> to meditate. And deciding is where things fall apart &mdash; because you could also stretch, or read, or practice guitar, or do any of the other things you keep meaning to do. By the time you&rsquo;ve weighed the options, you&rsquo;re scrolling your phone.</p>
+            <h3>Put it on the rack</h3>
+            <p>Meditation doesn&rsquo;t need its own app. It needs to be one hat among many.</p>
+            <p>When you add Meditating to your hatrack alongside Reading, Stretching, Practicing music &mdash; whatever your hats are &mdash; two things happen. First, you stop having to decide <em>when</em> to meditate. It comes up in the rotation like everything else. Second, you stop having to decide <em>how long</em>. The timer rolls and you sit until the chime plays. Maybe it&rsquo;s three minutes. Maybe it&rsquo;s nineteen. You don&rsquo;t know in advance, which means you can&rsquo;t negotiate your way out of it.</p>
+            <p>Three minutes of meditation is not nothing. Frequency matters more than duration. The person who sits for three minutes today is closer to a meditation practice than the person who plans to sit for thirty minutes tomorrow.</p>
+            <h3>This is the pattern</h3>
+            <p>Meditation isn&rsquo;t special here. This is how every &ldquo;I should do this more&rdquo; activity works. You don&rsquo;t need more information. You don&rsquo;t need a better app. You don&rsquo;t need the perfect conditions. You need to start, and starting is what gets blocked when you have to choose.</p>
+            <p>HatRack removes the choosing. Add your activities, tap a button, and do whatever comes up for however long the timer says. Meditation gets the same treatment as reading, stretching, writing &mdash; no pedestal, no special UI, no subscription tier. Just another hat on the rack.</p>
+            <p>You already know how to meditate. You already know how to read and stretch and practice. The only thing left is to <a href="https://www.hatrack.it/">start</a>.</p>
+          </div>
+        </article>
       </div>`),
     '/blog/you-have-twenty-minutes': shell(publicNav, `
       <div class="blog-page">
