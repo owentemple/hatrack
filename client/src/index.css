@@ -997,3 +997,38 @@ hr {
   font-size: 0.75rem;
   color: #999;
 }
+
+/* Insights */
+.insights {
+  margin: 24px 0;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #eee;
+}
+
+.insights-title {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.insights-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.insights-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f5f5f5;
+  font-size: 0.9rem;
+}
+
+.insights-label {
+  color: #666;
+}
+
+.insights-value {
+  color: #333;
+  font-weight: 600;
+}

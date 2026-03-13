@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { getSessions, getScore, SessionRecord } from '../lib/dataService'
 import StatsView from './StatsView'
 import StreakCalendar from './StreakCalendar'
+import Insights from './Insights'
 
 function formatDuration(seconds: number): string {
   const m = Math.floor(seconds / 60)
@@ -112,6 +113,7 @@ export default function SessionHistory() {
 
           <StatsView sessions={sessions} />
           <StreakCalendar sessions={sessions} streak={streak} />
+          <Insights sessions={sessions} />
 
           {days.map((day) => (
             <div key={day.date} className="day-group">
