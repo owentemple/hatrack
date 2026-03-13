@@ -79,7 +79,8 @@ export default function SessionHistory() {
       <div className="history-header">
         <Link to="/" className="back-link">&larr; Back to rack</Link>
         <h2>Session History</h2>
-        <h3 className="score">All-Time: {totalScore}</h3>
+        <h3 className="score">{totalScore}</h3>
+        <p style={{ color: '#999', fontSize: '0.8rem', margin: '2px 0 0' }}>All-Time Score</p>
       </div>
 
       {sessions.length === 0 ? (
