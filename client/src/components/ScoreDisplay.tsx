@@ -12,11 +12,15 @@ export default function ScoreDisplay({ score, streak }: { score: number; streak:
           Complete a session to earn points — one per minute on the timer.
         </p>
       )}
-      {streak >= 2 && (
+      {streak >= 2 ? (
         <Link to="/history" style={{ textDecoration: 'none' }}>
           <p style={{ color: '#337ab7', fontSize: '0.8rem', margin: '4px 0 0' }}>
             {streak} days in a row →
           </p>
+        </Link>
+      ) : (
+        <Link to="/history" style={{ color: '#337ab7', fontSize: '0.8rem', textDecoration: 'none', display: 'inline-block', marginTop: '4px' }}>
+          History →
         </Link>
       )}
     </div>
