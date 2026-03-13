@@ -843,13 +843,44 @@ hr {
   margin-top: 8px;
 }
 
+.stats-chart-container {
+  margin-bottom: 16px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .stats-chart {
+  flex: 1;
   display: flex;
   align-items: flex-end;
   height: 120px;
   gap: 1px;
-  padding: 0 4px;
-  margin-bottom: 16px;
+  position: relative;
+}
+
+.stats-x-axis {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #333;
+}
+
+.stats-y-axis {
+  width: 32px;
+  flex-shrink: 0;
+  position: relative;
+  height: 120px;
+}
+
+.stats-y-label {
+  position: absolute;
+  right: 6px;
+  font-size: 0.6rem;
+  color: #999;
+  transform: translateY(50%);
+  line-height: 1;
 }
 
 .stats-bar-wrapper {
@@ -867,6 +898,22 @@ hr {
   background: #333;
   border-radius: 2px 2px 0 0;
   transition: height 0.2s ease;
+}
+
+.stats-x-labels {
+  display: flex;
+  gap: 1px;
+  width: 100%;
+}
+
+.stats-y-axis-spacer {
+  width: 32px;
+  flex-shrink: 0;
+}
+
+.stats-x-label-cell {
+  flex: 1;
+  text-align: center;
 }
 
 .stats-bar-label {
