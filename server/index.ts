@@ -70,7 +70,14 @@ if (process.env.NODE_ENV === 'production') {
         <h3 style="margin-top:24px;font-size:0.95rem">HatRack Premium</h3>
         <p style="font-size:0.85rem">HatRack is free to use &mdash; unlimited hats, sessions, and streaks. Upgrade to Premium to see your focus trends by day, week, month, and year, track your streak on a calendar, and discover your peak hours and most active days. $5/month &mdash; <a href="/settings">upgrade in Settings</a>.</p>
         <p style="font-size:0.8rem;color:#999">Cancel anytime from Settings. Your premium features remain active through the end of your billing period. No refunds for partial periods. Questions? <a href="mailto:info@hatrack.it">info@hatrack.it</a></p>
-        <p class="about-footer"><a href="/blog">Read the blog</a></p>
+        <div class="about-blog-feature">
+          <h3>From the Blog</h3>
+          <a href="/blog/hatrack-premium" class="blog-card">
+            <h3>HatRack Premium: See Where Your Time Goes</h3>
+            <p class="blog-card-subtitle">The new premium is about insight, not access</p>
+          </a>
+          <p style="margin-top:8px"><a href="/blog" style="color:#337ab7;font-size:0.85rem">All posts &rarr;</a></p>
+        </div>
         <p class="about-footer">Made in Austin, Texas.</p>
         <p class="about-copyright">© 2015–2026 HatRack, LLC</p>
         <p class="about-source"><a href="https://github.com/owentemple/hatrack" target="_blank" rel="noopener noreferrer">View the source on GitHub</a></p>

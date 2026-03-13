@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
+import { blogPosts } from '../lib/blogPosts'
 
 export default function About() {
+  const latest = blogPosts[0]
+
   return (
     <div className="about-page">
       <h2>About HatRack</h2>
@@ -39,9 +42,16 @@ export default function About() {
         Questions? <a href="mailto:info@hatrack.it">info@hatrack.it</a>
       </p>
 
-      <p className="about-footer">
-        <Link to="/blog">Read the blog</Link>
-      </p>
+      <div className="about-blog-feature">
+        <h3>From the Blog</h3>
+        <Link to={`/blog/${latest.slug}`} className="blog-card">
+          <h3>{latest.title}</h3>
+          <p className="blog-card-subtitle">{latest.subtitle}</p>
+        </Link>
+        <p style={{ marginTop: '8px' }}>
+          <Link to="/blog" style={{ color: '#337ab7', fontSize: '0.85rem' }}>All posts →</Link>
+        </p>
+      </div>
 
       <p className="about-footer">
         Made in Austin, Texas.
