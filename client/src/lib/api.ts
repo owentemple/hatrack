@@ -180,3 +180,21 @@ export function saveSmsSettings(phone: string, timezone: string, frequency: stri
 export function disconnectSms() {
   return request<{ enabled: false }>('/settings/sms', { method: 'DELETE' })
 }
+
+// Billing / Premium
+export interface PremiumStatus {
+  isPremium: boolean
+  expiresAt: string | null
+}
+
+export function getPremiumStatus() {
+  return request<PremiumStatus>('/billing/status')
+}
+
+export function createCheckoutSession() {
+  return request<{ url: string }>('/billing/checkout', { method: 'POST' })
+}
+
+export function createPortalSession() {
+  return request<{ url: string }>('/billing/portal', { method: 'POST' })
+}

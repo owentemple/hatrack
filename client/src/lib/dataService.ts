@@ -42,3 +42,8 @@ export function getScore(): Promise<{ totalScore: number; todayScore: number; st
   if (isAuthenticated()) return api.getScore()
   return Promise.resolve(localStore.getScore())
 }
+
+export function getPremiumStatus(): Promise<{ isPremium: boolean; expiresAt: string | null }> {
+  if (isAuthenticated()) return api.getPremiumStatus()
+  return Promise.resolve({ isPremium: false, expiresAt: null })
+}

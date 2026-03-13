@@ -5,10 +5,14 @@ import authRoutes from './routes/auth'
 import hatRoutes from './routes/hats'
 import sessionRoutes from './routes/sessions'
 import settingsRoutes from './routes/settings'
+import billingRoutes from './routes/billing'
 import smsWebhookRoutes from './routes/smsWebhook'
+import stripeWebhookRoutes from './routes/stripeWebhook'
 
 const app = express()
 
+// Stripe webhook needs raw body for signature verification
+app.use('/api/webhooks/stripe', express.raw({ type: 'application/json' }))
 // Twilio sends form-encoded data
 app.use('/api/webhooks', express.urlencoded({ extended: false }))
 app.use(express.json())
@@ -18,7 +22,9 @@ app.use('/api/auth', authRoutes)
 app.use('/api/hats', hatRoutes)
 app.use('/api/sessions', sessionRoutes)
 app.use('/api/settings', settingsRoutes)
+app.use('/api/billing', billingRoutes)
 app.use('/api/webhooks', smsWebhookRoutes)
+app.use('/api/webhooks', stripeWebhookRoutes)
 
 // In production, serve the built client
 if (process.env.NODE_ENV === 'production') {

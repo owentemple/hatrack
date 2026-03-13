@@ -23,6 +23,9 @@ model User {
   smsFrequency       String         @default("daily")
   smsCustomMessage   String?
   smsLastSentAt      DateTime?
+  isPremium             Boolean        @default(false)
+  stripeCustomerId      String?        @unique
+  subscriptionExpiresAt DateTime?
   hats               Hat[]
   sessions           FocusSession[]
   passwordResets     PasswordReset[]

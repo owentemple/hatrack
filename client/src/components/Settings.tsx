@@ -14,6 +14,11 @@ export default function Settings() {
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
 
+  // Premium state
+  const [isPremium, setIsPremium] = useState(false)
+  const [billingLoading, setBillingLoading] = useState(false)
+  const [showUpgradeSuccess, setShowUpgradeSuccess] = useState(false)
+
   // SMS state
   const [smsEnabled, setSmsEnabled] = useState(false)
   const [smsPhone, setSmsPhone] = useState<string | null>(null)
@@ -30,7 +35,19 @@ export default function Settings() {
   const [smsSuccess, setSmsSuccess] = useState('')
 
   useEffect(() => {
+    // Check for ?upgraded=1 in URL
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('upgraded') === '1') {
+      setShowUpgradeSuccess(true)
+      window.history.replaceState({}, '', '/settings')
+    }
+  }, [])
+
+  useEffect(() => {
     Promise.all([
+      api.getPremiumStatus().then((ps) => {
+        setIsPremium(ps.isPremium)
+      }),
       api.getBeeminderSettings().then((settings) => {
         setConnected(settings.connected)
         if (settings.connected) {
@@ -90,6 +107,42 @@ export default function Settings() {
     <div className="settings-page">
       <Link to="/" className="back-link">&larr; Back to Hats</Link>
       <h2>Settings</h2>
+
+      <div className="settings-section">
+        <h3>Subscription</h3>
+        {showUpgradeSuccess && (
+          <p className="success-message">Welcome to Premium! Your stats and insights are now unlocked.</p>
+        )}
+        {isPremium ? (
+          <div>
+            <p style={{ color: '#5cb85c', fontWeight: 600, marginBottom: '8px' }}>Premium subscriber</p>
+            <button className="btn-secondary" disabled={billingLoading} onClick={async () => {
+              setBillingLoading(true)
+              try {
+                const { url } = await api.createPortalSession()
+                window.location.href = url
+              } catch { setBillingLoading(false) }
+            }}>
+              {billingLoading ? 'Loading...' : 'Manage Subscription'}
+            </button>
+          </div>
+        ) : (
+          <div>
+            <p style={{ color: '#666', fontSize: '0.9rem', margin: '0.25rem 0 1rem' }}>
+              Upgrade to see focus trends, streak calendar, and insights.
+            </p>
+            <button className="btn-primary" disabled={billingLoading} onClick={async () => {
+              setBillingLoading(true)
+              try {
+                const { url } = await api.createCheckoutSession()
+                window.location.href = url
+              } catch { setBillingLoading(false) }
+            }}>
+              {billingLoading ? 'Loading...' : 'Upgrade to Premium'}
+            </button>
+          </div>
+        )}
+      </div>
 
       <InstallInstructions />
 

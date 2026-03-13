@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { getSessions, getScore, SessionRecord } from '../lib/dataService'
+import { getSessions, getScore, getPremiumStatus, SessionRecord } from '../lib/dataService'
 import StatsView from './StatsView'
 import StreakCalendar from './StreakCalendar'
 import Insights from './Insights'
+import PremiumTeaser from './PremiumTeaser'
 
 function formatDuration(seconds: number): string {
   const m = Math.floor(seconds / 60)
@@ -58,13 +59,16 @@ export default function SessionHistory() {
   const [loading, setLoading] = useState(true)
 
   const [streak, setStreak] = useState(0)
+  const [isPremium, setIsPremium] = useState(false)
+  const isLoggedIn = !!localStorage.getItem('token')
 
   useEffect(() => {
-    Promise.all([getSessions(), getScore()])
-      .then(([s, sc]) => {
+    Promise.all([getSessions(), getScore(), getPremiumStatus()])
+      .then(([s, sc, ps]) => {
         setSessions(s)
         setTotalScore(sc.totalScore)
         setStreak(sc.streak)
+        setIsPremium(ps.isPremium)
       })
       .catch(() => {})
       .finally(() => setLoading(false))
@@ -112,9 +116,15 @@ export default function SessionHistory() {
             </div>
           </div>
 
-          <StatsView sessions={sessions} />
-          <StreakCalendar sessions={sessions} streak={streak} />
-          <Insights sessions={sessions} />
+          {isPremium ? (
+            <>
+              <StatsView sessions={sessions} />
+              <StreakCalendar sessions={sessions} streak={streak} />
+              <Insights sessions={sessions} />
+            </>
+          ) : (
+            <PremiumTeaser isLoggedIn={isLoggedIn} />
+          )}
 
           {days.map((day) => (
             <div key={day.date} className="day-group">
