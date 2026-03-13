@@ -69,7 +69,7 @@ if (process.env.NODE_ENV === 'production') {
         <p>HatRack was created by Owen Temple and originally launched at hatrackapp.com in July 2015. The app has been rebuilt and expanded over the years, but the core concept hasn't changed: pick a hat, start a timer, do the work.</p>
         <h3 style="margin-top:24px;font-size:0.95rem">HatRack Premium</h3>
         <p style="font-size:0.85rem">HatRack is free to use &mdash; unlimited hats, sessions, and streaks. Upgrade to Premium to see your focus trends by day, week, month, and year, track your streak on a calendar, and discover your peak hours and most active days. $5/month &mdash; <a href="/settings">upgrade in Settings</a>.</p>
-        <p style="font-size:0.8rem;color:#999">Cancel anytime from Settings. Your premium features remain active through the end of your billing period. No refunds for partial periods. Questions? <a href="mailto:info@hatrackapp.com">info@hatrackapp.com</a></p>
+        <p style="font-size:0.8rem;color:#999">Cancel anytime from Settings. Your premium features remain active through the end of your billing period. No refunds for partial periods. Questions? <a href="mailto:info@hatrack.it">info@hatrack.it</a></p>
         <p class="about-footer"><a href="/blog">Read the blog</a></p>
         <p class="about-footer">Made in Austin, Texas.</p>
         <p class="about-copyright">© 2015–2026 HatRack, LLC</p>
@@ -94,6 +94,11 @@ if (process.env.NODE_ENV === 'production') {
       <div class="blog-page">
         <h2>Blog</h2>
         <div class="blog-list">
+          <a href="/blog/hatrack-premium" class="blog-card">
+            <h3>HatRack Premium: See Where Your Time Goes</h3>
+            <p class="blog-card-subtitle">The new premium is about insight, not access</p>
+            <span class="blog-card-date">March 14, 2026</span>
+          </a>
           <a href="/blog/use-hatrack-for-meditation" class="blog-card">
             <h3>Use HatRack for Meditation (and Everything Else)</h3>
             <p class="blog-card-subtitle">You already know how to meditate. You just haven&rsquo;t started.</p>
@@ -135,6 +140,35 @@ if (process.env.NODE_ENV === 'production') {
             <span class="blog-card-date">November 1, 2015</span>
           </a>
         </div>
+      </div>`),
+    '/blog/hatrack-premium': shell(publicNav, `
+      <div class="blog-page">
+        <a href="/blog" class="back-link">&larr; Back to Blog</a>
+        <article class="blog-article">
+          <h2>HatRack Premium: See Where Your Time Goes</h2>
+          <p class="blog-subtitle">The new premium is about insight, not access</p>
+          <p class="blog-date">March 14, 2026</p>
+          <div class="blog-body">
+            <p>HatRack has had a premium tier since 2015. Back then, &ldquo;premium&rdquo; meant your hats were saved. You&rsquo;d enter your daily, weekly, and monthly priorities, pay $5 through PayPal, and they&rsquo;d be stored and waiting for you the next time you opened the app. If you didn&rsquo;t pay, you re-entered them every day.</p>
+            <p><img src="/assets/hatrackapp-2015.png" alt="HatRack at hatrackapp.com, 2015 — PayPal premium tier for stored hats" style="max-width:100%;border-radius:8px;margin:1rem 0" /></p>
+            <p>That was the best I could offer at the time. The app was static HTML and jQuery. There were no user accounts, no database, no server-side anything. Saving your hats <em>was</em> the premium feature because saving your hats was technically hard.</p>
+            <p>It&rsquo;s not hard anymore. Every hatrack user now gets a free account with unlimited hats, unlimited sessions, score tracking, streaks, and full session history. Hat storage &mdash; the thing premium used to solve &mdash; is just part of the app now.</p>
+            <p>So premium is better than ever. And it means something different.</p>
+            <h3>Patterns you can&rsquo;t see from a single session</h3>
+            <p>After using hatrack for ten years, I started noticing things about my own data. Not &ldquo;I did 47 minutes today&rdquo; &mdash; I could already see that &mdash; but slower patterns. Which weeks I showed up consistently and which ones I didn&rsquo;t. Whether mornings or evenings were more productive. Whether I actually practiced more in January or just felt like I did.</p>
+            <p>You can&rsquo;t see any of that from a daily score. You need to zoom out.</p>
+            <p>That&rsquo;s what the new HatRack Premium does. It takes the sessions you&rsquo;re already logging and shows you what&rsquo;s in there.</p>
+            <p><strong>Focus trends</strong> &mdash; Your minutes charted by day, week, month, or year. Navigate between periods. Watch your bar chart fill in as the week goes. Compare this month to last month. See your average and how it moves over time.</p>
+            <p><strong>Streak calendar</strong> &mdash; A six-week grid showing every day you showed up. Top hats mark the active days. Today is circled. It answers the simplest question: am I being consistent?</p>
+            <p><strong>Insights</strong> &mdash; Your best day ever. The hour you focus most. Your most active day of the week. Not to optimize your schedule into a spreadsheet &mdash; just to see that the work is adding up.</p>
+            <p><img src="/assets/hatrack-premium-2026.png" alt="HatRack Premium — weekly focus trends, streak calendar, and insights" style="max-width:100%;border-radius:8px;margin:1rem 0" /></p>
+            <h3>Still $5 a month</h3>
+            <p>Same price as 2015. Cancel anytime from Settings. No annual lock-in, no pricing tiers.</p>
+            <p>The difference is what you&rsquo;re paying for. In 2015, you paid for storage. In 2026, you pay for insight. Every core feature &mdash; hats, sessions, scoring, streaks, history &mdash; stays free. Premium doesn&rsquo;t gate the practice. It shows you what the practice has built.</p>
+            <h3>Upgrade</h3>
+            <p>You can upgrade in <a href="/settings">Settings</a>. If you don&rsquo;t have an account yet, <a href="/signup">sign up free</a> &mdash; the premium features are there when you&rsquo;re ready.</p>
+          </div>
+        </article>
       </div>`),
     '/blog/use-hatrack-for-meditation': shell(publicNav, `
       <div class="blog-page">

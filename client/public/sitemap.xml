@@ -17,6 +17,10 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.hatrack.it/blog/hatrack-premium</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.hatrack.it/blog/use-hatrack-for-meditation</loc>
     <priority>0.8</priority>
   </url>

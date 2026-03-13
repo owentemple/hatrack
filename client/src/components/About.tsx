@@ -36,7 +36,7 @@ export default function About() {
       <p style={{ fontSize: '0.8rem', color: '#999' }}>
         Cancel anytime from Settings. Your premium features remain active through
         the end of your billing period. No refunds for partial periods.
-        Questions? <a href="mailto:info@hatrackapp.com">info@hatrackapp.com</a>
+        Questions? <a href="mailto:info@hatrack.it">info@hatrack.it</a>
       </p>
 
       <p className="about-footer">
