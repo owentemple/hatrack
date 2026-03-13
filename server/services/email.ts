@@ -9,8 +9,8 @@ function getResend() {
   return resend
 }
 
-const FROM_EMAIL = process.env.FROM_EMAIL || 'HatRack <noreply@notify.makeahab.it>'
-const APP_URL = process.env.APP_URL || 'https://www.makeahab.it'
+const FROM_EMAIL = process.env.FROM_EMAIL || 'HatRack <noreply@notify.hatrack.it>'
+const APP_URL = process.env.APP_URL || 'https://www.hatrack.it'
 
 export async function sendPasswordResetEmail(to: string, token: string) {
   const resetUrl = `${APP_URL}/reset-password?token=${token}`
