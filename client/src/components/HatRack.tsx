@@ -172,6 +172,34 @@ export default function HatRack() {
         <p style={{ color: '#999', fontSize: '0.8rem', margin: '4px 0 4px' }}>Done for the day? Check it off. Resets tomorrow. Tap x to remove.</p>
       )}
 
+      {showSuggestions && (
+        <div className="install-nudge">
+          <p style={{ fontWeight: 600, marginBottom: '10px' }}>What do you want to do more of?</p>
+          <div className="suggestion-chips">
+            {SUGGESTED_HATS
+              .filter(name => !hats.some(h => h.name.toLowerCase() === name.toLowerCase()))
+              .map(name => (
+                <button
+                  key={name}
+                  className={'suggestion-chip' + (selectedSuggestions.has(name) ? ' suggestion-chip--selected' : '')}
+                  onClick={() => toggleSuggestion(name)}
+                >
+                  {name}
+                </button>
+              ))}
+          </div>
+          {selectedSuggestions.size > 0 && (
+            <button className="btn-primary" style={{ marginTop: '12px', fontSize: '0.85rem', padding: '6px 16px' }} onClick={addSelectedSuggestions}>
+              Add selected
+            </button>
+          )}
+          <br />
+          <button className="link-button" onClick={dismissSuggestions}>
+            Dismiss
+          </button>
+        </div>
+      )}
+
       <FocusSession hats={hats} onSessionEnd={() => {
         loadHats()
         checkSignupNudge()
@@ -206,34 +234,6 @@ export default function HatRack() {
           <li>Complete the timer to earn points (1 point per minute)</li>
           <li>Check off a hat when you're done with it for the day</li>
         </ul>
-      )}
-
-      {showSuggestions && (
-        <div className="install-nudge">
-          <p style={{ fontWeight: 600, marginBottom: '10px' }}>What do you want to do more of?</p>
-          <div className="suggestion-chips">
-            {SUGGESTED_HATS
-              .filter(name => !hats.some(h => h.name.toLowerCase() === name.toLowerCase()))
-              .map(name => (
-                <button
-                  key={name}
-                  className={'suggestion-chip' + (selectedSuggestions.has(name) ? ' suggestion-chip--selected' : '')}
-                  onClick={() => toggleSuggestion(name)}
-                >
-                  {name}
-                </button>
-              ))}
-          </div>
-          {selectedSuggestions.size > 0 && (
-            <button className="btn-primary" style={{ marginTop: '12px', fontSize: '0.85rem', padding: '6px 16px' }} onClick={addSelectedSuggestions}>
-              Add selected
-            </button>
-          )}
-          <br />
-          <button className="link-button" onClick={dismissSuggestions}>
-            Dismiss
-          </button>
-        </div>
       )}
 
       {showSignupNudge && (
