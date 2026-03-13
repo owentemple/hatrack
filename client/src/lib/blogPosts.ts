@@ -42,7 +42,7 @@ export const blogPosts: BlogPost[] = [
 
 <p>Same price as 2015. Cancel anytime from Settings. No annual lock-in, no pricing tiers.</p>
 
-<p>The difference is what you&rsquo;re paying for. In 2015, you paid for storage. In 2026, you pay for insight. Every core feature &mdash; hats, sessions, scoring, streaks, history &mdash; stays free. Premium doesn&rsquo;t gate the practice. It shows you what the practice has built.</p>
+<p>The difference is what you&rsquo;re paying for. Since 2015, you paid for storage. In 2026, you pay for insight. Every core feature &mdash; hats, sessions, scoring, streaks, history &mdash; stays free. Premium doesn&rsquo;t gate the practice. It shows you what the practice has built.</p>
 
 <h3>Upgrade</h3>
 

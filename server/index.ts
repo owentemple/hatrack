@@ -171,7 +171,7 @@ if (process.env.NODE_ENV === 'production') {
             <p><img src="/assets/hatrack-premium-2026.png" alt="HatRack Premium — weekly focus trends, streak calendar, and insights" style="max-width:100%;border-radius:8px;margin:1rem 0" /></p>
             <h3>Still $5 a month</h3>
             <p>Same price as 2015. Cancel anytime from Settings. No annual lock-in, no pricing tiers.</p>
-            <p>The difference is what you&rsquo;re paying for. In 2015, you paid for storage. In 2026, you pay for insight. Every core feature &mdash; hats, sessions, scoring, streaks, history &mdash; stays free. Premium doesn&rsquo;t gate the practice. It shows you what the practice has built.</p>
+            <p>The difference is what you&rsquo;re paying for. Since 2015, you paid for storage. In 2026, you pay for insight. Every core feature &mdash; hats, sessions, scoring, streaks, history &mdash; stays free. Premium doesn&rsquo;t gate the practice. It shows you what the practice has built.</p>
             <h3>Upgrade</h3>
             <p>You can upgrade in <a href="/settings">Settings</a>. If you don&rsquo;t have an account yet, <a href="/signup">sign up free</a> &mdash; the premium features are there when you&rsquo;re ready.</p>
           </div>

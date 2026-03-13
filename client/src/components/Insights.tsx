@@ -13,6 +13,14 @@ function formatHour(hour: number): string {
   return `${hour - 12} PM`
 }
 
+function daysAgo(date: Date): string {
+  const now = new Date()
+  const diff = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24))
+  if (diff === 0) return 'today'
+  if (diff === 1) return 'yesterday'
+  return `${diff} days ago`
+}
+
 export default function Insights({ sessions }: Props) {
   const completed = sessions.filter(s => s.score > 0)
   if (completed.length < 3) return null
@@ -58,6 +66,58 @@ export default function Insights({ sessions }: Props) {
     if (count > peakDayCount) { peakDay = d; peakDayCount = count }
   }
 
+  // Hat-level stats
+  const hatMinutes = new Map<string, number>()
+  const hatSessions = new Map<string, number>()
+  const hatLastSeen = new Map<string, Date>()
+  for (const s of completed) {
+    const name = s.hat.name
+    hatMinutes.set(name, (hatMinutes.get(name) || 0) + Math.round(s.durationSeconds / 60))
+    hatSessions.set(name, (hatSessions.get(name) || 0) + 1)
+    const prev = hatLastSeen.get(name)
+    const d = new Date(s.createdAt)
+    if (!prev || d > prev) hatLastSeen.set(name, d)
+  }
+
+  // Most-worn hat (by total minutes)
+  let topHat = ''
+  let topMinutes = 0
+  for (const [name, mins] of hatMinutes) {
+    if (mins > topMinutes) { topHat = name; topMinutes = mins }
+  }
+
+  // Least-worn hat (by total minutes, only if 2+ hats)
+  let leastHat = ''
+  let leastMinutes = Infinity
+  if (hatMinutes.size >= 2) {
+    for (const [name, mins] of hatMinutes) {
+      if (mins < leastMinutes) { leastHat = name; leastMinutes = mins }
+    }
+  }
+
+  // Longest gap — hat not seen for the most days (only if 2+ hats)
+  let neglectedHat = ''
+  let neglectedDate: Date | null = null
+  if (hatLastSeen.size >= 2) {
+    let oldestTime = Infinity
+    for (const [name, date] of hatLastSeen) {
+      if (date.getTime() < oldestTime) {
+        oldestTime = date.getTime()
+        neglectedHat = name
+        neglectedDate = date
+      }
+    }
+    // Don't show if the "neglected" hat was used today
+    if (neglectedDate) {
+      const now = new Date()
+      const diffDays = Math.floor((now.getTime() - neglectedDate.getTime()) / (1000 * 60 * 60 * 24))
+      if (diffDays === 0) {
+        neglectedHat = ''
+        neglectedDate = null
+      }
+    }
+  }
+
   return (
     <div className="insights">
       <h3 className="insights-title">Insights</h3>
@@ -76,6 +136,26 @@ export default function Insights({ sessions }: Props) {
           <span className="insights-label">Most active day</span>
           <span className="insights-value">{DAY_NAMES[peakDay]}s</span>
         </div>
+      </div>
+
+      <h3 className="insights-title" style={{ marginTop: '20px' }}>Hats</h3>
+      <div className="insights-list">
+        <div className="insights-item">
+          <span className="insights-label">Most worn</span>
+          <span className="insights-value">{topHat} — {topMinutes}m</span>
+        </div>
+        {leastHat && (
+          <div className="insights-item">
+            <span className="insights-label">Least worn</span>
+            <span className="insights-value">{leastHat} — {leastMinutes}m</span>
+          </div>
+        )}
+        {neglectedHat && neglectedDate && (
+          <div className="insights-item">
+            <span className="insights-label">Needs attention</span>
+            <span className="insights-value">{neglectedHat} — {daysAgo(neglectedDate)}</span>
+          </div>
+        )}
       </div>
     </div>
   )
