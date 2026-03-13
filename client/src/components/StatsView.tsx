@@ -83,14 +83,6 @@ export default function StatsView({ sessions }: Props) {
       </div>
 
       <div className="stats-chart-container">
-        <div className="stats-y-axis">
-          {yTicks.map((tick, i) => (
-            <span key={i} className="stats-y-label" style={{ bottom: `${(tick / maxBar) * 100}%` }}>
-              {tick}
-            </span>
-          ))}
-          <span className="stats-y-label" style={{ bottom: '0%' }}>0</span>
-        </div>
         <div className="stats-chart">
           {bars.map((bar, i) => (
             <div key={i} className="stats-bar-wrapper">
@@ -102,13 +94,21 @@ export default function StatsView({ sessions }: Props) {
           ))}
           <div className="stats-x-axis" />
         </div>
+        <div className="stats-y-axis">
+          {yTicks.map((tick, i) => (
+            <span key={i} className="stats-y-label" style={{ bottom: `${(tick / maxBar) * 100}%` }}>
+              {tick}
+            </span>
+          ))}
+          <span className="stats-y-label" style={{ bottom: '0%' }}>0</span>
+        </div>
         <div className="stats-x-labels">
-          <div className="stats-y-axis-spacer" />
           {bars.map((bar, i) => (
             <div key={i} className="stats-x-label-cell">
               {bar.label && <span className="stats-bar-label">{bar.label}</span>}
             </div>
           ))}
+          <div className="stats-y-axis-spacer" />
         </div>
       </div>
 
