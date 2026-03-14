@@ -62,6 +62,7 @@ export function resetPassword(token: string, password: string) {
 export interface Hat {
   id: number
   name: string
+  why?: string | null
   done: boolean
   userId: number
 }

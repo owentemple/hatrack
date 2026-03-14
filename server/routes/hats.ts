@@ -53,12 +53,13 @@ router.patch('/:id', async (req: AuthRequest, res: Response) => {
     return
   }
 
-  const { name, done } = req.body
+  const { name, done, why } = req.body
   const updated = await prisma.hat.update({
     where: { id },
     data: {
       ...(name !== undefined && { name: String(name) }),
       ...(done !== undefined && { done: Boolean(done), doneAt: Boolean(done) ? new Date() : null }),
+      ...(why !== undefined && { why: why === null ? null : String(why) }),
     },
   })
   res.json(updated)

@@ -1,7 +1,8 @@
-import type { SessionRecord } from '../lib/dataService'
+import type { SessionRecord, Hat } from '../lib/dataService'
 
 interface Props {
   sessions: SessionRecord[]
+  hats?: Hat[]
 }
 
 const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -21,7 +22,7 @@ function daysAgo(date: Date): string {
   return `${diff} days ago`
 }
 
-export default function Insights({ sessions }: Props) {
+export default function Insights({ sessions, hats }: Props) {
   const completed = sessions.filter(s => s.score > 0)
   if (completed.length < 3) return null
 
@@ -143,17 +144,26 @@ export default function Insights({ sessions }: Props) {
         <div className="insights-item">
           <span className="insights-label">Most worn</span>
           <span className="insights-value">{topHat} — {topMinutes}m</span>
+          {hats?.find(h => h.name === topHat)?.why && (
+            <span className="insights-why">"{hats.find(h => h.name === topHat)!.why}"</span>
+          )}
         </div>
         {leastHat && (
           <div className="insights-item">
             <span className="insights-label">Least worn</span>
             <span className="insights-value">{leastHat} — {leastMinutes}m</span>
+            {hats?.find(h => h.name === leastHat)?.why && (
+              <span className="insights-why">"{hats.find(h => h.name === leastHat)!.why}"</span>
+            )}
           </div>
         )}
         {neglectedHat && neglectedDate && (
           <div className="insights-item">
             <span className="insights-label">Needs attention</span>
             <span className="insights-value">{neglectedHat} — {daysAgo(neglectedDate)}</span>
+            {hats?.find(h => h.name === neglectedHat)?.why && (
+              <span className="insights-why">"{hats.find(h => h.name === neglectedHat)!.why}"</span>
+            )}
           </div>
         )}
       </div>

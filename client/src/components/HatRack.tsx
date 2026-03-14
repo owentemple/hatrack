@@ -14,6 +14,7 @@ const SUGGESTED_HATS = [
 export default function HatRack() {
   const [hats, setHats] = useState<Hat[]>([])
   const [newHat, setNewHat] = useState('')
+  const [isPremium, setIsPremium] = useState(false)
   const [showHelp, setShowHelp] = useState<boolean | null>(() => {
     try {
       return localStorage.getItem('hatrack-help-dismissed') ? null : true
@@ -40,6 +41,7 @@ export default function HatRack() {
 
   useEffect(() => {
     loadHats()
+    ds.getPremiumStatus().then(ps => setIsPremium(ps.isPremium)).catch(() => {})
   }, [])
 
   async function loadHats() {
@@ -200,7 +202,7 @@ export default function HatRack() {
         </div>
       )}
 
-      <FocusSession hats={hats} onSessionEnd={() => {
+      <FocusSession hats={hats} isPremium={isPremium} onSessionEnd={() => {
         loadHats()
         checkSignupNudge()
         checkSuggestions()
@@ -214,10 +216,11 @@ export default function HatRack() {
           }
         } catch {}
       }} onHatDone={(id) => {
-        // Optimistically update local state so checkbox appears immediately
         setHats((prev) => prev.map((h) => (h.id === id ? { ...h, done: true } : h)))
-        // Fire API call in background
         ds.updateHat(id, { done: true }).catch(() => loadHats())
+      }} onUpdateHatWhy={(id, why) => {
+        setHats((prev) => prev.map((h) => (h.id === id ? { ...h, why } : h)))
+        ds.updateHat(id, { why } as Partial<Hat>).catch(() => loadHats())
       }} />
 
       <button className="how-it-works-toggle" onClick={() => setShowHelp((prev) => {

@@ -5,20 +5,23 @@ import { useChime } from '../hooks/useChime'
 import Timer from './Timer'
 import ScoreDisplay from './ScoreDisplay'
 
-type Phase = 'idle' | 'reveal-hat' | 'reveal-time' | 'running' | 'complete' | 'stopped-early'
+type Phase = 'idle' | 'reveal-hat' | 'reveal-time' | 'running' | 'prompt-why' | 'complete' | 'stopped-early'
 
 interface Props {
   hats: Hat[]
   onSessionEnd: () => void
   onHatDone?: (id: number) => void
+  isPremium?: boolean
+  onUpdateHatWhy?: (id: number, why: string) => void
 }
 
-export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
+export default function FocusSession({ hats, onSessionEnd, onHatDone, isPremium, onUpdateHatWhy }: Props) {
   const [phase, setPhase] = useState<Phase>('idle')
   const [currentHat, setCurrentHat] = useState<Hat | null>(null)
   const [timerMinutes, setTimerMinutes] = useState(0)
   const [todayScore, setTodayScore] = useState(0)
   const [streak, setStreak] = useState(0)
+  const [whyInput, setWhyInput] = useState('')
   const [miniMode, setMiniMode] = useState(() => {
     try { return localStorage.getItem('hatrack-mini-mode') === 'true' } catch { return false }
   })
@@ -64,7 +67,6 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
     if (!currentHat) return
     chime.play()
     const earned = timerMinutes
-    setPhase('complete')
     try { localStorage.setItem('hatrack-has-session', 'true') } catch {}
     try {
       await createSession(timer.totalSeconds, earned, currentHat.id)
@@ -74,7 +76,12 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
     } catch {
       setTodayScore((prev) => prev + earned)
     }
-  }, [currentHat, timer.totalSeconds, timerMinutes])
+    if (isPremium && !currentHat.why) {
+      setPhase('prompt-why')
+    } else {
+      setPhase('complete')
+    }
+  }, [currentHat, timer.totalSeconds, timerMinutes, isPremium])
 
   async function handleStopEarly() {
     timer.stop()
@@ -100,6 +107,15 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
     setPhase('idle')
     setCurrentHat(null)
     onSessionEnd()
+  }
+
+  function saveWhy() {
+    if (currentHat && whyInput.trim() && onUpdateHatWhy) {
+      onUpdateHatWhy(currentHat.id, whyInput.trim())
+      currentHat.why = whyInput.trim()
+    }
+    setWhyInput('')
+    setPhase('complete')
   }
 
   // Keep AudioContext alive during timer (mobile Safari suspends after ~30s of silence)
@@ -196,6 +212,11 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
           <div className="modal">
             <h3>Your next hat:</h3>
             <p><strong>{currentHat.name}</strong></p>
+            {isPremium && currentHat.why && (
+              <p style={{ color: '#666', fontSize: '0.85rem', fontStyle: 'italic', margin: '4px 0 12px' }}>
+                "{currentHat.why}"
+              </p>
+            )}
             <div className="modal-actions">
               <button className="btn-primary" onClick={rollTimer}>
                 Roll the dice!
@@ -235,6 +256,32 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone }: Props) {
           hatName={currentHat.name}
           onStop={handleStopEarly}
         />
+      )}
+
+      {phase === 'prompt-why' && currentHat && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>+{timerMinutes} point{timerMinutes !== 1 ? 's' : ''}!</h3>
+            <p style={{ color: '#666', fontSize: '0.85rem', margin: '8px 0 12px' }}>
+              What would you tell yourself when you don't feel like <strong>{currentHat.name}</strong>?
+            </p>
+            <textarea
+              value={whyInput}
+              onChange={(e) => setWhyInput(e.target.value)}
+              placeholder="Write a note to your future self..."
+              rows={3}
+              style={{ width: '100%', boxSizing: 'border-box', padding: '8px', borderRadius: '6px', border: '1px solid #ccc', fontSize: '0.9rem', fontFamily: 'inherit' }}
+            />
+            <div className="modal-actions">
+              <button className="btn-primary" onClick={saveWhy} disabled={!whyInput.trim()}>
+                Save
+              </button>
+            </div>
+            <button className="link-button" onClick={() => { setWhyInput(''); setPhase('complete') }}>
+              Skip
+            </button>
+          </div>
+        </div>
       )}
 
       {phase === 'complete' && currentHat && (

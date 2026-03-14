@@ -102,9 +102,10 @@ export function updateHat(id: number, data: Partial<Hat>): Hat {
     hat.done = data.done
     hat.doneAt = data.done ? new Date().toISOString() : null
   }
+  if ((data as any).why !== undefined) (hat as any).why = (data as any).why ?? null
 
   writeHats(all)
-  return { id: hat.id, name: hat.name, done: hat.done, userId: hat.userId }
+  return { id: hat.id, name: hat.name, why: (hat as any).why ?? null, done: hat.done, userId: hat.userId }
 }
 
 export function deleteHat(id: number): { ok: boolean } {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { getSessions, getScore, getPremiumStatus, SessionRecord } from '../lib/dataService'
+import { getSessions, getScore, getPremiumStatus, getHats, SessionRecord, Hat } from '../lib/dataService'
 import StatsView from './StatsView'
 import StreakCalendar from './StreakCalendar'
 import Insights from './Insights'
@@ -60,15 +60,17 @@ export default function SessionHistory() {
 
   const [streak, setStreak] = useState(0)
   const [isPremium, setIsPremium] = useState(false)
+  const [hats, setHats] = useState<Hat[]>([])
   const isLoggedIn = !!localStorage.getItem('token')
 
   useEffect(() => {
-    Promise.all([getSessions(), getScore(), getPremiumStatus()])
-      .then(([s, sc, ps]) => {
+    Promise.all([getSessions(), getScore(), getPremiumStatus(), getHats()])
+      .then(([s, sc, ps, h]) => {
         setSessions(s)
         setTotalScore(sc.totalScore)
         setStreak(sc.streak)
         setIsPremium(ps.isPremium)
+        setHats(h)
       })
       .catch(() => {})
       .finally(() => setLoading(false))
@@ -120,7 +122,7 @@ export default function SessionHistory() {
             <>
               <StatsView sessions={sessions} />
               <StreakCalendar sessions={sessions} streak={streak} />
-              <Insights sessions={sessions} />
+              <Insights sessions={sessions} hats={hats} />
             </>
           ) : (
             <PremiumTeaser isLoggedIn={isLoggedIn} />
