@@ -219,8 +219,8 @@ export default function HatRack() {
         setHats((prev) => prev.map((h) => (h.id === id ? { ...h, done: true } : h)))
         ds.updateHat(id, { done: true }).catch(() => loadHats())
       }} onUpdateHatWhy={(id, why) => {
-        setHats((prev) => prev.map((h) => (h.id === id ? { ...h, why } : h)))
-        ds.updateHat(id, { why } as Partial<Hat>).catch(() => loadHats())
+        setHats((prev) => prev.map((h) => (h.id === id ? { ...h, why: why ?? undefined } : h)))
+        ds.updateHat(id, { why } as any).catch(() => loadHats())
       }} />
 
       <button className="how-it-works-toggle" onClick={() => setShowHelp((prev) => {

@@ -12,7 +12,7 @@ interface Props {
   onSessionEnd: () => void
   onHatDone?: (id: number) => void
   isPremium?: boolean
-  onUpdateHatWhy?: (id: number, why: string) => void
+  onUpdateHatWhy?: (id: number, why: string | null) => void
 }
 
 export default function FocusSession({ hats, onSessionEnd, onHatDone, isPremium, onUpdateHatWhy }: Props) {
@@ -22,6 +22,7 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone, isPremium,
   const [todayScore, setTodayScore] = useState(0)
   const [streak, setStreak] = useState(0)
   const [whyInput, setWhyInput] = useState('')
+  const [editingWhy, setEditingWhy] = useState(false)
   const [miniMode, setMiniMode] = useState(() => {
     try { return localStorage.getItem('hatrack-mini-mode') === 'true' } catch { return false }
   })
@@ -212,17 +213,50 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone, isPremium,
           <div className="modal">
             <h3>Your next hat:</h3>
             <p><strong>{currentHat.name}</strong></p>
-            {isPremium && currentHat.why && (
-              <p style={{ color: '#666', fontSize: '0.85rem', fontStyle: 'italic', margin: '4px 0 12px' }}>
-                "{currentHat.why}"
-              </p>
+            {isPremium && currentHat.why && !editingWhy && (
+              <div style={{ margin: '4px 0 12px' }}>
+                <p style={{ color: '#666', fontSize: '0.85rem', fontStyle: 'italic', margin: 0 }}>
+                  "{currentHat.why}"
+                </p>
+                <button className="link-button" style={{ fontSize: '0.75rem', color: '#999', marginTop: '4px' }} onClick={() => { setWhyInput(currentHat.why || ''); setEditingWhy(true) }}>
+                  edit
+                </button>
+              </div>
+            )}
+            {isPremium && editingWhy && (
+              <div style={{ margin: '4px 0 12px' }}>
+                <textarea
+                  value={whyInput}
+                  onChange={(e) => setWhyInput(e.target.value)}
+                  placeholder="Write a note to your future self..."
+                  rows={3}
+                  style={{ width: '100%', boxSizing: 'border-box', padding: '8px', borderRadius: '6px', border: '1px solid #ccc', fontSize: '0.85rem', fontFamily: 'inherit' }}
+                  autoFocus
+                />
+                <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginTop: '8px' }}>
+                  <button className="btn-primary" style={{ fontSize: '0.8rem', padding: '4px 12px' }} onClick={() => {
+                    if (onUpdateHatWhy) {
+                      const val = whyInput.trim() || null
+                      onUpdateHatWhy(currentHat.id, val)
+                      currentHat.why = val
+                    }
+                    setWhyInput('')
+                    setEditingWhy(false)
+                  }}>
+                    Save
+                  </button>
+                  <button className="link-button" style={{ fontSize: '0.8rem' }} onClick={() => { setWhyInput(''); setEditingWhy(false) }}>
+                    Cancel
+                  </button>
+                </div>
+              </div>
             )}
             <div className="modal-actions">
-              <button className="btn-primary" onClick={rollTimer}>
+              <button className="btn-primary" onClick={() => { setEditingWhy(false); rollTimer() }}>
                 Roll the dice!
               </button>
             </div>
-            <button className="link-button" onClick={() => { setPhase('idle'); setCurrentHat(null) }}>
+            <button className="link-button" onClick={() => { setEditingWhy(false); setPhase('idle'); setCurrentHat(null) }}>
               Never mind
             </button>
           </div>
