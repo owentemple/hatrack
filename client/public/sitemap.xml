@@ -2,10 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.hatrack.it/</loc>
+    <lastmod>2026-03-14</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.hatrack.it/about</loc>
+    <lastmod>2026-03-14</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -14,46 +16,57 @@
   </url>
   <url>
     <loc>https://www.hatrack.it/blog</loc>
+    <lastmod>2026-03-15</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.hatrack.it/blog/start-with-why</loc>
+    <lastmod>2026-03-15</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hatrack.it/blog/hatrack-premium</loc>
+    <lastmod>2026-03-14</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hatrack.it/blog/use-hatrack-for-meditation</loc>
+    <lastmod>2026-03-13</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hatrack.it/blog/you-have-twenty-minutes</loc>
+    <lastmod>2026-03-10</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hatrack.it/blog/building-habits-for-creative-work</loc>
+    <lastmod>2026-03-08</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hatrack.it/blog/the-hats-you-wear</loc>
+    <lastmod>2016-07-07</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hatrack.it/blog/fifty-words-one-song-one-chord-two-pages</loc>
+    <lastmod>2016-01-09</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hatrack.it/blog/wear-many-hats-make-a-habit</loc>
+    <lastmod>2015-09-08</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hatrack.it/blog/hatrack-in-your-pocket</loc>
+    <lastmod>2016-06-28</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hatrack.it/blog/a-farmer-of-songs</loc>
+    <lastmod>2015-11-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
