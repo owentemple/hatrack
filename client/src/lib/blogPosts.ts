@@ -8,6 +8,69 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'start-with-why',
+    title: 'Start With Why (Your Future Self Will Thank You)',
+    subtitle: 'A new premium feature inspired by Simon Sinek\u2019s famous question',
+    date: '2026-03-15',
+    body: `<p>Simon Sinek&rsquo;s <a href="https://www.youtube.com/watch?v=u4ZoJKF_VuA" target="_blank" rel="noopener noreferrer">&ldquo;Start With Why&rdquo;</a> is one of the most-watched TED talks in history. The idea is simple: people don&rsquo;t buy what you do, they buy why you do it. Apple doesn&rsquo;t sell computers &mdash; they sell &ldquo;Think Different.&rdquo; Martin Luther King didn&rsquo;t have a 12-point plan &mdash; he had a dream. Start with why, and the what and how follow.</p>
+
+<p>It&rsquo;s a powerful framework for leaders and companies. But here&rsquo;s the thing nobody talks about: you need a why for yourself, too.</p>
+
+<p>Not a mission statement. Not a brand purpose. Just an honest answer to a quiet question: <em>why does this matter to me?</em></p>
+
+<h3>The gap between knowing and doing</h3>
+
+<p>You already know what your hats are. Reading, meditating, practicing music, exercising &mdash; whatever you&rsquo;ve put on your rack. You know they matter. You wouldn&rsquo;t have added them otherwise.</p>
+
+<p>And hatrack already handles the how. Random hat, random timer, start the clock. No deciding, no negotiating, no guilt.</p>
+
+<p>But there&rsquo;s a moment the app couldn&rsquo;t reach &mdash; the moment between seeing the hat and feeling like doing it. Your hat is Reading. You know you should. The timer is about to roll. But you&rsquo;re tired, or distracted, or just not feeling it. Knowing <em>what</em> to do isn&rsquo;t enough. Knowing <em>how</em> isn&rsquo;t either. What&rsquo;s missing is the <em>why</em>.</p>
+
+<h3>Not Sinek&rsquo;s why. Yours.</h3>
+
+<p>Sinek&rsquo;s why is outward-facing. It&rsquo;s about communicating purpose to others &mdash; customers, employees, movements. It works because shared purpose creates belonging.</p>
+
+<p>But the why you need at 7 AM when your hat comes up and you&rsquo;d rather scroll your phone &mdash; that why is private. It&rsquo;s not a slogan. It&rsquo;s the thing you&rsquo;d tell yourself on a bad day to get yourself moving.</p>
+
+<p>&ldquo;You never regret it once you start.&rdquo;</p>
+
+<p>&ldquo;Remember how good you felt after last time.&rdquo;</p>
+
+<p>&ldquo;You promised yourself 20 books this year.&rdquo;</p>
+
+<p>&ldquo;Just do five minutes. That&rsquo;s it.&rdquo;</p>
+
+<p>These aren&rsquo;t inspirational quotes. They&rsquo;re notes from your past self &mdash; the version of you who was clear-headed enough to name the reason, left there for the version of you who needs to hear it.</p>
+
+<h3>What would you tell yourself when you don&rsquo;t feel like it?</h3>
+
+<p>That&rsquo;s the question hatrack now asks, once, after you complete a session. Not during setup, not in a form, not as a required field. After you&rsquo;ve done the work &mdash; when you&rsquo;re in that good moment of having just shown up &mdash; the app asks: <em>What would you tell yourself when you don&rsquo;t feel like it?</em></p>
+
+<p>You can skip it. You can write one sentence or three. Whatever you write becomes a note attached to that hat.</p>
+
+<p>The next time that hat comes up &mdash; on the reveal screen, right before the timer rolls &mdash; your note is there. Not as a notification. Not as a reminder. Just your own words, quietly waiting.</p>
+
+<p>&ldquo;Your hat is&hellip; Reading.&rdquo;</p>
+
+<p><em>&ldquo;You promised yourself 20 books this year.&rdquo;</em></p>
+
+<p>Roll the dice.</p>
+
+<h3>A pep talk from your past self</h3>
+
+<p>The best part is that nobody writes these notes the way they&rsquo;d write a goal. When the question is &ldquo;what would you tell yourself,&rdquo; people write in their own voice. Casual. Honest. Sometimes funny. The kind of thing a good friend would say &mdash; because it <em>is</em> a good friend saying it. It&rsquo;s you.</p>
+
+<p>That&rsquo;s why this is a premium feature. Not because the text field is expensive to build, but because it belongs alongside the other premium tools that help you reflect on your practice. Stats show you where your time went. The streak calendar shows your consistency. Insights show your patterns. And now your why shows you the reason behind all of it.</p>
+
+<h3>Start with why</h3>
+
+<p>Sinek was right &mdash; why is where it starts. He just aimed it at the boardroom. HatRack aims it at the mirror.</p>
+
+<p>Your hats are the what. The random timer is the how. The note you leave yourself is the why. And on the days when you don&rsquo;t feel like it &mdash; which is most of them, if we&rsquo;re honest &mdash; that why is the thing that tips you from &ldquo;maybe later&rdquo; to &ldquo;okay, let&rsquo;s go.&rdquo;</p>
+
+<p>You can set your why for any hat after completing a session. It&rsquo;s available now for <a href="/settings">HatRack Premium</a> subscribers. And if you don&rsquo;t have anything to write yet, that&rsquo;s fine. The question will be there the next time you show up.</p>`,
+  },
+  {
     slug: 'hatrack-premium',
     title: 'HatRack Premium: See Where Your Time Goes',
     subtitle: 'The new premium is about insight, not access',
