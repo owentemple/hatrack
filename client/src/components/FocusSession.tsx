@@ -12,10 +12,11 @@ interface Props {
   onSessionEnd: () => void
   onHatDone?: (id: number) => void
   isPremium?: boolean
+  firstSession?: boolean
   onUpdateHatWhy?: (id: number, why: string | null) => void
 }
 
-export default function FocusSession({ hats, onSessionEnd, onHatDone, isPremium, onUpdateHatWhy }: Props) {
+export default function FocusSession({ hats, onSessionEnd, onHatDone, isPremium, firstSession, onUpdateHatWhy }: Props) {
   const [phase, setPhase] = useState<Phase>('idle')
   const [currentHat, setCurrentHat] = useState<Hat | null>(null)
   const [timerMinutes, setTimerMinutes] = useState(0)
@@ -53,7 +54,7 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone, isPremium,
   }
 
   function rollTimer() {
-    const maxMinutes = miniMode ? 5 : 25
+    const maxMinutes = firstSession ? 2 : miniMode ? 5 : 25
     const mins = Math.floor(Math.random() * maxMinutes) + 1
     setTimerMinutes(mins)
     setPhase('reveal-time')
@@ -161,7 +162,7 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone, isPremium,
             disabled={activeHats.length === 0}
             style={{ flex: 1 }}
           >
-            {miniMode ? 'Mini Session' : 'Focus Session'}
+            {firstSession ? 'Try a Quick Session' : miniMode ? 'Mini Session' : 'Focus Session'}
           </button>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <button

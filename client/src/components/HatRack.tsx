@@ -24,6 +24,9 @@ export default function HatRack() {
   const [showSignupNudge, setShowSignupNudge] = useState(false)
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [selectedSuggestions, setSelectedSuggestions] = useState<Set<string>>(new Set())
+  const [hasSession, setHasSession] = useState(() => {
+    try { return !!localStorage.getItem('hatrack-has-session') } catch { return false }
+  })
   const isLoggedIn = !!localStorage.getItem('token')
 
   // Show install nudge after first session if not already in standalone mode
@@ -202,7 +205,14 @@ export default function HatRack() {
         </div>
       )}
 
-      <FocusSession hats={hats} isPremium={isPremium} onSessionEnd={() => {
+      {!hasSession && hats.length > 3 && (
+        <p style={{ textAlign: 'center', color: '#666', fontSize: '0.85rem', margin: '8px 0 4px' }}>
+          Your rack is ready. Try a quick session to see how it works.
+        </p>
+      )}
+
+      <FocusSession hats={hats} isPremium={isPremium} firstSession={!hasSession} onSessionEnd={() => {
+        setHasSession(!!localStorage.getItem('hatrack-has-session'))
         loadHats()
         checkSignupNudge()
         checkSuggestions()
