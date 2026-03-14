@@ -67,11 +67,13 @@ export default function Insights({ sessions, hats }: Props) {
     if (count > peakDayCount) { peakDay = d; peakDayCount = count }
   }
 
-  // Hat-level stats
+  // Hat-level stats — only count sessions for active (non-deleted) hats
+  const activeHatIds = hats ? new Set(hats.map(h => h.id)) : null
   const hatMinutes = new Map<string, number>()
   const hatSessions = new Map<string, number>()
   const hatLastSeen = new Map<string, Date>()
   for (const s of completed) {
+    if (activeHatIds && !activeHatIds.has(s.hatId)) continue
     const name = s.hat.name
     hatMinutes.set(name, (hatMinutes.get(name) || 0) + Math.round(s.durationSeconds / 60))
     hatSessions.set(name, (hatSessions.get(name) || 0) + 1)
