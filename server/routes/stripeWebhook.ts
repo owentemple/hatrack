@@ -25,12 +25,22 @@ router.post('/stripe', async (req: Request, res: Response) => {
     switch (event.type) {
       case 'checkout.session.completed': {
         const customerId = typeof obj.customer === 'string' ? obj.customer : obj.customer?.id
-        const subscription = await stripe.subscriptions.retrieve(obj.subscription as string)
-        const expiresAt = new Date((subscription as any).current_period_end * 1000)
+        const subscription = await stripe.subscriptions.retrieve(obj.subscription as string) as any
+        console.log('Stripe webhook: subscription object keys:', Object.keys(subscription))
+        // current_period_end may be top-level or nested depending on API version
+        const periodEnd = subscription.current_period_end
+          ?? subscription.items?.data?.[0]?.current_period_end
+          ?? subscription.latest_invoice?.period_end
+        console.log('Stripe webhook: period_end value:', periodEnd)
+
+        const data: any = { isPremium: true }
+        if (periodEnd) {
+          data.subscriptionExpiresAt = new Date(periodEnd * 1000)
+        }
 
         const result = await prisma.user.updateMany({
           where: { stripeCustomerId: customerId },
-          data: { isPremium: true, subscriptionExpiresAt: expiresAt },
+          data,
         })
         console.log(`Stripe webhook: set isPremium=true for customer ${customerId}, rows updated: ${result.count}`)
         break
