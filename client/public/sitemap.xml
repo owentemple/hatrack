@@ -70,6 +70,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.hatrack.it/sms-terms</loc>
+    <lastmod>2026-03-18</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://www.hatrack.it/login</loc>
     <priority>0.5</priority>
   </url>
