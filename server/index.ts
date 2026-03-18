@@ -420,16 +420,33 @@ if (process.env.NODE_ENV === 'production') {
         <h2>SMS Reminders</h2>
         <h3 style="margin-top:24px;font-size:0.95rem">How It Works</h3>
         <p>HatRack offers optional SMS reminders to help you stay on track with your focus sessions. When enabled, you'll receive a text message at a time based on when you typically use HatRack, nudging you to start a session.</p>
-        <h3 style="margin-top:24px;font-size:0.95rem">Opt-In</h3>
-        <p>SMS reminders are entirely opt-in. To enable them, log in to your HatRack account, go to <a href="/settings">Settings</a>, enter your phone number, and choose your preferred frequency (daily, weekly, or monthly). You may also add an optional custom message to personalize your reminders. No messages are sent until you explicitly enable reminders and save your preferences.</p>
+        <h3 style="margin-top:24px;font-size:0.95rem">Consent &amp; Opt-In Process</h3>
+        <p>SMS reminders are entirely opt-in. No messages are ever sent without the user's explicit consent. To enable reminders:</p>
+        <ol style="font-size:0.9rem;line-height:1.8;padding-left:1.25rem">
+          <li>Log in to your HatRack account</li>
+          <li>Go to <a href="/settings">Settings</a></li>
+          <li>Enter your phone number</li>
+          <li>Choose your preferred frequency (daily, weekly, or monthly)</li>
+          <li>Review the consent disclosure: <em>&ldquo;By enabling, you agree to receive text messages from HatRack at the frequency you selected. Msg &amp; data rates may apply. Reply STOP to unsubscribe.&rdquo;</em></li>
+          <li>Tap &ldquo;Enable&rdquo; to consent and activate reminders</li>
+        </ol>
+        <p>After enabling, users receive a confirmation text: <em>&ldquo;HatRack: [Frequency] reminders enabled! Reply STOP to opt out.&rdquo;</em></p>
+        <p>No messages are sent until the user completes all steps above and explicitly taps &ldquo;Enable.&rdquo; Phone numbers are never pre-populated or imported &mdash; users must manually enter their own number.</p>
         <h3 style="margin-top:24px;font-size:0.95rem">Message Frequency</h3>
-        <p>You control how often you receive messages. Options are daily, weekly, or monthly. Message timing is based on your most common focus session hour. You will receive no more than one message per day.</p>
+        <p>Users control how often they receive messages. Options are daily, weekly, or monthly. Message timing is based on the user's most common focus session hour. No more than one message per day is sent.</p>
+        <h3 style="margin-top:24px;font-size:0.95rem">Sample Message</h3>
+        <p style="padding:12px 16px;background:#f5f5f5;border-radius:6px;font-size:0.9rem">&ldquo;Your hats are waiting. Tap to start &mdash; hatrack.it&rdquo;</p>
         <h3 style="margin-top:24px;font-size:0.95rem">Opt-Out</h3>
-        <p>You can stop receiving messages at any time by replying <strong>STOP</strong> to any HatRack text message, or by disabling reminders in your <a href="/settings">Settings</a> page. Opting out takes effect immediately.</p>
+        <p>Users can stop receiving messages at any time by:</p>
+        <ul style="font-size:0.9rem;line-height:1.8;padding-left:1.25rem">
+          <li>Replying <strong>STOP</strong> to any HatRack text message</li>
+          <li>Disabling reminders in <a href="/settings">Settings</a></li>
+        </ul>
+        <p>Opting out takes effect immediately. No further messages are sent after opt-out.</p>
         <h3 style="margin-top:24px;font-size:0.95rem">Cost</h3>
         <p>HatRack does not charge for SMS reminders. Standard message and data rates from your carrier may apply.</p>
         <h3 style="margin-top:24px;font-size:0.95rem">Privacy</h3>
-        <p>Your phone number is stored securely and used only for sending HatRack reminders. We do not share your phone number with third parties for marketing purposes. Messages are sent via Twilio.</p>
+        <p>Phone numbers are stored securely and used only for sending HatRack reminders. We do not share, sell, or rent phone numbers to third parties. Messages are sent via Twilio. Phone numbers are deleted immediately when a user disables reminders.</p>
         <h3 style="margin-top:24px;font-size:0.95rem">Contact</h3>
         <p>Questions about SMS reminders? Email <a href="mailto:info@hatrack.it">info@hatrack.it</a>.</p>
         <p class="about-footer" style="margin-top:32px">&copy; 2015&ndash;2026 HatRack, LLC. Austin, Texas.</p>

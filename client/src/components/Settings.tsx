@@ -384,6 +384,9 @@ function SmsSection({ enabled, phone, timezone, reminderHour, frequency, customM
           <p style={{ fontSize: '0.8rem', color: '#666', margin: '0 0 0.75rem' }}>
             Timezone: {Intl.DateTimeFormat().resolvedOptions().timeZone}
           </p>
+          <p style={{ fontSize: '0.75rem', color: '#999', margin: '0 0 0.75rem' }}>
+            By enabling, you agree to receive text messages from HatRack at the frequency you selected. Msg &amp; data rates may apply. Reply STOP to unsubscribe. <a href="/sms-terms" target="_blank" style={{ color: '#337ab7' }}>SMS Terms</a>
+          </p>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             <button type="submit" className="btn-primary">Enable</button>
             <button type="button" className="btn-secondary" onClick={onCancel}>Cancel</button>
