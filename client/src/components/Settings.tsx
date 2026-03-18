@@ -303,6 +303,7 @@ function SmsSection({ enabled, phone, timezone, reminderHour, frequency, customM
   onDisable: () => void
   onCancel: () => void
 }) {
+  const [consentChecked, setConsentChecked] = useState(false)
   const freqLabel = frequency === 'weekly' ? 'Weekly' : frequency === 'monthly' ? 'Monthly' : 'Daily'
 
   return (
@@ -343,7 +344,7 @@ function SmsSection({ enabled, phone, timezone, reminderHour, frequency, customM
               required
             />
             <p style={{ fontSize: '0.75rem', color: '#999', margin: '0.25rem 0 0' }}>
-              US numbers only. Standard message rates apply.
+              US numbers only.
             </p>
           </div>
           <div className="form-group">
@@ -384,12 +385,20 @@ function SmsSection({ enabled, phone, timezone, reminderHour, frequency, customM
           <p style={{ fontSize: '0.8rem', color: '#666', margin: '0 0 0.75rem' }}>
             Timezone: {Intl.DateTimeFormat().resolvedOptions().timeZone}
           </p>
-          <p style={{ fontSize: '0.75rem', color: '#999', margin: '0 0 0.75rem' }}>
-            By enabling, you agree to receive text messages from HatRack at the frequency you selected. Msg &amp; data rates may apply. Reply STOP to unsubscribe. <a href="/sms-terms" target="_blank" style={{ color: '#337ab7' }}>SMS Terms</a>
-          </p>
+          <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', margin: '0 0 0.75rem', cursor: 'pointer' }}>
+            <input
+              type="checkbox"
+              checked={consentChecked}
+              onChange={(e) => setConsentChecked(e.target.checked)}
+              style={{ marginTop: '0.2rem', flexShrink: 0 }}
+            />
+            <span style={{ fontSize: '0.75rem', color: '#666', lineHeight: '1.4' }}>
+              I agree to receive automated text messages from HatRack at the frequency selected above. Up to 1 msg/day. Msg &amp; data rates may apply. Reply HELP for help, STOP to cancel. <a href="/sms-terms" target="_blank" style={{ color: '#337ab7' }}>SMS Terms</a>
+            </span>
+          </label>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <button type="submit" className="btn-primary">Enable</button>
-            <button type="button" className="btn-secondary" onClick={onCancel}>Cancel</button>
+            <button type="submit" className="btn-primary" disabled={!consentChecked}>Enable</button>
+            <button type="button" className="btn-secondary" onClick={() => { onCancel(); setConsentChecked(false) }}>Cancel</button>
           </div>
         </form>
       )}

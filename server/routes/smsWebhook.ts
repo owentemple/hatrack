@@ -45,6 +45,11 @@ router.post('/twilio', async (req: Request, res: Response) => {
       where: { id: user.id },
       data: { smsEnabled: true, smsOptedOutAt: null },
     })
+  } else if (body === 'HELP') {
+    res.type('text/xml').send(
+      '<Response><Message>HatRack SMS Reminders from HatRack, LLC (hatrack.it). Up to 1 msg/day. Reply STOP to cancel, HELP for help. Msg &amp; data rates may apply. info@hatrack.it</Message></Response>'
+    )
+    return
   }
 
   // Twilio expects TwiML response

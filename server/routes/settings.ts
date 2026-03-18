@@ -126,7 +126,7 @@ router.put('/sms', async (req: AuthRequest, res: Response) => {
 
   // Send welcome SMS (fire-and-forget)
   const freqLabel = freq === 'daily' ? 'daily' : freq === 'weekly' ? 'weekly' : 'monthly'
-  sendSms(formatted, `HatRack: ${freqLabel.charAt(0).toUpperCase() + freqLabel.slice(1)} reminders enabled! Reply STOP to opt out.`)
+  sendSms(formatted, `HatRack: ${freqLabel.charAt(0).toUpperCase() + freqLabel.slice(1)} reminders enabled! Up to 1 msg/day. Reply HELP for help, STOP to cancel. Msg & data rates may apply.`)
     .catch((err) => console.error('Welcome SMS failed:', err.message))
 
   res.json({

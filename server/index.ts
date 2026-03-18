@@ -421,30 +421,45 @@ if (process.env.NODE_ENV === 'production') {
         <h3 style="margin-top:24px;font-size:0.95rem">How It Works</h3>
         <p>HatRack offers optional SMS reminders to help you stay on track with your focus sessions. When enabled, you'll receive a text message at a time based on when you typically use HatRack, nudging you to start a session.</p>
         <h3 style="margin-top:24px;font-size:0.95rem">Consent &amp; Opt-In Process</h3>
-        <p>SMS reminders are entirely opt-in. No messages are ever sent without the user's explicit consent. To enable reminders:</p>
+        <p>SMS reminders are entirely opt-in. No messages are ever sent without the user's explicit consent. The opt-in form is located within authenticated user account settings at hatrack.it/settings. To enable reminders, users must:</p>
         <ol style="font-size:0.9rem;line-height:1.8;padding-left:1.25rem">
-          <li>Log in to your HatRack account</li>
-          <li>Go to <a href="/settings">Settings</a></li>
-          <li>Enter your phone number</li>
-          <li>Choose your preferred frequency (daily, weekly, or monthly)</li>
-          <li>Review the consent disclosure: <em>&ldquo;By enabling, you agree to receive text messages from HatRack at the frequency you selected. Msg &amp; data rates may apply. Reply STOP to unsubscribe.&rdquo;</em></li>
-          <li>Tap &ldquo;Enable&rdquo; to consent and activate reminders</li>
+          <li>Log in to their HatRack account</li>
+          <li>Navigate to Settings</li>
+          <li>Enter their phone number</li>
+          <li>Select message frequency (daily, weekly, or monthly)</li>
+          <li>Check an explicit consent checkbox (not pre-selected)</li>
+          <li>Tap the &ldquo;Enable&rdquo; button to activate reminders</li>
         </ol>
-        <p>After enabling, users receive a confirmation text: <em>&ldquo;HatRack: [Frequency] reminders enabled! Reply STOP to opt out.&rdquo;</em></p>
-        <p>No messages are sent until the user completes all steps above and explicitly taps &ldquo;Enable.&rdquo; Phone numbers are never pre-populated or imported &mdash; users must manually enter their own number.</p>
+        <h3 style="margin-top:24px;font-size:0.95rem">Opt-In Form</h3>
+        <p style="font-size:0.85rem;color:#666;margin-bottom:8px">This is the consent form users see in their account settings:</p>
+        <div style="border:1px solid #ddd;border-radius:8px;padding:16px;background:#fafafa;max-width:400px">
+          <p style="font-weight:600;font-size:0.95rem;margin:0 0 4px"><strong>SMS Reminders</strong></p>
+          <p style="color:#666;font-size:0.85rem;margin:0 0 12px">Get a text message reminder to start a focus session, timed to when you usually use HatRack.</p>
+          <div style="margin-bottom:10px"><input type="tel" placeholder="Phone number" disabled style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:0.85rem;background:#fff;box-sizing:border-box" /><p style="font-size:0.7rem;color:#999;margin:4px 0 0">US numbers only.</p></div>
+          <div style="margin-bottom:10px"><p style="font-size:0.8rem;color:#666;margin:0 0 4px">How often?</p><div style="display:flex;border:1px solid #ccc;border-radius:6px;overflow:hidden"><span style="flex:1;text-align:center;padding:6px 0;font-size:0.75rem;background:#337ab7;color:#fff;font-weight:600">Daily</span><span style="flex:1;text-align:center;padding:6px 0;font-size:0.75rem;border-left:1px solid #ccc;color:#666">Weekly</span><span style="flex:1;text-align:center;padding:6px 0;font-size:0.75rem;border-left:1px solid #ccc;color:#666">Monthly</span></div></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;margin:12px 0"><input type="checkbox" disabled style="margin-top:2px" /><span style="font-size:0.7rem;color:#666;line-height:1.4">I agree to receive automated text messages from HatRack at the frequency selected above. Up to 1 msg/day. Msg &amp; data rates may apply. Reply HELP for help, STOP to cancel. <span style="color:#337ab7">SMS Terms</span></span></div>
+          <div style="display:flex;gap:8px"><span style="display:inline-block;padding:6px 16px;background:#ccc;color:#fff;border-radius:4px;font-size:0.85rem">Enable</span><span style="display:inline-block;padding:6px 16px;background:#eee;color:#666;border-radius:4px;font-size:0.85rem">Cancel</span></div>
+        </div>
+        <p style="font-size:0.8rem;color:#666;margin-top:8px">The &ldquo;Enable&rdquo; button is disabled until the user checks the consent checkbox. The checkbox is never pre-selected. Phone numbers are never pre-populated or imported &mdash; users must manually enter their own number.</p>
+        <h3 style="margin-top:24px;font-size:0.95rem">Confirmation Message</h3>
+        <p>After opting in, users immediately receive a confirmation text:</p>
+        <p style="padding:12px 16px;background:#f5f5f5;border-radius:6px;font-size:0.9rem">&ldquo;HatRack: Daily reminders enabled! Up to 1 msg/day. Reply HELP for help, STOP to cancel. Msg &amp; data rates may apply.&rdquo;</p>
         <h3 style="margin-top:24px;font-size:0.95rem">Message Frequency</h3>
-        <p>Users control how often they receive messages. Options are daily, weekly, or monthly. Message timing is based on the user's most common focus session hour. No more than one message per day is sent.</p>
+        <p>Users control how often they receive messages. Options are daily, weekly, or monthly. No more than 1 message per day is sent.</p>
         <h3 style="margin-top:24px;font-size:0.95rem">Sample Message</h3>
         <p style="padding:12px 16px;background:#f5f5f5;border-radius:6px;font-size:0.9rem">&ldquo;Your hats are waiting. Tap to start &mdash; hatrack.it&rdquo;</p>
         <h3 style="margin-top:24px;font-size:0.95rem">Opt-Out</h3>
         <p>Users can stop receiving messages at any time by:</p>
         <ul style="font-size:0.9rem;line-height:1.8;padding-left:1.25rem">
           <li>Replying <strong>STOP</strong> to any HatRack text message</li>
-          <li>Disabling reminders in <a href="/settings">Settings</a></li>
+          <li>Disabling reminders in their account settings</li>
         </ul>
         <p>Opting out takes effect immediately. No further messages are sent after opt-out.</p>
+        <h3 style="margin-top:24px;font-size:0.95rem">Help</h3>
+        <p>Users can reply <strong>HELP</strong> to any HatRack text message to receive:</p>
+        <p style="padding:12px 16px;background:#f5f5f5;border-radius:6px;font-size:0.9rem">&ldquo;HatRack SMS Reminders from HatRack, LLC (hatrack.it). Up to 1 msg/day. Reply STOP to cancel, HELP for help. Msg &amp; data rates may apply. info@hatrack.it&rdquo;</p>
         <h3 style="margin-top:24px;font-size:0.95rem">Cost</h3>
-        <p>HatRack does not charge for SMS reminders. Standard message and data rates from your carrier may apply.</p>
+        <p>HatRack does not charge for SMS reminders. Message and data rates from your carrier may apply.</p>
         <h3 style="margin-top:24px;font-size:0.95rem">Privacy</h3>
         <p>Phone numbers are stored securely and used only for sending HatRack reminders. We do not share, sell, or rent phone numbers to third parties. Messages are sent via Twilio. Phone numbers are deleted immediately when a user disables reminders.</p>
         <h3 style="margin-top:24px;font-size:0.95rem">Contact</h3>
