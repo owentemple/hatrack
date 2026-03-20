@@ -10,10 +10,13 @@ function getClient() {
 }
 
 export async function sendSms(to: string, body: string) {
+  const messagingServiceSid = process.env.TWILIO_MESSAGING_SERVICE_SID
   return getClient().messages.create({
     to,
-    from: process.env.TWILIO_PHONE_NUMBER!,
     body,
+    ...(messagingServiceSid
+      ? { messagingServiceSid }
+      : { from: process.env.TWILIO_PHONE_NUMBER! }),
   })
 }
 
