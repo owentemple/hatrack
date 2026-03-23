@@ -4,6 +4,7 @@ import * as ds from '../lib/dataService'
 import { Hat } from '../lib/dataService'
 import { getSessionCount } from '../lib/localStore'
 import HatItem from './HatItem'
+import HatDetail from './HatDetail'
 import FocusSession from './FocusSession'
 
 const SUGGESTED_HATS = [
@@ -27,6 +28,7 @@ export default function HatRack() {
   const [hasSession, setHasSession] = useState(() => {
     try { return !!localStorage.getItem('hatrack-has-session') } catch { return false }
   })
+  const [detailHat, setDetailHat] = useState<Hat | null>(null)
   const isLoggedIn = !!localStorage.getItem('token')
 
   // Show install nudge after first session if not already in standalone mode
@@ -160,6 +162,7 @@ export default function HatRack() {
             hat={hat}
             onToggle={handleToggle}
             onDelete={handleDelete}
+            onLongPress={setDetailHat}
           />
         ))}
       </ul>
@@ -232,6 +235,19 @@ export default function HatRack() {
         setHats((prev) => prev.map((h) => (h.id === id ? { ...h, why: why ?? undefined } : h)))
         ds.updateHat(id, { why } as any).catch(() => loadHats())
       }} />
+
+      {detailHat && (
+        <HatDetail
+          hat={detailHat}
+          isPremium={isPremium}
+          onClose={() => setDetailHat(null)}
+          onUpdateWhy={(id, why) => {
+            setHats((prev) => prev.map((h) => (h.id === id ? { ...h, why: why ?? undefined } : h)))
+            ds.updateHat(id, { why } as any).catch(() => loadHats())
+            setDetailHat(prev => prev && prev.id === id ? { ...prev, why: why ?? undefined } : prev)
+          }}
+        />
+      )}
 
       <button className="how-it-works-toggle" onClick={() => setShowHelp((prev) => {
         const next = !(prev ?? hats.length === 0)

@@ -231,7 +231,7 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone, isPremium,
                   onChange={(e) => setWhyInput(e.target.value)}
                   placeholder="Write a note to your future self..."
                   rows={3}
-                  style={{ width: '100%', boxSizing: 'border-box', padding: '8px', borderRadius: '6px', border: '1px solid #ccc', fontSize: '0.85rem', fontFamily: 'inherit' }}
+                  style={{ width: '100%', boxSizing: 'border-box', padding: '8px', borderRadius: '6px', border: '1px solid #ccc', fontSize: '1rem', fontFamily: 'inherit' }}
                   autoFocus
                 />
                 <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginTop: '8px' }}>
@@ -305,7 +305,7 @@ export default function FocusSession({ hats, onSessionEnd, onHatDone, isPremium,
               onChange={(e) => setWhyInput(e.target.value)}
               placeholder="Write a note to your future self..."
               rows={3}
-              style={{ width: '100%', boxSizing: 'border-box', padding: '8px', borderRadius: '6px', border: '1px solid #ccc', fontSize: '0.9rem', fontFamily: 'inherit' }}
+              style={{ width: '100%', boxSizing: 'border-box', padding: '8px', borderRadius: '6px', border: '1px solid #ccc', fontSize: '1rem', fontFamily: 'inherit' }}
             />
             <div className="modal-actions">
               <button className="btn-primary" onClick={saveWhy} disabled={!whyInput.trim()}>
