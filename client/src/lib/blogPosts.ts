@@ -8,6 +8,69 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'the-procrastination-problem-nobody-talks-about',
+    title: 'The Procrastination Problem Nobody Talks About',
+    subtitle: 'It\u2019s not discipline. It\u2019s not laziness. It\u2019s the choosing.',
+    date: '2026-03-23',
+    body: `<p>You know the feeling.</p>
+
+<p>You&rsquo;ve got a free hour. Maybe thirty minutes. You could practice guitar. You could read. You could write. You could meditate. You could stretch. You&rsquo;ve been meaning to do all of them.</p>
+
+<p>You don&rsquo;t do any of them.</p>
+
+<p>Instead you open your phone, scroll for a while, and the window closes. Later you&rsquo;ll call it procrastination. You might even call it laziness. You&rsquo;ll tell yourself you need more discipline. More structure. A better system.</p>
+
+<p>But here&rsquo;s the thing nobody talks about: you didn&rsquo;t avoid hard work. You avoided <em>choosing</em>.</p>
+
+<h3>The real bottleneck</h3>
+
+<p>When you have one obligation &mdash; a meeting, a deadline, an appointment &mdash; you do it. There&rsquo;s no decision to make. But when you have five things you care about equally, you freeze. Psychologists call it &ldquo;choice paralysis.&rdquo; The more options you have, the harder it is to pick one, and the more likely you are to pick nothing.</p>
+
+<p>This isn&rsquo;t a productivity problem. It&rsquo;s a <em>caring</em> problem. It specifically afflicts people who care about many things. The cruelest irony: the more interests you have, the less likely you are to pursue any of them.</p>
+
+<h3>Why the usual advice fails</h3>
+
+<p>&ldquo;Just pick one and start.&rdquo; Easy to say. But picking <em>is</em> the hard part. If you could just pick one, you wouldn&rsquo;t be stuck.</p>
+
+<p>Prioritization frameworks don&rsquo;t help either. The Eisenhower matrix. Time blocking. Weekly reviews. These add another layer of decisions on top of the decisions you&rsquo;re already struggling with. Now you&rsquo;re not just choosing what to do &mdash; you&rsquo;re choosing which <em>system</em> to use to choose what to do.</p>
+
+<p>Accountability partners can&rsquo;t help either. They can hold you to a commitment, but they can&rsquo;t tell you which of your five passions should get today&rsquo;s thirty minutes.</p>
+
+<p>The problem was never motivation. It was the menu.</p>
+
+<h3>A die and a kitchen timer</h3>
+
+<p><img src="/assets/die-and-timer.jpg" alt="A 30-sided die and a red Kikkerland kitchen timer on a wooden table" style="max-width:100%;border-radius:8px;margin:1rem 0" /></p>
+
+<p>A few years ago I tried something dumb. I had a 30-sided die &mdash; left over from a tabletop game &mdash; and a kitchen timer. I wrote my activities on a list, numbered them, and rolled the die. Whatever came up, I&rsquo;d twist the timer to some random number and do that thing until it rang.</p>
+
+<p>It worked. Not because the die was wise, but because it removed the one thing that was stopping me: the decision. I didn&rsquo;t have to weigh options. I didn&rsquo;t have to justify why guitar deserved today&rsquo;s minutes more than reading. The die chose. I just showed up.</p>
+
+<p>And something unexpected happened. The activities I&rsquo;d been avoiding for weeks started getting done. Not because I was more disciplined. Because they kept coming up. Randomness is fair in a way that planning isn&rsquo;t &mdash; everything gets a turn.</p>
+
+<h3>What the die couldn&rsquo;t do</h3>
+
+<p>But the die had limits. It didn&rsquo;t remember what I rolled yesterday. The kitchen timer didn&rsquo;t track whether I&rsquo;d shown up three days in a row or three weeks in a row. There was no score, no streak, no history. Every day started from zero with nothing to show for the day before.</p>
+
+<p>Turns out the hard part wasn&rsquo;t choosing what to do. It was coming back tomorrow. And the day after that. And the day after that.</p>
+
+<p>That&rsquo;s what I built hatrack to solve. The randomness stayed &mdash; it&rsquo;s still the core of the whole thing. But now the sessions count. Points for every completed timer. A streak for consecutive days. A history that proves you showed up even on the days it didn&rsquo;t feel like it.</p>
+
+<p>The die got me started. The app kept me going.</p>
+
+<h3>It&rsquo;s not about the thing you didn&rsquo;t do</h3>
+
+<p>If this sounds familiar, I want you to hear something: you&rsquo;re not lazy. You&rsquo;re not broken. You don&rsquo;t lack discipline. You have the opposite problem &mdash; you care about too many things to easily choose between them, and the weight of choosing keeps you from starting.</p>
+
+<p>The fix isn&rsquo;t to care less. It&rsquo;s to stop choosing.</p>
+
+<p>Put your activities on the rack. Tap a button. A random hat comes up. A random timer rolls. Do that thing until the chime plays. Tomorrow, something different comes up. Over time, everything gets attention. Nothing falls through the cracks.</p>
+
+<p>No optimizing. No prioritizing. No guilt about what you didn&rsquo;t pick &mdash; it&rsquo;ll come up next time.</p>
+
+<p><a href="/">Try it free at hatrack.it</a></p>`,
+  },
+  {
     slug: 'start-with-why',
     title: 'Start With Why (Your Future Self Will Thank You)',
     subtitle: 'A new premium feature inspired by Simon Sinek\u2019s famous question',
