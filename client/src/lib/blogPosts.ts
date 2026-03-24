@@ -8,6 +8,59 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'the-productivity-trap',
+    title: 'The Productivity Trap (and the Tool That Doesn\u2019t Set It)',
+    subtitle: 'Why the best productivity hack might be doing less, not faster.',
+    date: '2026-03-24',
+    body: `<p>Every new tool promises to make work easier. Email. Slack. Smart assistants. The pitch is always the same: automate the boring stuff, and you&rsquo;ll have more time for what matters.</p>
+
+<p>It never works out that way.</p>
+
+<p>A recent study of 164,000 knowledge workers found that after adopting new digital tools, time spent on email, messaging, and administrative software more than doubled. Time devoted to focused, uninterrupted work fell by nearly 10%. Workers got busier. They didn&rsquo;t get more done.</p>
+
+<p>Cal Newport, writing about <a href="https://calnewport.com/avoiding-digital-productivity-traps/" target="_blank" rel="noopener noreferrer">these findings</a>, identified a pattern that repeats with every wave of new technology: &ldquo;Digital productivity tools sometimes speed up the wrong tasks, which might feel efficient in the moment, but lead us to accomplish less over time.&rdquo;</p>
+
+<p>It happened with email. It happened with mobile. It happened with video conferencing. Each wave makes shallow work faster, which means you do more shallow work, which crowds out the deep work that actually matters.</p>
+
+<h3>The false momentum problem</h3>
+
+<p>Berkeley professor Aruna Ranganathan described the mechanism: new tools make &ldquo;additional tasks feel easy and accessible, creating a sense of momentum.&rdquo;</p>
+
+<p>That&rsquo;s the trap. Speed creates a feeling of productivity. You process emails faster. You generate documents faster. You iterate on memos faster. It all <em>feels</em> like progress. But if none of those tasks were the bottleneck &mdash; if the thing holding you back was actually sitting down and doing focused, creative, difficult work &mdash; then you&rsquo;ve just gotten faster at spinning your wheels.</p>
+
+<p>Newport calls the fix &ldquo;using a better scoreboard.&rdquo; Stop measuring how many tasks you completed. Start measuring whether you produced more valuable output than before. If you didn&rsquo;t, the tool isn&rsquo;t making you more productive. It&rsquo;s making you more busy.</p>
+
+<h3>Separating deep from shallow</h3>
+
+<p>Newport&rsquo;s other recommendation: separate deep work from shallow work. Calendar-block the focused, value-generating work. Protect it from the flood of rapidly-processed busywork that fills every gap.</p>
+
+<p>This is obvious advice. It&rsquo;s also nearly impossible to follow, because the shallow work feels urgent and the deep work feels optional. Nobody emails you to ask why you didn&rsquo;t practice guitar today. Nobody pings you on Slack about your meditation streak. The important-but-not-urgent stuff &mdash; the creative work, the personal growth, the practices that make your life richer &mdash; those are the first things to get crowded out.</p>
+
+<h3>What if the tool did less, not more?</h3>
+
+<p>Here&rsquo;s a different approach. Instead of a tool that speeds things up, use one that slows you down &mdash; on purpose.</p>
+
+<p>HatRack doesn&rsquo;t optimize anything. It doesn&rsquo;t integrate with your calendar or your email or your task manager. It does one thing: it picks a random activity from your list and sets a random timer. You do that thing until the timer ends. Then you&rsquo;re done.</p>
+
+<p>That&rsquo;s it. No scheduling. No prioritizing. No recommendations. The randomness is the point &mdash; it guarantees everything on your rack gets attention without you having to decide what deserves today&rsquo;s minutes.</p>
+
+<h3>A better scoreboard</h3>
+
+<p>Newport says to measure what genuinely matters. HatRack&rsquo;s scoreboard measures showing up. Points for completed minutes. A streak for consecutive days. Not tasks finished. Not emails sent. Not documents generated. Just: did you spend time on the things you said matter?</p>
+
+<p>There&rsquo;s no way to game it. You can&rsquo;t earn more points by being faster. You can&rsquo;t optimize your way to a higher score. The only way to score is to sit with the work for as long as the timer runs. It&rsquo;s a productivity tool that rewards depth over speed &mdash; which, if Newport is right, is exactly what&rsquo;s missing.</p>
+
+<h3>The activities that matter most need protection, not optimization</h3>
+
+<p>The things that make your life richer &mdash; writing, reading, practicing, creating, meditating &mdash; don&rsquo;t need to be made more efficient. A faster meditation isn&rsquo;t a better meditation. A more optimized guitar practice isn&rsquo;t the point. These activities need <em>time</em> and <em>attention</em>, and the main threat to both is a digital environment that fills every spare moment with shallow busywork disguised as productivity.</p>
+
+<p>The fix isn&rsquo;t a smarter tool. It&rsquo;s a simpler one. One that doesn&rsquo;t try to optimize your life &mdash; just gets you doing the thing you already know matters.</p>
+
+<p>You already know what&rsquo;s important. You just need to start.</p>
+
+<p><a href="/">Try it free at hatrack.it</a></p>`,
+  },
+  {
     slug: 'the-procrastination-problem-nobody-talks-about',
     title: 'The Procrastination Problem Nobody Talks About',
     subtitle: 'It\u2019s not discipline. It\u2019s not laziness. It\u2019s the choosing.',

@@ -16,8 +16,13 @@
   </url>
   <url>
     <loc>https://www.hatrack.it/blog</loc>
-    <lastmod>2026-03-23</lastmod>
+    <lastmod>2026-03-24</lastmod>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hatrack.it/blog/the-productivity-trap</loc>
+    <lastmod>2026-03-24</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.hatrack.it/blog/the-procrastination-problem-nobody-talks-about</loc>
