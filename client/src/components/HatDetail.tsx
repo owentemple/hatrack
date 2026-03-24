@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Hat } from '../lib/api'
 import type { SessionRecord } from '../lib/api'
 import * as ds from '../lib/dataService'
@@ -11,6 +11,7 @@ interface Props {
 }
 
 export default function HatDetail({ hat, isPremium, onClose, onUpdateWhy }: Props) {
+  const openedAt = useRef(Date.now())
   const [sessions, setSessions] = useState<SessionRecord[]>([])
   const [loading, setLoading] = useState(true)
   const [editingWhy, setEditingWhy] = useState(false)
@@ -47,7 +48,7 @@ export default function HatDetail({ hat, isPremium, onClose, onUpdateWhy }: Prop
   }
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={() => { if (Date.now() - openedAt.current > 400) onClose() }}>
       <div className="modal hat-detail" onClick={e => e.stopPropagation()} style={{ textAlign: 'left' }}>
         <h3 style={{ textAlign: 'center', marginBottom: '12px' }}>{hat.name}</h3>
 
