@@ -10,7 +10,7 @@ export default function About() {
 
       <p>
         Most of us juggle multiple roles and projects — we "wear many hats."
-        HatRack™ lets you put all your hats on the rack. Writing, Meditating,
+        HatRack® lets you put all your hats on the rack. Writing, Meditating,
         Reading, Drawing, Coding — whatever you want to make progress on. Start a
         focus session, and HatRack draws a hat at random with a timer of varying
         length. Wear one hat, then move on to the next. Earn points for every
@@ -58,7 +58,7 @@ export default function About() {
       </p>
 
       <p className="about-copyright">
-        © 2015–2026 HatRack, LLC
+        © 2015–2026 HatRack, LLC. HATRACK is a registered trademark of HatRack, LLC.
       </p>
 
       <p className="about-source">

@@ -56,7 +56,7 @@ if (process.env.NODE_ENV === 'production') {
         <div class="landing-how">
           <h3>How it works</h3>
           <p>Add your activities to the rack.</p>
-          <p>Start a session — HatRack picks one at random with a short timer.</p>
+          <p>Start a session — HatRack® picks one at random with a short timer.</p>
           <p>Finish and earn points. Then go again.</p>
           <p style="margin-top:1rem;opacity:0.7">Works on any device. Best in your pocket.</p>
         </div>
@@ -64,7 +64,7 @@ if (process.env.NODE_ENV === 'production') {
     '/about': shell(publicNav, `
       <div class="about-page">
         <h2>About HatRack</h2>
-        <p>Most of us juggle multiple roles and projects — we "wear many hats." HatRack™ lets you put all your hats on the rack. Writing, Meditating, Reading, Drawing, Coding — whatever you want to make progress on. Start a focus session, and HatRack draws a hat at random with a timer of varying length. Wear one hat, then move on to the next. Earn points for every focused minute.</p>
+        <p>Most of us juggle multiple roles and projects — we "wear many hats." HatRack® lets you put all your hats on the rack. Writing, Meditating, Reading, Drawing, Coding — whatever you want to make progress on. Start a focus session, and HatRack draws a hat at random with a timer of varying length. Wear one hat, then move on to the next. Earn points for every focused minute.</p>
         <p>Randomness removes the burden of choosing. Gamification makes it fun. Nothing gets missed.</p>
         <p>HatRack was created by Owen Temple and originally launched at hatrackapp.com in July 2015. The app has been rebuilt and expanded over the years, but the core concept hasn't changed: pick a hat, start a timer, do the work.</p>
         <h3 style="margin-top:24px;font-size:0.95rem">HatRack Premium</h3>
@@ -79,7 +79,7 @@ if (process.env.NODE_ENV === 'production') {
           <p style="margin-top:8px"><a href="/blog" style="color:#337ab7;font-size:0.85rem">All posts &rarr;</a></p>
         </div>
         <p class="about-footer">Made in Austin, Texas.</p>
-        <p class="about-copyright">© 2015–2026 HatRack, LLC</p>
+        <p class="about-copyright">© 2015–2026 HatRack, LLC. HATRACK is a registered trademark of HatRack, LLC.</p>
         <p class="about-source"><a href="https://github.com/owentemple/hatrack" target="_blank" rel="noopener noreferrer">View the source on GitHub</a></p>
       </div>`),
     '/login': shell(publicNav, `
